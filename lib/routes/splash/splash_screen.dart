@@ -12,8 +12,6 @@ class SplashScreen extends StatelessWidget {
     // Starting screen
     return const Scaffold(
         resizeToAvoidBottomInset: false,
-        body: Center(
-            child: SplashContent(
-                text: "aking", image: "assets/icons/walk_through.svg")));
+        body: Center(child: SplashContent(text: "aking")));
   }
 }
