@@ -1,3 +1,4 @@
+import 'package:aking/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:aking/widgets/rounded_button.dart';
 import 'package:aking/constants.dart';
@@ -143,7 +144,8 @@ class _BodyState extends State<WalkthroughBody> {
                             RoundedButton(
                               backgroundColor: hexToColor("#FFFFFF"),
                               press: () {
-                                Navigator.pushNamed(context, signInPath);
+                                Navigator.pushNamed(
+                                    context, Routes.signInRoute);
                               },
                               text: "Get Started",
                               textColor: hexToColor("#313131"),
@@ -151,7 +153,8 @@ class _BodyState extends State<WalkthroughBody> {
                             const Spacer(),
                             TextButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, signInPath);
+                                  Navigator.pushNamed(
+                                      context, Routes.signInRoute);
                                 },
                                 child: Text("Log In",
                                     style: TextStyle(

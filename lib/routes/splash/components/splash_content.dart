@@ -1,5 +1,7 @@
 import 'package:aking/animation/route_animation/bouncy_page_route.dart';
 import 'package:aking/routes/wrapper/wrapper.dart';
+import 'package:aking/routing/app_routes.dart';
+import 'package:aking/routing/routes.dart';
 import 'package:aking/widgets/fade_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,7 +30,7 @@ class _SplashContentState extends State<SplashContent> {
     loadRive();
 
     Future.delayed(const Duration(milliseconds: 3500), () {
-      Navigator.pushReplacement(context, BouncyPageRoute(widget: Wrapper()));
+      Navigator.pushReplacementNamed(context, Routes.wrapperRoute);
     });
   }
 

@@ -1,25 +1,25 @@
-// 🐦 Flutter imports:
-import 'package:aking/services/auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:aking/routing/app_routes.dart';
+import 'package:aking/routing/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:aking/constants.dart';
-import 'package:aking/routes.dart';
 import 'package:aking/size_config.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
-
-// 🌎 Project imports:
-import 'app_theme.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
+import 'global/theme/bloc/theme_bloc.dart';
 
 Future main() async {
   /// Ensure Initialized
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: await getApplicationDocumentsDirectory(),
+  );
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -29,20 +29,23 @@ class MyApp extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       return OrientationBuilder(builder: (context, orientation) {
         SizeConfig().init(constraints, orientation);
-        return MultiProvider(
-          providers: [
-            ChangeNotifierProvider<AuthServices>.value(value: AuthServices()),
-            StreamProvider<User?>.value(value: AuthServices().user, initialData: null)
-          ],
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: "Todo List",
-            theme: appTheme(),
-            initialRoute: splashScreenPath,
-            routes: routes,
+        return BlocProvider(
+          create: (_) => ThemeBloc(),
+          child: BlocBuilder<ThemeBloc, ThemeData>(
+            builder: (context, theme) => _buildWithTheme(theme),
           ),
         );
       });
     });
+  }
+
+  MaterialApp _buildWithTheme(ThemeData theme) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "Todo List",
+      theme: theme,
+      initialRoute: Routes.splashRoute,
+      onGenerateRoute: AppRoutes.onGenerateRoute,
+    );
   }
 }
