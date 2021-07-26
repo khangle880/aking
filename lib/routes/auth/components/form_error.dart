@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:aking/models/providers/user_provider.dart';
+import 'package:aking/models/providers/auth_provider.dart';
 import 'package:aking/size_config.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +13,7 @@ class FormError extends StatelessWidget {
     return Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: List.generate(
-          context.watch<UserProvider>().listErrors.length,
+          context.watch<AuthProvider>().listErrors.length,
           (index) => Row(
             children: [
               Icon(
@@ -22,7 +22,7 @@ class FormError extends StatelessWidget {
                 size: 24.0,
               ),
               SizedBox(width: getProportionateScreenWidth(10)),
-              Text(context.watch<UserProvider>().listErrors[index]),
+              Text(context.watch<AuthProvider>().listErrors[index]),
             ],
           ),
         ));

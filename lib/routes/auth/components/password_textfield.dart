@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:aking/models/providers/user_provider.dart';
+import 'package:aking/models/providers/auth_provider.dart';
 
 class PasswordTextField extends StatelessWidget {
   const PasswordTextField({
@@ -9,7 +9,7 @@ class PasswordTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userNotifier = context.read<UserProvider>();
+    final userNotifier = context.read<AuthProvider>();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
