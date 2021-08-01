@@ -6,6 +6,7 @@ import 'package:aking/size_config.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'global/theme/bloc/theme_bloc.dart';
@@ -34,24 +35,27 @@ class MyApp extends StatelessWidget {
   final UserRepository _userRepository = UserRepository();
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      return OrientationBuilder(builder: (context, orientation) {
-        SizeConfig().init(constraints, orientation);
-        return MultiBlocProvider(
-          providers: [
-            BlocProvider(create: (_) => ThemeBloc()),
-            BlocProvider(
-              create: (context) => AuthenticationBloc(
-                userRepository: _userRepository,
-              )..add(AuthenticationStarted()),
-            )
-          ],
-          child: BlocBuilder<ThemeBloc, ThemeData>(
-            builder: (context, theme) => _buildWithTheme(theme),
-          ),
-        );
-      });
-    });
+    return ScreenUtilInit(
+      designSize: Size(360, 690),
+      builder: () => LayoutBuilder(builder: (context, constraints) {
+        return OrientationBuilder(builder: (context, orientation) {
+          SizeConfig().init(constraints, orientation);
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => ThemeBloc()),
+              BlocProvider(
+                create: (context) => AuthenticationBloc(
+                  userRepository: _userRepository,
+                )..add(AuthenticationStarted()),
+              )
+            ],
+            child: BlocBuilder<ThemeBloc, ThemeData>(
+              builder: (context, theme) => _buildWithTheme(theme),
+            ),
+          );
+        });
+      }),
+    );
   }
 
   MaterialApp _buildWithTheme(ThemeData theme) {

@@ -1,4 +1,3 @@
-import 'package:aking/base_size.dart';
 import 'package:aking/models/blocs/authentication/authentication_bloc.dart';
 import 'package:aking/models/blocs/login/login_bloc.dart';
 import 'package:aking/size_config.dart';
@@ -23,7 +22,7 @@ class SignInPage extends StatelessWidget {
               userRepository:
                   context.read<AuthenticationBloc>().userRepository),
           child: Padding(
-            padding: EdgeInsets.all((24) * BaseSize(1,2).screenWidthBase),
+            padding: EdgeInsets.all((24) * SizeConfig.screenWidthBase),
             child: SignInBody(),
           ),
         ),

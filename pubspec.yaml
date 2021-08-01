@@ -42,6 +42,7 @@ dependencies:
   path_provider: ^2.0.2
   email_auth: ^0.0.1+4
   flutter_dotenv: ^5.0.0
+  flutter_screenutil: ^5.0.0+2
 
 flutter_native_splash:
   color: "#FFFFFF"
