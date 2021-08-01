@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
-final User user;
+  final User user;
 
   const HomePage({Key? key, required this.user}) : super(key: key);
 
@@ -28,6 +28,14 @@ final User user;
           Center(
             child: Text("Hello, ${user.email}"),
           ),
+          FlatButton(
+              onPressed: () {
+                context
+                    .read<AuthenticationBloc>()
+                    .userRepository
+                    .updatePassword("a123123321", "a123123123");
+              },
+              child: Icon(Icons.add)),
         ],
       ),
     );

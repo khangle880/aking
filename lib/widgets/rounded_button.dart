@@ -19,7 +19,7 @@ class RoundedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
         width: double.infinity,
-        height: getProportionateScreenHeight(48),
+        height: (48) * SizeConfig.screenHeightBase,
         child: TextButton(
           onPressed: press,
           style: TextButton.styleFrom(
@@ -30,8 +30,8 @@ class RoundedButton extends StatelessWidget {
           child: Text(text,
               style: TextStyle(
                   color: textColor,
-                  fontSize: getProportionateScreenHeight(18),
-                  height: getProportionateScreenHeight(22 / 18),
+                  fontSize: (18) * SizeConfig.screenHeightBase,
+                  height: (22 / 18) * SizeConfig.screenHeightBase,
                   fontWeight: FontWeight.bold)),
         ));
   }

@@ -1,7 +1,4 @@
-import 'package:aking/models/services/auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:aking/models/providers/auth_provider.dart';
 import 'package:aking/size_config.dart';
 
 import 'sign_in_form.dart';
@@ -18,10 +15,7 @@ class SignInBody extends StatelessWidget {
       Text('Sign in to continue',
           style: textTheme.bodyText1!.copyWith(color: hexToColor("#9B9B9B")),
           textAlign: TextAlign.left),
-      MultiProvider(providers: [
-        ChangeNotifierProvider(create: (_) => AuthProvider()),
-        ChangeNotifierProvider<AuthServices>.value(value: AuthServices()),
-      ], child: SignInForm()),
+      SignInForm(),
     ]);
   }
 }

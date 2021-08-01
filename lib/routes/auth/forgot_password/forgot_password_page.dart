@@ -1,8 +1,10 @@
+import 'package:aking/models/blocs/authentication/authentication_bloc.dart';
+import 'package:aking/models/blocs/reset_password/reset_password_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:aking/size_config.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'components/forgot_password_body.dart';
-
+import 'forgot_password_body.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);
@@ -10,13 +12,16 @@ class ForgotPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(),
       body: SingleChildScrollView(
-        child: Container(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(24)),
-          child: ForgotPasswordBody(),
+        child: BlocProvider(
+          create: (context) => ResetPasswordBloc(
+              userRepository:
+                  context.read<AuthenticationBloc>().userRepository),
+          child: Padding(
+            padding: EdgeInsets.all((24) * SizeConfig.screenWidthBase),
+            child: ForgotPasswordBody(),
+          ),
         ),
       ),
     );

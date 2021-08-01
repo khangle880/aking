@@ -26,26 +26,26 @@ class AppTheme {
 
   static final TextStyle _headline4 = TextStyle(
       color: Colors.black,
-      fontSize: getProportionateScreenHeight(32),
-      height: getProportionateScreenHeight(41 / 32),
+      fontSize: (32) * SizeConfig.screenHeightBase,
+      height: (41 / 32) * SizeConfig.screenHeightBase,
       fontWeight: FontWeight.bold);
 
   static final TextStyle _headline6 = TextStyle(
-      fontSize: getProportionateScreenHeight(20),
+      fontSize: (20) * SizeConfig.screenHeightBase,
       color: Colors.black,
-      height: getProportionateScreenHeight(25 / 20),
+      height: (25 / 20) * SizeConfig.screenHeightBase,
       fontWeight: FontWeight.w600);
 
   static final TextStyle _subtitle1 = TextStyle(
-      fontSize: getProportionateScreenHeight(18),
+      fontSize: (18) * SizeConfig.screenHeightBase,
       color: Colors.black,
-      height: getProportionateScreenHeight(22 / 20),
+      height: (22 / 20) * SizeConfig.screenHeightBase,
       fontWeight: FontWeight.bold);
 
   static final TextStyle _bodyText1 = TextStyle(
-      fontSize: getProportionateScreenHeight(16),
+      fontSize: (16) * SizeConfig.screenHeightBase,
       color: hexToColor("#313131"),
-      height: getProportionateScreenHeight(20 / 16),
+      height: (20 / 16) * SizeConfig.screenHeightBase,
       fontWeight: FontWeight.w500);
 
   static TextTheme _textLightTheme() {

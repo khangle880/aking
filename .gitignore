@@ -2,6 +2,9 @@
 # android/app/google_services.json
 # ios/runner/GoogleService_Info.plist
 
+#DotEnv
+*.env
+
 # Miscellaneous
 *.class
 *.log

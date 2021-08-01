@@ -52,8 +52,8 @@ class _SplashContentState extends State<SplashContent> {
       children: [
         if (_artboard != null)
           SizedBox(
-            width: getProportionateScreenWidth(149),
-            height: getProportionateScreenHeight(149),
+            width: (149) * SizeConfig.screenWidthBase,
+            height: (149) * SizeConfig.screenHeightBase,
             child: Rive(
               artboard: _artboard ?? Artboard(),
             ),
@@ -63,9 +63,9 @@ class _SplashContentState extends State<SplashContent> {
           child: Text(widget.text,
               style: TextStyle(
                 fontWeight: FontWeight.w700,
-                fontSize: getProportionateScreenWidth(48),
+                fontSize: (48) * SizeConfig.screenHeightBase,
+                height: (56 / 48) * SizeConfig.screenHeightBase,
                 color: const Color(0xFF010101),
-                height: getProportionateScreenHeight(56 / 48),
                 shadows: const <Shadow>[
                   Shadow(
                     offset: Offset(0.0, 4.0),

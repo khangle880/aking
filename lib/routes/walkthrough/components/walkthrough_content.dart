@@ -16,25 +16,25 @@ class WalkthroughContent extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: getProportionateScreenHeight(392),
+          height: (392) * SizeConfig.screenHeightBase,
           child: SvgPicture.asset(
             image,
-            width: getProportionateScreenWidth(300),
+            width: (300) * SizeConfig.screenWidthBase,
           ),
         ),
         Text(title,
             style: TextStyle(
               fontWeight: FontWeight.w600,
-              fontSize: getProportionateScreenHeight(24),
-              height: getProportionateScreenHeight(30 / 24),
+              fontSize: (24) * SizeConfig.screenHeightBase,
+              height: (30 / 24) * SizeConfig.screenHeightBase,
               color: hexToColor("#313131"),
             )),
-        SizedBox(height: getProportionateScreenHeight(9)),
+        SizedBox(height: (9) * SizeConfig.screenHeightBase),
         Text(description,
             style: TextStyle(
               fontWeight: FontWeight.w500,
-              fontSize: getProportionateScreenHeight(18),
-              height: getProportionateScreenHeight(22 / 18),
+              fontSize: (18) * SizeConfig.screenHeightBase,
+              height: (22 / 18) * SizeConfig.screenHeightBase,
               color: hexToColor("#313131").withOpacity(0.8),
             )),
       ],

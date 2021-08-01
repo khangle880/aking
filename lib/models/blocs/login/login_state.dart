@@ -10,51 +10,11 @@ class LoginState extends Equatable {
   bool get isFormValid => isEmailValid && isPasswordValid;
 
   const LoginState(
-      {required this.isEmailValid,
-      required this.isPasswordValid,
-      required this.isSubmitting,
-      required this.isSuccess,
-      required this.isFailure});
-
-  factory LoginState.initial() {
-    return LoginState(
-      isEmailValid: true,
-      isPasswordValid: true,
-      isSubmitting: false,
-      isSuccess: false,
-      isFailure: false,
-    );
-  }
-
-  factory LoginState.loading() {
-    return LoginState(
-      isEmailValid: true,
-      isPasswordValid: true,
-      isSubmitting: true,
-      isSuccess: false,
-      isFailure: false,
-    );
-  }
-
-  factory LoginState.failure() {
-    return LoginState(
-      isEmailValid: true,
-      isPasswordValid: true,
-      isSubmitting: false,
-      isSuccess: false,
-      isFailure: true,
-    );
-  }
-
-  factory LoginState.success() {
-    return LoginState(
-      isEmailValid: true,
-      isPasswordValid: true,
-      isSubmitting: false,
-      isSuccess: true,
-      isFailure: false,
-    );
-  }
+      {this.isEmailValid = true,
+      this.isPasswordValid = true,
+      this.isSubmitting = false,
+      this.isSuccess = false,
+      this.isFailure = false});
 
   LoginState update({
     bool? isEmailValid,
@@ -88,4 +48,38 @@ class LoginState extends Equatable {
   @override
   List<Object?> get props =>
       [isEmailValid, isFailure, isPasswordValid, isSubmitting, isSuccess];
+}
+
+class LoginInitial extends LoginState {}
+
+class LoginLoading extends LoginState {
+  const LoginLoading() : super(isSubmitting: true);
+}
+
+class LoginSuccess extends LoginState {
+  const LoginSuccess() : super(isSuccess: true);
+}
+
+class LoginFailure extends LoginState {
+  late final String _errorMessage;
+  LoginFailure(String errorCode) : super(isFailure: true) {
+    final error = authErrors[errorCode];
+    if (error != null) {
+      _errorMessage = error;
+    } else {
+      _errorMessage = errorCode;
+    }
+  }
+
+  String get errorMessage => _errorMessage;
+
+  @override
+  List<Object?> get props => [
+        isEmailValid,
+        isFailure,
+        isPasswordValid,
+        isSubmitting,
+        isSuccess,
+        _errorMessage,
+      ];
 }

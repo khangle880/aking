@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:aking/models/blocs/authentication/authentication_bloc.dart';
 import 'package:aking/models/blocs/login/login_bloc.dart';
+import 'package:aking/routing/routes.dart';
+import 'package:email_auth/email_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -59,24 +63,24 @@ class _SignInFormState extends State<SignInForm> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginBloc, LoginState>(listener: (context, state) {
-      if (state.isFailure) {
+      if (state is LoginFailure) {
         ScaffoldMessenger.of(context)
           ..removeCurrentSnackBar()
           ..showSnackBar(
             SnackBar(
               content: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const <Widget>[
-                  Text('Login Failure'),
+                children: <Widget>[
+                  Text(state.errorMessage),
                   Icon(Icons.error),
                 ],
               ),
-              backgroundColor: Color(0xffffae88),
+              backgroundColor: Theme.of(context).accentColor,
             ),
           );
       }
 
-      if (state.isSubmitting) {
+      if (state is LoginLoading) {
         ScaffoldMessenger.of(context)
           ..removeCurrentSnackBar()
           ..showSnackBar(
@@ -90,97 +94,129 @@ class _SignInFormState extends State<SignInForm> {
                   )
                 ],
               ),
-              backgroundColor: Color(0xffffae88),
+              backgroundColor: Theme.of(context).accentColor,
+              duration: Duration(hours: 1),
             ),
           );
       }
 
-      if (state.isSuccess) {
+      if (state is LoginSuccess) {
+        ScaffoldMessenger.of(context)
+          ..removeCurrentSnackBar()
+          ..showSnackBar(
+            SnackBar(
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const <Widget>[
+                  Text('Login Success'),
+                  Icon(Icons.check),
+                ],
+              ),
+              backgroundColor: Theme.of(context).accentColor,
+              duration: Duration(microseconds: 500),
+            ),
+          );
         context.read<AuthenticationBloc>().add(
               AuthenticationLoggedIn(),
             );
-        Navigator.pop(context);
+        Future.delayed(const Duration(milliseconds: 500), () {
+          Navigator.pop(context);
+        });
       }
     }, builder: (context, state) {
-      return Padding(
-        padding: EdgeInsets.all(getProportionateScreenWidth(24)),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Username',
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              TextFormField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                autocorrect: false,
-                // ignore: deprecated_member_use
-                autovalidate: true,
-                validator: (_) {
-                  return !state.isEmailValid ? 'Invalid Email' : null;
-                },
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      decorationColor: Colors.black.withOpacity(0.01),
-                    ),
-                decoration: InputDecoration(
-                  hintText: 'Enter The Email',
-                ),
-              ),
-              SizedBox(height: 30),
-              Text(
-                'Password',
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              TextFormField(
-                controller: _passwordController,
-                obscureText: true,
-                // ignore: deprecated_member_use
-                autovalidate: true,
-                autocorrect: false,
-                style: Theme.of(context).textTheme.bodyText1,
-                validator: (value) {
-                  return !state.isPasswordValid ? 'Invalid Password' : null;
-                },
-                decoration: InputDecoration(
-                  hintText: 'Enter your password',
-                ),
-              ),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(
-                          context, forgotPasswordPath);
-                    },
-                    child: Text(
-                      "Forgot password",
-                      style: Theme.of(context).textTheme.subtitle1,
-                    ),
+      return Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Username',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            TextFormField(
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              autocorrect: false,
+              // ignore: deprecated_member_use
+              autovalidate: true,
+              validator: (_) {
+                return !state.isEmailValid ? 'Invalid Email' : null;
+              },
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    decorationColor: Colors.black.withOpacity(0.01),
                   ),
-                ],
+              decoration: InputDecoration(
+                hintText: 'Enter The Email',
               ),
-              SizedBox(
-                height: getProportionateScreenHeight(80),
+            ),
+            SizedBox(height: (30) * SizeConfig.screenHeightBase),
+            Text(
+              'Password',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            TextFormField(
+              controller: _passwordController,
+              obscureText: true,
+              // ignore: deprecated_member_use
+              autovalidate: true,
+              autocorrect: false,
+              style: Theme.of(context).textTheme.bodyText1,
+              validator: (value) {
+                return !state.isPasswordValid ? 'Invalid Password' : null;
+              },
+              decoration: InputDecoration(
+                hintText: 'Enter your password',
               ),
-              RoundedButton(
-                text: 'Log In',
-                backgroundColor: hexToColor("#F96060"),
-                press: () {
-                  if (isButtonEnabled(state)) {
-                    _onFormSubmitted();
-                  }
-                },
-                textColor: hexToColor("#FFFFFF"),
-              ),
-              // },
-              // ),
-            ],
-          ),
+            ),
+            SizedBox(height: (10) * SizeConfig.screenHeightBase),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () async {
+                    Navigator.pushNamed(context, Routes.forgotPasswordRoute);
+                    // context
+                    //     .read<AuthenticationBloc>()
+                    //     .userRepository
+                    //     // .requestResetPassword(_emailController.text);
+                    //     .resetPassword("182963", "a123123124");
+                    // EmailAuth.sessionName = "Sample";
+                    // await EmailAuth.sendOtp(
+                    //     receiverMail: _emailController.text);
+
+                    // final String? error = await context
+                    //     .read<AuthenticationBloc>()
+                    //     .userRepository
+                    //     .resetPassword("abc@gmail.com", "a123123321");
+                    // if (error == null)
+                    //   log("Fuckkkkk");
+                    // else
+                    //   log(error);
+                  },
+                  child: Text(
+                    "Forgot password",
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: (80) * SizeConfig.screenHeightBase,
+            ),
+            RoundedButton(
+              text: 'Log In',
+              backgroundColor: hexToColor("#F96060"),
+              press: () {
+                print(isButtonEnabled(state));
+                if (isButtonEnabled(state)) {
+                  _onFormSubmitted();
+                }
+              },
+              textColor: hexToColor("#FFFFFF"),
+            ),
+            // },
+            // ),
+          ],
         ),
       );
     });
