@@ -1,4 +1,4 @@
-package com.example.aking
+package com.nothingness.aking
 
 import io.flutter.embedding.android.FlutterActivity
 

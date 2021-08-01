@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.aking">
+    package="com.nothingness.aking">
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
    <application
-        android:label="aking"
+        android:label="Aking"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

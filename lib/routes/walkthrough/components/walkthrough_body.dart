@@ -81,7 +81,7 @@ class _BodyState extends State<WalkthroughBody> {
           return Column(
             children: <Widget>[
               SizedBox(
-                height: getProportionateScreenHeight(490),
+                height: (490) * SizeConfig.screenHeightBase,
                 width: double.infinity,
                 child: PageView.builder(
                   controller: _pageController,
@@ -104,7 +104,7 @@ class _BodyState extends State<WalkthroughBody> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(_walkthroughData.length,
                           (index) => buildDot(index: index)))),
-              SizedBox(height: getProportionateScreenHeight(30)),
+              SizedBox(height: (30) * SizeConfig.screenHeightBase),
               Expanded(
                 child: SizedBox(
                   width: double.infinity,
@@ -132,10 +132,8 @@ class _BodyState extends State<WalkthroughBody> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(
-                          right: getProportionateScreenWidth(40),
-                          left: getProportionateScreenWidth(40),
-                        ),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 40 * SizeConfig.screenWidthBase),
                         child: Column(
                           children: [
                             const Spacer(
@@ -160,9 +158,9 @@ class _BodyState extends State<WalkthroughBody> {
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize:
-                                            getProportionateScreenHeight(18),
-                                        height: getProportionateScreenHeight(
-                                            22 / 18),
+                                            (18) * SizeConfig.screenHeightBase,
+                                        height: (22 / 18) *
+                                            SizeConfig.screenHeightBase,
                                         fontWeight: FontWeight.bold))),
                             const Spacer(
                               flex: 3,

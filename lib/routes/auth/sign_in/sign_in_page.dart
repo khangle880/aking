@@ -1,5 +1,9 @@
+import 'package:aking/models/blocs/authentication/authentication_bloc.dart';
+import 'package:aking/models/blocs/login/login_bloc.dart';
+import 'package:aking/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:aking/size_config.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'components/sign_in_body.dart';
 
@@ -12,10 +16,15 @@ class SignInPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(),
       body: SingleChildScrollView(
-        child: Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: getProportionateScreenWidth(24)),
-            child: SignInBody()),
+        child: BlocProvider(
+          create: (context) => LoginBloc(
+              userRepository:
+                  context.read<AuthenticationBloc>().userRepository),
+          child: Padding(
+            padding: EdgeInsets.all((24) * SizeConfig.screenWidthBase),
+            child: SignInBody(),
+          ),
+        ),
       ),
     );
   }

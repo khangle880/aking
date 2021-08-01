@@ -19,7 +19,7 @@ class Wrapper extends StatelessWidget {
       child: Consumer<User?>(
         builder: (context, value, child) {
           if (value != null) {
-            return HomePage();
+            return HomePage(user: value,);
           } else {
             return WalkthroughPage();
           }

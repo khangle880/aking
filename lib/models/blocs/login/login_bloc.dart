@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:aking/models/repositories/user_repository.dart';
+import 'package:aking/utils/auth_error.dart';
 import 'package:aking/utils/auth_validators.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -13,7 +14,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   LoginBloc({required UserRepository userRepository})
       : _userRepository = userRepository,
-        super(LoginState.initial());
+        super(LoginInitial());
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
@@ -38,12 +39,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   Stream<LoginState> _mapLoginWithCredentialsPressedToState(
       {required String email, required String password}) async* {
-    yield LoginState.loading();
-    try {
-      await _userRepository.signInWithCredentials(email, password);
-      yield LoginState.success();
-    } catch (_) {
-      yield LoginState.failure();
+    yield LoginLoading();
+    final String? error =
+        await _userRepository.signInWithCredentials(email, password);
+    if (error == null) {
+      yield LoginSuccess();
+    } else {
+      yield LoginFailure(error);
     }
   }
 }

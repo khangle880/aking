@@ -1,4 +1,3 @@
-  
 class AuthValidators {
   static final RegExp _emailRegExp = RegExp(
     r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$',
@@ -6,6 +5,12 @@ class AuthValidators {
   static final RegExp _passwordRegExp = RegExp(
     r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$',
   );
+
+  static final RegExp _otpRegExp = RegExp(r'^\d{6}$');
+
+  static bool isValidOtp(String otp) {
+    return _otpRegExp.hasMatch(otp);
+  }
 
   static bool isValidEmail(String email) {
     return _emailRegExp.hasMatch(email);
