@@ -1,8 +1,9 @@
+import 'package:aking/logic/blocs/simple_bloc_observer.dart';
+import 'package:aking/logic/repositories/user_repository.dart';
 import 'package:aking/routing/app_routes.dart';
 import 'package:aking/routing/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:aking/size_config.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -10,9 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'global/theme/bloc/theme_bloc.dart';
-import 'models/blocs/authentication/authentication_bloc.dart';
-import 'models/blocs/simple_bloc_observer.dart';
-import 'models/repositories/user_repository.dart';
+import 'logic/blocs/authentication/authentication_bloc.dart';
 
 Future main() async {
   /// Ensure Initialized
@@ -36,25 +35,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(360, 690),
-      builder: () => LayoutBuilder(builder: (context, constraints) {
-        return OrientationBuilder(builder: (context, orientation) {
-          SizeConfig().init(constraints, orientation);
-          return MultiBlocProvider(
-            providers: [
-              BlocProvider(create: (_) => ThemeBloc()),
-              BlocProvider(
-                create: (context) => AuthenticationBloc(
-                  userRepository: _userRepository,
-                )..add(AuthenticationStarted()),
-              )
-            ],
-            child: BlocBuilder<ThemeBloc, ThemeData>(
-              builder: (context, theme) => _buildWithTheme(theme),
-            ),
-          );
-        });
-      }),
+      designSize: Size(375, 812),
+      builder: () => MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => ThemeBloc()),
+          BlocProvider(
+            create: (context) => AuthenticationBloc(
+              userRepository: _userRepository,
+            )..add(AuthenticationStarted()),
+          )
+        ],
+        child: BlocBuilder<ThemeBloc, ThemeData>(
+          builder: (context, theme) => _buildWithTheme(theme),
+        ),
+      ),
     );
   }
 

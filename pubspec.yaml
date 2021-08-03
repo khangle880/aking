@@ -102,11 +102,11 @@ flutter:
     - family: Avenir Next Rounded Pro
       fonts:
         - asset: assets/fonts/AvenirNext/avenirnextroundedpro-demi.woff.ttf
-    - family: Avenir Next Rounded Pro Medium
-      fonts:
+          weight: 600
         - asset: assets/fonts/AvenirNext/AvenirNextRoundedPro-Med.ttf
-    - family: Otomanopee One
-      fonts:
-        - asset: assets/fonts/OtomanopeeOne-Regular.ttf
+          weight: 500
+        - asset: assets/fonts/AvenirNext/AvenirNextRoundedPro-Reg.ttf
+          weight: 400
+   
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
