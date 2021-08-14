@@ -77,32 +77,23 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
           BlocListener<ResetPasswordBloc, ResetPasswordState>(
             listener: (context, state) {
               if (state is ResetPasswordLoading) {
-                showSnackBar(
+                showLoadingSnackBar(
                   context,
-                  const <Widget>[
-                    Text("Sending otp..."),
-                    CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    )
-                  ],
-                  duration: Duration(hours: 1),
+                  "Sending otp...",
                 );
               }
 
               if (state is ResetPasswordRequestFailure) {
-                showSnackBar(context, <Widget>[
-                  Text("OTP was not sent failure"),
-                  Icon(Icons.error),
-                ]);
+                showFailureSnackBar(
+                  context,
+                  "OTP was not sent failure",
+                );
               }
 
               if (state is ResetPasswordRequestSuccess) {
-                showSnackBar(
+                showSuccessSnackBar(
                   context,
-                  <Widget>[
-                    Text("OTP sent successfully !"),
-                    Icon(Icons.check_circle_outline),
-                  ],
+                  "OTP sent successfully !",
                 );
                 Future.delayed(const Duration(milliseconds: 2000), () {
                   Navigator.pushNamed(

@@ -10,7 +10,8 @@ class ExceptionPage extends StatelessWidget {
         title: Text('Exception'),
       ),
       body: Center(
-        child: Text("Oh no, something went wrong!"),
+        child: Text("Oh no, something went wrong!",
+            style: Theme.of(context).textTheme.subtitle1),
       ),
     );
   }

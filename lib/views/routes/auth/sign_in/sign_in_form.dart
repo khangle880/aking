@@ -64,39 +64,23 @@ class _SignInFormState extends State<SignInForm> {
   Widget build(BuildContext context) {
     return BlocConsumer<LoginBloc, LoginState>(listener: (context, state) {
       if (state is LoginFailure) {
-        showSnackBar(
+        showFailureSnackBar(
           context,
-          <Widget>[
-            Text(state.errorMessage),
-            Icon(Icons.error),
-          ],
+          state.errorMessage,
         );
       }
 
       if (state is LoginLoading) {
-        showSnackBar(
+        showLoadingSnackBar(
           context,
-          const <Widget>[
-            Text('Logging In...'),
-            CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            )
-          ],
-          duration: Duration(hours: 1),
+          'Logging In...',
         );
       }
 
       if (state is LoginSuccess) {
-        showSnackBar(
+        showSuccessSnackBar(
           context,
-          const <Widget>[
-            Text('Login Success'),
-            Icon(
-              Icons.check,
-              color: Colors.white,
-            ),
-          ],
-          duration: Duration(microseconds: 500),
+          'Login Success',
         );
         context.read<AuthenticationBloc>().add(
               AuthenticationLoggedIn(),

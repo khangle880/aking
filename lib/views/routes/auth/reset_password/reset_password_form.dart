@@ -1,6 +1,7 @@
 import 'package:aking/logic/blocs/reset_password/reset_password_bloc.dart';
 import 'package:aking/logic/utils/modules/color_module.dart';
 import 'package:aking/logic/utils/validator/auth_validators.dart';
+import 'package:aking/routing/routes.dart';
 import 'package:aking/views/utils/modules/auth_module.dart';
 import 'package:aking/views/widgets/normal_text_field.dart';
 import 'package:aking/views/widgets/obscure_text_field.dart';
@@ -86,6 +87,7 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
             controller: _resetCodeController,
             validator: _validateOtp,
             hintText: 'Enter your number',
+            keyboardType: TextInputType.number,
           ),
           SizedBox(height: 30),
           Text(
@@ -122,39 +124,29 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
           ),
           BlocListener<ResetPasswordBloc, ResetPasswordState>(
             listener: (context, state) {
-              
-
               if (state is ResetPasswordFailure) {
-                showSnackBar(context, <Widget>[
-                  Text(state.errorMessage),
-                  Icon(Icons.error),
-                ]);
+                showFailureSnackBar(
+                  context,
+                  state.errorMessage,
+                );
               }
 
               if (state is ResetPasswordLoading) {
-                showSnackBar(
+                showLoadingSnackBar(
                   context,
-                  <Widget>[
-                    Text('Resetting...'),
-                    CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    )
-                  ],
-                  duration: Duration(hours: 1),
+                  'Resetting...',
                 );
               }
 
               if (state is ResetPasswordSuccess) {
-                showSnackBar(
+                showSuccessSnackBar(
                   context,
-                  <Widget>[
-                    Text('Reset Password Success'),
-                    Icon(Icons.check),
-                  ],
-                  duration: Duration(microseconds: 500),
+                  'Reset Password Success',
                 );
                 Future.delayed(const Duration(milliseconds: 500), () {
-                  Navigator.of(context).popUntil((route) => route.isFirst);
+                  // Navigator.of(context).popUntil((route) => route.isFirst);
+                  Navigator.pushNamedAndRemoveUntil(context,
+                      Routes.resetPassSuccessRoute, (route) => route.isFirst);
                 });
               }
             },

@@ -19,6 +19,7 @@ class ErrorCode {
   static const String passwordWrong = "wrong-password";
   static const String invalidEmail = "invalid-email";
   static const String networkRequestFailed = "network-request-failed";
+  static const String tooManyRequests = "too-many-requests";
 }
 
 final Map<String, String> authErrors = {
@@ -27,6 +28,7 @@ final Map<String, String> authErrors = {
   ErrorCode.networkRequestFailed: "No internet, please connect to internet.",
   ErrorCode.passwordSameOld: "The new password same as the old password.",
   ErrorCode.passwordWrong: "Wrong password provided for that user.",
+  ErrorCode.tooManyRequests: "Please wait a few minutes before you try again",
   ErrorCode.userNotFound: "No user found for that email.",
   ErrorCode.userNotLogin: "Please log in before doing this",
   ErrorCode.userNotLogout: "Please log out before doing this",

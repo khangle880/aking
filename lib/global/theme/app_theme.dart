@@ -52,6 +52,11 @@ class AppTheme {
       color: hexToColor("#313131"),
       fontWeight: FontWeight.w600);
 
+  static final TextStyle _subtitle2 = TextStyle(
+      fontSize: 14.sp,
+      color: hexToColor("#313131"),
+      fontWeight: FontWeight.w600);
+
   static final TextStyle _bodyText1 = TextStyle(
       fontSize: 18.sp,
       color: hexToColor("#313131"),
@@ -62,6 +67,11 @@ class AppTheme {
       color: hexToColor("#313131"),
       fontWeight: FontWeight.w400);
 
+  static final TextStyle _button = TextStyle(
+      fontSize: 16.sp,
+      color: hexToColor("#313131"),
+      fontWeight: FontWeight.w500);
+
   static TextTheme _textLightTheme() {
     return TextTheme(
       headline3: _headline3,
@@ -69,8 +79,10 @@ class AppTheme {
       headline5: _headline5,
       headline6: _headline6,
       subtitle1: _subtitle1,
+      subtitle2: _subtitle2,
       bodyText1: _bodyText1,
       bodyText2: _bodyText2,
+      button: _button,
     );
   }
 

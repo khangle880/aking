@@ -1,13 +1,12 @@
+import 'package:aking/global/constants/assets_path.dart';
 import 'package:aking/routing/routes.dart';
 import 'package:aking/views/widgets/fade_widget.dart';
+import 'package:aking/views/widgets/simple_rive_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:rive/rive.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-const logoRiveDir = "assets/rive/splash.riv";
-
-class SplashContent extends StatefulWidget {
+class SplashContent extends StatelessWidget {
   const SplashContent({
     Key? key,
     required this.text,
@@ -15,52 +14,21 @@ class SplashContent extends StatefulWidget {
   final String text;
 
   @override
-  _SplashContentState createState() => _SplashContentState();
-}
-
-class _SplashContentState extends State<SplashContent> {
-  Artboard? _artboard;
-
-  @override
-  void initState() {
-    super.initState();
-    loadRive();
-
+  Widget build(BuildContext context) {
     Future.delayed(const Duration(milliseconds: 4000), () {
       Navigator.pushReplacementNamed(context, Routes.wrapperRoute);
     });
-  }
-
-  Future loadRive() async {
-    final bytes = await rootBundle.load(logoRiveDir);
-    final RiveFile riveFile = RiveFile.import(bytes);
-    setState(() {
-      _artboard = riveFile.mainArtboard
-        ..addController(SimpleAnimation('Animation 1'));
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        if (_artboard != null)
-          SizedBox(
+        SimpleRiveWidget(
+            rivePath: splashRive,
+            simpleAnimation: splashSimpleAnimation,
             width: 149.w,
-            height: 149.h,
-            child: Rive(
-              artboard: _artboard ?? Artboard(),
-            ),
-          ),
+            height: 149.w),
         FadeWidget(
           milliseconds: 2500,
-          child: Text(widget.text,
+          child: Text(text,
               style: Theme.of(context).textTheme.headline3!.copyWith(
                 shadows: const <Shadow>[
                   Shadow(

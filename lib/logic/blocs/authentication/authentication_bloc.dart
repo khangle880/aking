@@ -11,6 +11,7 @@ part 'authentication_state.dart';
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   final UserRepository _userRepository;
+  String? uid;
 
   AuthenticationBloc({required UserRepository userRepository})
       : _userRepository = userRepository,
@@ -47,7 +48,8 @@ class AuthenticationBloc
     final isSignedIn = await _userRepository.isSignedIn();
     if (isSignedIn) {
       final firebaseUser = await _userRepository.getUser();
-      yield AuthenticationSuccess(firebaseUser!);
+      uid = firebaseUser!.uid;
+      yield AuthenticationSuccess(firebaseUser);
     } else {
       yield AuthenticationFailure();
     }

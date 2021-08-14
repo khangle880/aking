@@ -1,5 +1,6 @@
 import 'package:aking/logic/blocs/authentication/authentication_bloc.dart';
 import 'package:aking/views/routes/home/home.dart';
+import 'package:aking/views/routes/home/work_list/work_list_page.dart';
 import 'package:aking/views/routes/walkthrough/walkthrough_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,8 @@ class Wrapper extends StatelessWidget {
       }
 
       if (state is AuthenticationSuccess) {
-        return HomePage(user: state.firebaseUser);
+        // return HomePage(user: state.firebaseUser);
+        return HomePage();
       }
 
       return Scaffold(

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:aking/logic/repositories/user_repository.dart';
 import 'package:aking/logic/utils/errors/auth_error.dart';
-import 'package:aking/logic/utils/validator/auth_validators.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
