@@ -119,8 +119,8 @@ class MenuDetails extends StatelessWidget {
   final double blurSize;
   final double? menuWidth;
   final Color blurBackgroundColor;
-  final double? bottomOffsetHeight;
-  final double? menuOffset;
+  final double bottomOffsetHeight;
+  final double menuOffset;
   final bool enableChildInPopup;
 
   const MenuDetails(
@@ -130,14 +130,14 @@ class MenuDetails extends StatelessWidget {
       required this.childOffset,
       required this.childSize,
       required this.menuBoxDecoration,
-      required this.itemExtent,
-      required this.animateMenu,
-      required this.blurSize,
-      required this.blurBackgroundColor,
       required this.menuWidth,
-      this.bottomOffsetHeight,
-      this.menuOffset,
-      required this.enableChildInPopup})
+      this.itemExtent = 50.0,
+      this.animateMenu = true,
+      this.blurSize = 4,
+      this.blurBackgroundColor = Colors.black,
+      this.bottomOffsetHeight = 0,
+      this.menuOffset = 0,
+      this.enableChildInPopup = true})
       : super(key: key);
 
   @override
@@ -153,9 +153,9 @@ class MenuDetails extends StatelessWidget {
         ? childOffset.dx
         : (childOffset.dx - maxMenuWidth + childSize!.width);
     final topOffset = (childOffset.dy + menuHeight + childSize!.height) <
-            size.height - bottomOffsetHeight!
-        ? childOffset.dy + childSize!.height + menuOffset!
-        : childOffset.dy - menuHeight - menuOffset!;
+            size.height - bottomOffsetHeight
+        ? childOffset.dy + childSize!.height + menuOffset
+        : childOffset.dy - menuHeight - menuOffset;
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Stack(

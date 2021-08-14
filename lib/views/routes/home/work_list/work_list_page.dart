@@ -45,7 +45,7 @@ class _WorkListPageState extends State<WorkListPage>
     final textTheme = Theme.of(context).textTheme;
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
+        BlocProvider<TaskBloc>(
             create: (_) => TaskBloc(taskRepository: TaskRepository())
               ..add(LoadTasks(context.read<AuthenticationBloc>().uid!))),
         BlocProvider(create: (_) => TasksGroupBloc()),
@@ -53,9 +53,10 @@ class _WorkListPageState extends State<WorkListPage>
       child: BlocConsumer<TaskBloc, TaskState>(
         listener: (context, state) {
           if (state is TaskLoaded) {
-            context
-                .read<TasksGroupBloc>()
-                .add(TasksGroupByDate(tasks: state.tasks.list));
+            // context
+            //     .read<TasksGroupBloc>()
+            //     .add(TasksGroupByDate(tasks: state.tasks.list));
+            print(context.read<TasksGroupBloc>().state);
           }
         },
         builder: (context, state) => Scaffold(
@@ -63,6 +64,13 @@ class _WorkListPageState extends State<WorkListPage>
             backgroundColor: hexToColor("#F96060"),
             elevation: 2,
             iconTheme: IconThemeData(color: hexToColor("#FFFFFF")),
+            leading: IconButton(
+              icon: Icon(Icons.exit_to_app),
+              onPressed: () {
+                BlocProvider.of<AuthenticationBloc>(context)
+                    .add(AuthenticationLoggedOut());
+              },
+            ),
             actions: (state is TaskLoaded)
                 ? <Widget>[
                     Padding(
@@ -130,9 +138,10 @@ class _WorkListPageState extends State<WorkListPage>
           ),
           body: TabBarView(
             controller: _tabController,
-            children: const [
-              TodayTabView(),
-              MonthTabView(),
+            children: [
+              // TodayTabView(),
+              // MonthTabView(),
+              Container(), Container(),
             ],
           ),
         ),

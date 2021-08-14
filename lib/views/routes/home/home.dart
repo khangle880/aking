@@ -88,13 +88,7 @@ class _HomePageState extends State<HomePage> {
 // appBar: AppBar(
 //         title: Text('Home'),
 //         actions: <Widget>[
-//           IconButton(
-//             icon: Icon(Icons.exit_to_app),
-//             onPressed: () {
-//               BlocProvider.of<AuthenticationBloc>(context)
-//                   .add(AuthenticationLoggedOut());
-//             },
-//           )
+//           
 //         ],
 //       ),
 //       body: Column(
