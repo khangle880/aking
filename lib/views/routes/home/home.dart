@@ -1,8 +1,12 @@
+import 'package:aking/logic/blocs/authentication/authentication_bloc.dart';
+import 'package:aking/logic/blocs/task/task_bloc.dart';
+import 'package:aking/logic/repositories/task/task_repository.dart';
 import 'package:aking/logic/utils/modules/color_module.dart';
 import 'package:aking/views/routes/exception/exception_page.dart';
 import 'package:aking/views/routes/home/bottom_app_bar_navigation.dart';
 import 'package:aking/views/routes/home/work_list/work_list_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomePage extends StatefulWidget {
@@ -70,15 +74,21 @@ class _HomePageState extends State<HomePage> {
         textStyle:
             Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 12.sp),
       ),
-      body: PageView(
-        controller: _pageController,
-        physics: NeverScrollableScrollPhysics(),
-        children: const <Widget>[
-          WorkListPage(),
-          ExceptionPage(),
-          ExceptionPage(),
-          ExceptionPage(),
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider<TaskBloc>(
+              create: (_) => TaskBloc(taskRepository: TaskRepository())),
         ],
+        child: PageView(
+          controller: _pageController,
+          physics: NeverScrollableScrollPhysics(),
+          children: const <Widget>[
+            WorkListPage(),
+            ExceptionPage(),
+            ExceptionPage(),
+            ExceptionPage(),
+          ],
+        ),
       ),
     );
   }

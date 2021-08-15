@@ -3,7 +3,6 @@ import 'package:aking/logic/blocs/authentication/authentication_bloc.dart';
 import 'package:aking/logic/blocs/task/task_bloc.dart';
 import 'package:aking/logic/blocs/tasks_group/tasks_group_bloc.dart';
 import 'package:aking/logic/models/task_list.dart';
-import 'package:aking/logic/repositories/task/task_repository.dart';
 import 'package:aking/logic/utils/modules/color_module.dart';
 import 'package:aking/views/widgets/popup_menu.dart';
 import 'package:aking/views/widgets/popup_menu_item.dart';
@@ -41,22 +40,26 @@ class _WorkListPageState extends State<WorkListPage>
   late OptionTaskStatusFilter _selectedMenuItem;
 
   @override
+  void initState() {
+    super.initState();
+    context
+        .read<TaskBloc>()
+        .add(LoadTasks(context.read<AuthenticationBloc>().uid!));
+    _selectedMenuItem = _menuList.entries.last.key;
+    _tabController = TabController(length: _tabList.length, vsync: this);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<TaskBloc>(
-            create: (_) => TaskBloc(taskRepository: TaskRepository())
-              ..add(LoadTasks(context.read<AuthenticationBloc>().uid!))),
-        BlocProvider(create: (_) => TasksGroupBloc()),
-      ],
+    return BlocProvider(
+      create: (_) => TasksGroupBloc(),
       child: BlocConsumer<TaskBloc, TaskState>(
         listener: (context, state) {
           if (state is TaskLoaded) {
-            // context
-            //     .read<TasksGroupBloc>()
-            //     .add(TasksGroupByDate(tasks: state.tasks.list));
-            print(context.read<TasksGroupBloc>().state);
+            context
+                .read<TasksGroupBloc>()
+                .add(TasksGroupByDate(tasks: state.tasks.list));
           }
         },
         builder: (context, state) => Scaffold(
@@ -138,22 +141,14 @@ class _WorkListPageState extends State<WorkListPage>
           ),
           body: TabBarView(
             controller: _tabController,
-            children: [
-              // TodayTabView(),
-              // MonthTabView(),
-              Container(), Container(),
+            children: const [
+              TodayTabView(),
+              MonthTabView(),
             ],
           ),
         ),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedMenuItem = _menuList.entries.last.key;
-    _tabController = TabController(length: _tabList.length, vsync: this);
   }
 
   void _handleSelectMenuItem(

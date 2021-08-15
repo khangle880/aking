@@ -12,7 +12,7 @@ part 'task_state.dart';
 class TaskBloc extends Bloc<TaskEvent, TaskState> {
   TaskBloc({required TaskRepository taskRepository})
       : _taskRepository = taskRepository,
-        super(TaskLoading());
+        super(TaskInitial());
 
   final TaskRepository _taskRepository;
   List<Task> _allTask = [];
