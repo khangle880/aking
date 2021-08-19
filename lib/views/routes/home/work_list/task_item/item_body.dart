@@ -36,9 +36,9 @@ class ItemBody extends StatelessWidget {
         shadowColor: Colors.transparent,
         child: ListTile(
           leading: LeadingButton(itemColorTheme: itemColorTheme, task: task),
-          title: Text(task.content, style: textStyle),
+          title: Text(task.title, style: textStyle),
           subtitle: Text(
-            DateFormat('hh:mm a').format(task.remind),
+            DateFormat('hh:mm a').format(task.dueDate ?? task.createdDate),
             style: textStyle!.copyWith(color: hexToColor("#9E9E9E")),
           ),
           contentPadding: EdgeInsets.only(left: 10.w),

@@ -11,10 +11,9 @@ class TaskRepository extends BaseTaskRepository {
   @override
   Stream<List<Task>> getAllTasks(String uid) {
     return _firebaseFirestore
-        .collection('users')
-        .doc(uid)
         .collection('tasks')
-        .orderBy("remind", descending: false)
+        .where("participants", arrayContains: uid)
+        // .orderBy("remind", descending: false)
         .snapshots()
         .map((snapshot) => snapshot.docs.map((doc) {
               final data = doc.data();

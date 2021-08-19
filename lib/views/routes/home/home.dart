@@ -1,8 +1,9 @@
-import 'package:aking/logic/blocs/authentication/authentication_bloc.dart';
+
 import 'package:aking/logic/blocs/task/task_bloc.dart';
 import 'package:aking/logic/repositories/task/task_repository.dart';
 import 'package:aking/logic/utils/modules/color_module.dart';
 import 'package:aking/views/routes/exception/exception_page.dart';
+import 'package:aking/views/routes/home/add_menu.dart';
 import 'package:aking/views/routes/home/bottom_app_bar_navigation.dart';
 import 'package:aking/views/routes/home/work_list/work_list_page.dart';
 import 'package:flutter/material.dart';
@@ -49,8 +50,7 @@ class _HomePageState extends State<HomePage> {
         padding: EdgeInsets.only(top: 25.h),
         width: 50.w,
         child: FloatingActionButton(
-            onPressed: () {},
-            tooltip: "Add Button",
+            onPressed: _showAddMenu,
             elevation: 4.0,
             backgroundColor: hexToColor("#F96060"),
             child: Center(child: Icon(Icons.add))),
@@ -92,7 +92,26 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  void _showAddMenu() {
+    showDialog(
+      barrierDismissible: true,
+      barrierColor: Colors.black.withOpacity(0.4),
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+          backgroundColor: Colors.white,
+          child: AddMenu(),
+        );
+      },
+    );
+  }
 }
+
+
+
 
 
 // appBar: AppBar(

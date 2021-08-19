@@ -1,9 +1,9 @@
 import 'dart:async';
+import 'package:aking/logic/models/task_list.dart';
 import 'package:aking/logic/models/tasks_grouped.dart';
 import 'package:aking/logic/utils/modules/datetime_module.dart';
 import "package:collection/collection.dart";
 
-import 'package:aking/logic/blocs/task/task_bloc.dart';
 import 'package:aking/logic/models/task.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -19,9 +19,8 @@ class TasksGroupBloc extends Bloc<TasksGroupEvent, TasksGroupState> {
     TasksGroupEvent event,
   ) async* {
     if (event is TasksGroupByDate) {
-      final groupedList =
-          groupBy(event.tasks, (Task obj) => getDateByLocal(obj.remind));
-      yield TasksGroupedByDate(tasksGrouped: TasksGrouped(groupedList));
+      final taskList = TaskList(event.tasks);
+      yield TasksGroupedByDate(tasksGrouped: taskList.groupAndSortBy());
     }
   }
 }

@@ -3,7 +3,7 @@ class AuthValidators {
     r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$',
   );
   static final RegExp _passwordRegExp = RegExp(
-    r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$',
+    r'^(?=.*\d)(?=.*[a-z]).{8,}$',
   );
 
   static final RegExp _otpRegExp = RegExp(r'^\d{6}$');

@@ -23,7 +23,10 @@ void showLoadingSnackBar(BuildContext context, String textMessage) {
     <Widget>[
       Text(
         textMessage,
-        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
+        style: Theme.of(context)
+            .textTheme
+            .subtitle2!
+            .copyWith(color: Colors.white),
       ),
       SizedBox(
         height: 20.w,
@@ -43,14 +46,17 @@ void showSuccessSnackBar(BuildContext context, String textMessage) {
     <Widget>[
       Text(
         textMessage,
-        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14.sp),
+        style: Theme.of(context)
+            .textTheme
+            .subtitle2!
+            .copyWith(color: Colors.white),
       ),
       Icon(
         Icons.check,
         color: Colors.white,
       ),
     ],
-    duration: Duration(microseconds: 500),
+    duration: Duration(milliseconds: 1000),
   );
 }
 
@@ -58,7 +64,8 @@ void showFailureSnackBar(BuildContext context, String textMessage) {
   _showSnackBar(context, <Widget>[
     Text(
       textMessage,
-      style: Theme.of(context).textTheme.subtitle2,
+      style:
+          Theme.of(context).textTheme.subtitle2!.copyWith(color: Colors.white),
     ),
     Icon(
       Icons.error_outline_sharp,
