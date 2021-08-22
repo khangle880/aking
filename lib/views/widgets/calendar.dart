@@ -1,4 +1,4 @@
-import 'package:aking/logic/provider/calendar_provider.dart';
+import 'package:aking/logic/provider/calendar.dart';
 import 'package:aking/logic/utils/modules/color_module.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

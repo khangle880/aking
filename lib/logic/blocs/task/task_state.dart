@@ -10,7 +10,7 @@ abstract class TaskState extends Equatable {
 class TaskInitial extends TaskState {}
 
 class TaskLoaded extends TaskState {
-  final TaskList tasks;
+  final List<Task> tasks;
 
   const TaskLoaded(this.tasks);
 
@@ -20,5 +20,5 @@ class TaskLoaded extends TaskState {
 
 class TaskFiltered extends TaskLoaded {
   final OptionTaskStatusFilter optionFilter;
-  const TaskFiltered(this.optionFilter, TaskList tasks) : super(tasks);
+  const TaskFiltered(this.optionFilter, List<Task> tasks) : super(tasks);
 }

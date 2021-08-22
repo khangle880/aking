@@ -1,4 +1,5 @@
 import 'package:aking/logic/utils/modules/color_module.dart';
+import 'package:aking/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -19,7 +20,9 @@ class _AddMenuState extends State<AddMenu> {
         children: <Widget>[
           AddMenuItem(
             text: 'Add Task',
-            onPressed: () {},
+            onPressed: () {
+              Navigator.popAndPushNamed(context, Routes.addTaskRoute);
+            },
           ),
           Divider(
             thickness: 1.w,

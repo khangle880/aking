@@ -1,4 +1,4 @@
-enum OptionKeyFilter {
+enum OptionPointFilter {
   isEqualTo,
   isNotEqualTo,
   isLessThan,

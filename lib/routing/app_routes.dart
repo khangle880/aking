@@ -7,6 +7,7 @@ import 'package:aking/views/routes/auth/forgot_password/forgot_password_page.dar
 import 'package:aking/views/routes/auth/reset_password/reset_password_screen.dart';
 import 'package:aking/views/routes/auth/sign_in/sign_in_page.dart';
 import 'package:aking/views/routes/exception/exception_page.dart';
+import 'package:aking/views/routes/home/add_pages/add_task/add_task_page.dart';
 import 'package:aking/views/routes/splash/splash_screen.dart';
 import 'package:aking/views/routes/wrapper/wrapper.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,8 @@ class AppRoutes {
         }
       case Routes.resetPassSuccessRoute:
         return MaterialPageRoute(builder: (_) => SuccessScreen());
+      case Routes.addTaskRoute:
+        return MaterialPageRoute(builder: (_) => AddTaskPage());
       default:
         throw RouteException("Route not found");
     }

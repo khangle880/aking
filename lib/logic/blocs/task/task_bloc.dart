@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:aking/logic/models/task.dart';
-import 'package:aking/logic/models/task_list.dart';
-import 'package:aking/logic/repositories/task/task_repository.dart';
+import 'package:aking/logic/repositories/task_repository.dart';
+import 'package:aking/logic/utils/extensions/extensions.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -40,13 +40,13 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
 
   Stream<TaskState> _mapUpdateTasksToState(List<Task> tasks) async* {
     _allTask = tasks;
-    yield TaskLoaded(TaskList(tasks));
+    await Future.delayed(Duration(milliseconds: 400));
+    yield TaskLoaded(tasks);
   }
 
   Stream<TaskState> _mapFilterByStatusTasksToState(
       OptionTaskStatusFilter optionFilter) async* {
     if (state is TaskLoaded) {
-      // todo: convert List<task> to taskList, add event filter to appBar
       final tasks = TaskList(_allTask).filterByStatus(option: optionFilter);
       yield TaskFiltered(optionFilter, tasks);
     }

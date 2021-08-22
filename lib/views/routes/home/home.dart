@@ -1,11 +1,13 @@
-
+import 'package:aking/global/constants/assets_path.dart';
+import 'package:aking/logic/blocs/authentication/authentication_bloc.dart';
 import 'package:aking/logic/blocs/task/task_bloc.dart';
-import 'package:aking/logic/repositories/task/task_repository.dart';
+import 'package:aking/logic/repositories/task_repository.dart';
 import 'package:aking/logic/utils/modules/color_module.dart';
 import 'package:aking/views/routes/exception/exception_page.dart';
 import 'package:aking/views/routes/home/add_menu.dart';
 import 'package:aking/views/routes/home/bottom_app_bar_navigation.dart';
 import 'package:aking/views/routes/home/work_list/work_list_page.dart';
+import 'package:aking/views/widgets/simple_rive_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -77,17 +79,33 @@ class _HomePageState extends State<HomePage> {
       body: MultiBlocProvider(
         providers: [
           BlocProvider<TaskBloc>(
-              create: (_) => TaskBloc(taskRepository: TaskRepository())),
+              create: (_) => TaskBloc(taskRepository: TaskRepository())
+                ..add(LoadTasks(context.read<AuthenticationBloc>().uid!))),
         ],
-        child: PageView(
-          controller: _pageController,
-          physics: NeverScrollableScrollPhysics(),
-          children: const <Widget>[
-            WorkListPage(),
-            ExceptionPage(),
-            ExceptionPage(),
-            ExceptionPage(),
-          ],
+        child: BlocBuilder<TaskBloc, TaskState>(
+          builder: (context, state) {
+            if (state is TaskLoaded) {
+              return PageView(
+                controller: _pageController,
+                physics: NeverScrollableScrollPhysics(),
+                children: const <Widget>[
+                  WorkListPage(),
+                  ExceptionPage(),
+                  ExceptionPage(),
+                  ExceptionPage(),
+                ],
+              );
+            } else {
+              return Center(
+                child: SimpleRiveWidget(
+                  rivePath: loader1Rive,
+                  simpleAnimation: loader1SimpleAnimation,
+                  width: 90.w,
+                  height: 90.h,
+                ),
+              );
+            }
+          },
         ),
       ),
     );

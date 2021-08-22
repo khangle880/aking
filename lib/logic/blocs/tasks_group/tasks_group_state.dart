@@ -19,48 +19,10 @@ enum OptionFilter {
 }
 
 class TasksGroupedByDate extends TasksGroupState {
-  final TasksGrouped<DateTime> tasksGrouped;
+  final Map<DateTime, List<Task>> groupedTasks;
 
-  const TasksGroupedByDate({required this.tasksGrouped});
+  const TasksGroupedByDate({required this.groupedTasks});
 
   @override
-  List<Object> get props => [tasksGrouped];
+  List<Object> get props => [groupedTasks];
 }
-
-//  Map<DateTime, List<Task>> filterByDate(
-//       {required DateTime datePicked, required OptionFilter option}) {
-//     Map<DateTime, List<Task>> result = {};
-//     switch (option) {
-//       case OptionFilter.isEqualTo:
-//         result = Map.fromEntries(tasksGrouped.entries.where(
-//             (element) => element.key.difference(datePicked).inDays == 0));
-//         break;
-
-//       case OptionFilter.isGreaterThan:
-//         result = Map.fromEntries(tasksGrouped.entries
-//             .where((element) => element.key.difference(datePicked).inDays > 0));
-//         break;
-
-//       case OptionFilter.isGreaterThanOrEqualTo:
-//         result = Map.fromEntries(tasksGrouped.entries.where(
-//             (element) => element.key.difference(datePicked).inDays >= 0));
-//         break;
-
-//       case OptionFilter.isLessThan:
-//         result = Map.fromEntries(tasksGrouped.entries
-//             .where((element) => element.key.difference(datePicked).inDays < 0));
-//         break;
-
-//       case OptionFilter.isLessThanOrEqualTo:
-//         result = Map.fromEntries(tasksGrouped.entries.where(
-//             (element) => element.key.difference(datePicked).inDays <= 0));
-//         break;
-
-//       case OptionFilter.isNotEqualTo:
-//         result = Map.fromEntries(
-//             tasksGrouped.entries.where((element) => element.key != datePicked));
-//         break;
-//       default:
-//     }
-//     return result;
-//   }

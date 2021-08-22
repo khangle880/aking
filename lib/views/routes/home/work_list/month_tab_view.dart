@@ -1,7 +1,7 @@
 import 'package:aking/global/constants/assets_path.dart';
 import 'package:aking/logic/blocs/tasks_group/tasks_group_bloc.dart';
 import 'package:aking/logic/models/task.dart';
-import 'package:aking/logic/provider/calendar_provider.dart';
+import 'package:aking/logic/provider/calendar.dart';
 import 'package:aking/logic/utils/queries/filter.dart';
 import 'package:aking/views/widgets/calendar.dart';
 import 'package:aking/views/widgets/simple_rive_widget.dart';
@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:aking/logic/utils/extensions/extensions.dart';
 
 import 'day_tasks.dart';
 
@@ -65,8 +66,8 @@ class _MonthTabViewState extends State<MonthTabView> {
   }
 
   List<Task> getTasksInDay(TasksGroupedByDate state, DateTime day) {
-    final Map<DateTime, List<Task>> tasksFiltered = state.tasksGrouped
-        .filterByKey(pointSelected: day, option: OptionKeyFilter.isEqualTo);
+    final Map<DateTime, List<Task>> tasksFiltered = state.groupedTasks
+        .filterByKey(pointSelected: day, option: OptionPointFilter.isEqualTo);
     final List<Task> events =
         tasksFiltered.isNotEmpty ? tasksFiltered.values.first : [];
     return events;
