@@ -1,4 +1,5 @@
 import 'package:aking/global/constants/assets_path.dart';
+import 'package:aking/routing/app_routes.dart';
 import 'package:aking/routing/routes.dart';
 import 'package:aking/views/widgets/fade_widget.dart';
 import 'package:aking/views/widgets/simple_rive_widget.dart';
@@ -16,7 +17,8 @@ class SplashContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(milliseconds: 4000), () {
-      Navigator.pushReplacementNamed(context, Routes.wrapperRoute);
+      AppRoutes.appNav.currentState!
+          .pushReplacementNamed(AppRouteNames.wrapperRoute);
     });
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,

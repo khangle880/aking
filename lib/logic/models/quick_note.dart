@@ -1,32 +1,25 @@
+import 'dart:developer';
+
 import 'package:equatable/equatable.dart';
 
-class QuickNote extends Equatable {
-  final String id;
-  final String description;
-  final String hexColor;
+import 'check_list.dart';
+import 'note.dart';
 
-  const QuickNote._({
+abstract class QuickNote extends Equatable {
+  final String id;
+  final String hexColor;
+  final DateTime createdDate;
+  const QuickNote({
     required this.id,
-    required this.description,
     required this.hexColor,
+    required this.createdDate,
   });
 
-  factory QuickNote.fromJson(Map<String, dynamic> json) => QuickNote._(
-        id: json['id'] as String,
-        description: json['description'] as String,
-        hexColor: json['hexColor'] as String,
-      );
-
-  Map<String, dynamic> toJson() {
-    return {
-      'description': description,
-      'hexColor': hexColor,
-    };
+  factory QuickNote.fromJson(Map<String, dynamic> json) {
+    if (json['description'] != null) return Note.fromJson(json);
+    if (json['list'] != null) return CheckList.fromJson(json);
+    return Note.fromJson(json);
   }
 
-  @override
-  List<Object?> get props => [id, description, hexColor];
-
-  @override
- String toString() => '$id $description $hexColor';
+  Map<String, dynamic> toJson();
 }

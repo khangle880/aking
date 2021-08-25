@@ -22,7 +22,7 @@ class UserRepository {
   }
 
   Future<UserCredential> signUp(String email, String password) async {
-    //? login add new user to firestore "users"
+    //? login add new user to firestore "users" and hash
     return _firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,

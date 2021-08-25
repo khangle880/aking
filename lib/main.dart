@@ -57,8 +57,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Todo List",
       theme: theme,
-      initialRoute: Routes.splashRoute,
-      onGenerateRoute: AppRoutes.onGenerateRoute,
+      navigatorKey: AppRoutes.appNav,
+      initialRoute: AppRouteNames.splashRoute,
+      onGenerateRoute: AppRoutes.onGenerateAppRoute,
     );
   }
 }

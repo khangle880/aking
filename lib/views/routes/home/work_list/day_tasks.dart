@@ -1,8 +1,8 @@
 import 'package:aking/logic/models/task.dart';
 import 'package:aking/logic/utils/modules/color_module.dart';
-import 'package:aking/logic/utils/modules/datetime_module.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
+import 'package:aking/logic/utils/extensions/extensions.dart';
 
 import 'task_item/task_item.dart';
 
@@ -30,7 +30,7 @@ class _DayTasksState extends State<DayTasks> {
           width: double.infinity,
           padding: EdgeInsets.only(left: 20.w),
           child: Text(
-            toRelativeFormat(widget.date).toUpperCase(),
+            widget.date.toRelativeFormat('MMM d/yyyy').toUpperCase(),
             style: textTheme.subtitle2!.copyWith(color: hexToColor("#9A9A9A")),
             textAlign: TextAlign.start,
           ),

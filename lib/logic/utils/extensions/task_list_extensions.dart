@@ -1,6 +1,5 @@
 import 'package:aking/logic/models/task.dart';
 import "package:collection/collection.dart";
-import 'package:aking/logic/utils/modules/datetime_module.dart';
 import 'extensions.dart';
 
 enum OptionTaskStatusFilter { none, incomplete, completed }
@@ -28,13 +27,12 @@ extension TaskList on List<Task> {
 
   Map<DateTime, List<Task>> groupAndSortByTime() {
     final groupedList = groupBy(
-        this, (Task obj) => getDateByLocal(obj.dueDate ?? obj.createdDate));
+        this, (Task obj) => (obj.dueDate ?? obj.createdDate).getDateByLocal());
     return groupedList.sortByKey();
   }
 
   Map<String, List<Task>> groupAndSortByProject() {
-    final groupedList = groupBy(
-        this, (Task obj) => obj.projectId);
+    final groupedList = groupBy(this, (Task obj) => obj.projectId);
     return groupedList.sortByKey();
   }
 }

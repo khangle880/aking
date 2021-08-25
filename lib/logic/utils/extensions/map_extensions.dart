@@ -1,5 +1,5 @@
-import 'package:aking/logic/utils/modules/datetime_module.dart';
 import 'package:aking/logic/utils/queries/filter.dart';
+import 'extensions.dart';
 
 extension ExtendedMap<K, V> on Map<K, V> {
   Map<K, V> filterByKey(
@@ -8,7 +8,7 @@ extension ExtendedMap<K, V> on Map<K, V> {
 
     switch (K) {
       case DateTime:
-        final point = getDateByLocal(pointSelected as DateTime);
+        final point = (pointSelected as DateTime).getDateByLocal();
         result = Map.fromEntries(entries.where((element) {
           final keyValue = element.key as DateTime;
           switch (option) {

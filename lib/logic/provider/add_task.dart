@@ -1,46 +1,59 @@
 import 'package:flutter/widgets.dart';
 
+enum FocusingStatus {
+  none,
+  assignee,
+  project,
+}
+
 class AddTaskProvider with ChangeNotifier {
-  String _assigneeId = '';
+  String _assigneeId = 'ihVsTJaYuHaJarrXKYISWqq6CNI2';
   String _projectId = '';
   String _title = '';
   String? _description;
   DateTime? _dueDate;
   List<String>? _members;
+  FocusingStatus _focusingStatus = FocusingStatus.none;
 
   DateTime? get dueDate => _dueDate;
-  set dueDate(DateTime? value) {
+  void changeDueDate(DateTime? value) {
     _dueDate = value;
     notifyListeners();
   }
 
   List<String>? get members => _members;
-  set members(List<String>? value) {
+  void changeMembers(List<String>? value) {
     _members = value;
     notifyListeners();
   }
 
   String? get description => _description;
-  set description(String? value) {
+  void changeDescription(String? value) {
     _description = value;
     notifyListeners();
   }
 
   String get assigneeId => _assigneeId;
-  set assigneeId(String value) {
+  void selectAssignee(String value) {
     _assigneeId = value;
     notifyListeners();
   }
 
   String get projectId => _projectId;
-  set projectId(String value) {
+  void selectProject(String value) {
     _projectId = value;
     notifyListeners();
   }
 
   String get title => _title;
-  set title(String value) {
+  void changeTitle(String value) {
     _title = value;
+    notifyListeners();
+  }
+
+  FocusingStatus get forcusingStatus => _focusingStatus;
+  void changeForcusingStatus(FocusingStatus value) {
+    _focusingStatus = value;
     notifyListeners();
   }
 }

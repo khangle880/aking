@@ -2,6 +2,7 @@ import 'package:aking/logic/blocs/authentication/authentication_bloc.dart';
 import 'package:aking/logic/blocs/login/login_bloc.dart';
 import 'package:aking/logic/utils/modules/color_module.dart';
 import 'package:aking/logic/utils/validator/auth_validators.dart';
+import 'package:aking/routing/app_routes.dart';
 import 'package:aking/routing/routes.dart';
 import 'package:aking/views/utils/modules/auth_module.dart';
 import 'package:aking/views/widgets/normal_text_field.dart';
@@ -119,7 +120,8 @@ class _SignInFormState extends State<SignInForm> {
               children: [
                 TextButton(
                   onPressed: () async {
-                    Navigator.pushNamed(context, Routes.forgotPasswordRoute);
+                    AppRoutes.appNav.currentState!
+                        .pushNamed(AppRouteNames.forgotPasswordRoute);
                   },
                   child: Text(
                     "Forgot password",

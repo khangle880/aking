@@ -398,6 +398,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "rxdart",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/rxdart-0.27.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "simple_gesture_detector",
       "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/simple_gesture_detector-0.2.0",
       "packageUri": "lib/",
@@ -512,7 +518,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-08-13T13:39:36.838119Z",
+  "generated": "2021-08-25T17:19:35.113598Z",
   "generator": "pub",
   "generatorVersion": "2.13.4"
 }

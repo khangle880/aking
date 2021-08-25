@@ -14,7 +14,7 @@ class Task extends Equatable {
   final String projectId;
   final String title;
 
-  const Task._({
+  const Task({
     required this.id,
     required this.title,
     required this.dueDate,
@@ -28,13 +28,13 @@ class Task extends Equatable {
     required this.projectId,
   });
 
-  factory Task.fromJson(Map<String, dynamic> json) => Task._(
+  factory Task.fromJson(Map<String, dynamic> json) => Task(
         id: json['id'] as String,
         dueDate: json['dueDate'] != null
             ? DateTime.fromMillisecondsSinceEpoch(
                 (json['dueDate'] as Timestamp).seconds * 1000)
             : null,
-        createdDate: DateTime.fromMillisecondsSinceEpoch(
+          createdDate: DateTime.fromMillisecondsSinceEpoch(
             (json['createdDate'] as Timestamp).seconds * 1000),
         title: json['title'] as String,
         description: json['description'] as String?,

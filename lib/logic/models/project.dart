@@ -5,13 +5,13 @@ class Project extends Equatable {
   final String name;
   final String hexColor;
 
-  const Project._({
+  const Project({
     required this.id,
     required this.name,
     required this.hexColor,
   });
 
-  factory Project.fromJson(Map<String, dynamic> json) => Project._(
+  factory Project.fromJson(Map<String, dynamic> json) => Project(
         id: json['id'] as String,
         name: json['name'] as String,
         hexColor: json['hexColor'] as String,

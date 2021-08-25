@@ -50,9 +50,7 @@ class _WorkListPageState extends State<WorkListPage>
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return BlocProvider(
-      create: (_) => TasksGroupBloc()
-        ..add(TasksGroupByDate(
-            tasks: (context.read<TaskBloc>().state as TaskLoaded).tasks)),
+      create: (_) => TasksGroupBloc(BlocProvider.of<TaskBloc>(context)),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: hexToColor("#F96060"),

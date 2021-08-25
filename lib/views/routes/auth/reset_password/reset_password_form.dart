@@ -1,6 +1,7 @@
 import 'package:aking/logic/blocs/reset_password/reset_password_bloc.dart';
 import 'package:aking/logic/utils/modules/color_module.dart';
 import 'package:aking/logic/utils/validator/auth_validators.dart';
+import 'package:aking/routing/app_routes.dart';
 import 'package:aking/routing/routes.dart';
 import 'package:aking/views/utils/modules/auth_module.dart';
 import 'package:aking/views/widgets/normal_text_field.dart';
@@ -145,8 +146,9 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
                 );
                 Future.delayed(const Duration(milliseconds: 500), () {
                   // Navigator.of(context).popUntil((route) => route.isFirst);
-                  Navigator.pushNamedAndRemoveUntil(context,
-                      Routes.resetPassSuccessRoute, (route) => route.isFirst);
+                  AppRoutes.appNav.currentState!.pushNamedAndRemoveUntil(
+                      AppRouteNames.resetPassSuccessRoute,
+                      (route) => route.isFirst);
                 });
               }
             },
