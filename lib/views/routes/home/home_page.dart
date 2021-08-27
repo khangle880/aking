@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Container(
-        padding: EdgeInsets.only(top: 25.h),
+        padding: EdgeInsets.only(top: 15.h),
         width: 50.w,
         child: FloatingActionButton(
             onPressed: _showAddMenu,
@@ -62,12 +62,14 @@ class _HomePageState extends State<HomePage> {
               iconData: Icons.event_note_outlined, text: 'Quick'),
           FABBottomAppBarItem(iconData: Icons.person, text: 'Profile'),
         ],
+        notchedShape: CircularNotchedRectangle(),
         centerItemText: '',
-        height: 60.h,
+        height: 70.h,
         iconSize: 22.h,
         backgroundColor: hexToColor("#292E4E"),
         onTabSelected: _onTapped,
         selectedColor: hexToColor("#FFFFFF"),
+        selectedBarColor: hexToColor("#F96060"),
         defaultColor: hexToColor("#8E8E93"),
         textStyle:
             Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 12.sp),
@@ -93,7 +95,7 @@ class _HomePageState extends State<HomePage> {
       builder: (context) {
         return Dialog(
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.r)),
           backgroundColor: Colors.white,
           child: AddMenu(),
         );

@@ -11,6 +11,15 @@ const checkOutlineIcon = "assets/icons/check_outline.svg";
 const checkListIcon = "assets/icons/check_list.svg";
 const personIcon = "assets/icons/person.svg";
 const menuIcon = "assets/icons/window.svg";
+const attachIcon = "assets/icons/attach.svg";
+const calendarIcon = "assets/icons/calendar.svg";
+const communityIcon = "assets/icons/community.svg";
+const imageIcon = "assets/icons/image.svg";
+const noteIcon = "assets/icons/note.svg";
+const seeMoreIcon = "assets/icons/see_more.svg";
+const settingIcon = "assets/icons/setting.svg";
+const tagIcon = "assets/icons/tag.svg";
+
 
 /// Rive
 const splashRive = "assets/rives/splash.riv";

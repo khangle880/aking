@@ -15,6 +15,7 @@ class FABBottomAppBar extends StatefulWidget {
     this.iconSize = 24.0,
     required this.backgroundColor,
     required this.defaultColor,
+    required this.selectedBarColor,
     required this.selectedColor,
     this.notchedShape,
     required this.onTabSelected,
@@ -30,6 +31,7 @@ class FABBottomAppBar extends StatefulWidget {
   final TextStyle textStyle;
   final Color backgroundColor;
   final Color defaultColor;
+  final Color? selectedBarColor;
   final Color selectedColor;
   final ValueChanged<int> onTabSelected;
 
@@ -100,13 +102,20 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
   }) {
     final Color color =
         _selectedIndex == index ? widget.selectedColor : widget.defaultColor;
+    final Color? barColor =
+        _selectedIndex == index ? widget.selectedBarColor : Colors.transparent;
     return Expanded(
       child: SizedBox(
         height: widget.height,
-        child: Material(
-          type: MaterialType.transparency,
-          child: InkWell(
-            onTap: () => onPressed(index),
+        child: InkWell(
+          onTap: () => onPressed(index),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                    color: barColor ?? Colors.transparent, width: 4.0),
+              ),
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,

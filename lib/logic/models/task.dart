@@ -1,8 +1,8 @@
+import 'package:aking/logic/models/firestore_doc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
-class Task extends Equatable {
-  final String id;
+class Task extends FirestoreDoc {
   final String assignedToId;
   final DateTime createdDate;
   final String creatorId;
@@ -15,7 +15,7 @@ class Task extends Equatable {
   final String title;
 
   const Task({
-    required this.id,
+    required String id,
     required this.title,
     required this.dueDate,
     required this.isDone,
@@ -26,7 +26,7 @@ class Task extends Equatable {
     required this.members,
     required this.participants,
     required this.projectId,
-  });
+  }) : super(id);
 
   factory Task.fromJson(Map<String, dynamic> json) => Task(
         id: json['id'] as String,

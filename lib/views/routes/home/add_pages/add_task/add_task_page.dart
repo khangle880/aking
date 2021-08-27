@@ -48,10 +48,11 @@ class _AddTaskPageState extends State<AddTaskPage>
             ],
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(16.w, 6.h, 16.w, 0),
+            padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 0),
             child: Container(
+              height: 700.h,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(9.w),
+                borderRadius: BorderRadius.circular(9.r),
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(

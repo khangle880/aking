@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:aking/views/widgets/simple_rive_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:aking/logic/utils/extensions/extensions.dart';
+import 'package:aking/logic/utils/extensions/logic_extensions.dart';
 
 import 'day_tasks.dart';
 

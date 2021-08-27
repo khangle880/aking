@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:aking/logic/blocs/firestore/firestore_bloc.dart';
 import 'package:aking/logic/models/task.dart';
 import 'package:aking/logic/repositories/firestore/task_repository.dart';
-import 'package:aking/logic/utils/extensions/extensions.dart';
+import 'package:aking/logic/utils/extensions/logic_extensions.dart';
 
 part 'task_event.dart';
 part 'task_state.dart';

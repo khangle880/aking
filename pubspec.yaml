@@ -35,6 +35,8 @@ dependencies:
   measure_size: ^2.0.0
   crypto: ^3.0.1
   rxdart: ^0.27.1
+  syncfusion_flutter_datepicker: ^19.2.57
+  cached_network_image: ^3.1.0
 
 flutter_native_splash:
   color: "#FFFFFF"

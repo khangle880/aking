@@ -73,7 +73,7 @@ class LeadingButton extends StatelessWidget {
           decoration: BoxDecoration(
             border:
                 Border.all(color: itemColorTheme, width: task.isDone ? 0 : 3.w),
-            borderRadius: BorderRadius.circular(100.w),
+            borderRadius: BorderRadius.circular(100.r),
             color: task.isDone ? itemColorTheme : null,
           ),
           child: Icon(

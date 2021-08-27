@@ -27,7 +27,7 @@ class RoundedButton extends StatelessWidget {
               primary: hexToColor("#313131"),
               backgroundColor: backgroundColor,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0))),
+                  borderRadius: BorderRadius.circular(5.r))),
           child: Text(text,
               style: Theme.of(context)
                   .textTheme

@@ -1,20 +1,18 @@
-import 'package:equatable/equatable.dart';
+import 'package:aking/logic/models/firestore_doc.dart';
 
-class PublicUserInfo extends Equatable {
-  final String id;
+class PublicUserInfo extends FirestoreDoc {
   final String email;
   final String name;
   final String avatarLink;
 
-  const PublicUserInfo._({
-    required this.id,
+  const PublicUserInfo({
+    required String id,
     required this.email,
     required this.name,
     required this.avatarLink,
-  });
+  }) : super(id);
 
-  factory PublicUserInfo.fromJson(Map<String, dynamic> json) =>
-      PublicUserInfo._(
+  factory PublicUserInfo.fromJson(Map<String, dynamic> json) => PublicUserInfo(
         id: json['id'] as String,
         email: json['email'] as String,
         name: json['name'] as String,

@@ -4,13 +4,15 @@ import 'package:aking/logic/blocs/task/task_bloc.dart';
 import 'package:aking/logic/models/task.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:aking/logic/utils/extensions/extensions.dart';
+import 'package:aking/logic/utils/extensions/logic_extensions.dart';
 
 part 'tasks_group_event.dart';
 part 'tasks_group_state.dart';
 
 class TasksGroupBloc extends Bloc<TasksGroupEvent, TasksGroupState> {
-  TasksGroupBloc([this.mainBloc]) : super(TasksGroupInitial()) {
+  TasksGroupBloc({this.mainBloc, List<Task>? initValue})
+      : super(TasksGroupInitial()) {
+    if (initValue != null) add(TasksGroupByDate(tasks: initValue));
     if (mainBloc == null) return;
     subscription?.cancel();
     subscription = mainBloc!.stream.listen((state) {

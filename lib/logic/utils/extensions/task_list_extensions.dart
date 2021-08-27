@@ -1,6 +1,6 @@
 import 'package:aking/logic/models/task.dart';
 import "package:collection/collection.dart";
-import 'extensions.dart';
+import 'logic_extensions.dart';
 
 enum OptionTaskStatusFilter { none, incomplete, completed }
 

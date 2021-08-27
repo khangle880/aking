@@ -1,19 +1,19 @@
 import 'dart:developer';
 
+import 'package:aking/logic/models/firestore_doc.dart';
 import 'package:equatable/equatable.dart';
 
 import 'check_list.dart';
 import 'note.dart';
 
-abstract class QuickNote extends Equatable {
-  final String id;
+abstract class QuickNote extends FirestoreDoc {
   final String hexColor;
   final DateTime createdDate;
   const QuickNote({
-    required this.id,
+    required String id,
     required this.hexColor,
     required this.createdDate,
-  });
+  }) : super(id);
 
   factory QuickNote.fromJson(Map<String, dynamic> json) {
     if (json['description'] != null) return Note.fromJson(json);

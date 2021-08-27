@@ -8,7 +8,9 @@ enum FocusingStatus {
 
 class AddTaskProvider with ChangeNotifier {
   String _assigneeId = 'ihVsTJaYuHaJarrXKYISWqq6CNI2';
-  String _projectId = '';
+  String _projectId = '1SNm2QeeT5flSqrwQHln';
+  String _assigneeSearchText = '';
+  String _projectSearchText = '';
   String _title = '';
   String? _description;
   DateTime? _dueDate;
@@ -27,9 +29,27 @@ class AddTaskProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void addMember(String value) {
+    _members ??= [];
+    _members!.add(value);
+    notifyListeners();
+  }
+
   String? get description => _description;
   void changeDescription(String? value) {
     _description = value;
+    notifyListeners();
+  }
+
+  String? get assigneeSearchText => _assigneeSearchText;
+  void changeAssigneeSearchText(String value) {
+    _assigneeSearchText = value;
+    notifyListeners();
+  }
+
+  String? get projectSearchText => _projectSearchText;
+  void changeProjectSearchText(String value) {
+    _projectSearchText = value;
     notifyListeners();
   }
 
@@ -53,6 +73,7 @@ class AddTaskProvider with ChangeNotifier {
 
   FocusingStatus get forcusingStatus => _focusingStatus;
   void changeForcusingStatus(FocusingStatus value) {
+    print(value);
     _focusingStatus = value;
     notifyListeners();
   }

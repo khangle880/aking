@@ -1,5 +1,5 @@
 import 'package:aking/logic/utils/queries/filter.dart';
-import 'extensions.dart';
+import 'logic_extensions.dart';
 
 extension ExtendedMap<K, V> on Map<K, V> {
   Map<K, V> filterByKey(
@@ -14,6 +14,7 @@ extension ExtendedMap<K, V> on Map<K, V> {
           switch (option) {
             case OptionPointFilter.isEqualTo:
               return keyValue.difference(point).inDays == 0;
+
             case OptionPointFilter.isGreaterThan:
               return keyValue.difference(point).inDays > 0;
 
@@ -27,7 +28,7 @@ extension ExtendedMap<K, V> on Map<K, V> {
               return keyValue.difference(point).inDays <= 0;
 
             case OptionPointFilter.isNotEqualTo:
-              return keyValue != point;
+              return keyValue.difference(point).inDays != 0;
           }
         }));
         return result;

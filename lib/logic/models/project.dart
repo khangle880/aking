@@ -1,15 +1,14 @@
-import 'package:equatable/equatable.dart';
+import 'package:aking/logic/models/firestore_doc.dart';
 
-class Project extends Equatable {
-  final String id;
+class Project extends FirestoreDoc {
   final String name;
   final String hexColor;
 
   const Project({
-    required this.id,
+    required String id,
     required this.name,
     required this.hexColor,
-  });
+  }) : super(id);
 
   factory Project.fromJson(Map<String, dynamic> json) => Project(
         id: json['id'] as String,

@@ -2,7 +2,7 @@ import 'package:aking/global/constants/assets_path.dart';
 import 'package:aking/logic/blocs/authentication/authentication_bloc.dart';
 import 'package:aking/logic/blocs/task/task_bloc.dart';
 import 'package:aking/logic/blocs/tasks_group/tasks_group_bloc.dart';
-import 'package:aking/logic/utils/extensions/extensions.dart';
+import 'package:aking/logic/utils/extensions/logic_extensions.dart';
 import 'package:aking/logic/utils/modules/color_module.dart';
 import 'package:aking/views/widgets/popup_menu.dart';
 import 'package:aking/views/widgets/popup_menu_item.dart';
@@ -50,7 +50,9 @@ class _WorkListPageState extends State<WorkListPage>
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return BlocProvider(
-      create: (_) => TasksGroupBloc(BlocProvider.of<TaskBloc>(context)),
+      create: (_) => TasksGroupBloc(
+          mainBloc: BlocProvider.of<TaskBloc>(context),
+          initValue: BlocProvider.of<TaskBloc>(context).allDoc),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: hexToColor("#F96060"),
@@ -95,7 +97,7 @@ class _WorkListPageState extends State<WorkListPage>
                 animateMenuItems: false,
                 menuBoxDecoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                    borderRadius: BorderRadius.all(Radius.circular(15.r))),
                 duration: Duration(milliseconds: 100),
                 blurSize: 0.0,
                 blurBackgroundColor: hexToColor("#000000").withOpacity(0.4),

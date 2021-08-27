@@ -173,7 +173,7 @@ class _BodyState extends State<WalkthroughBody> {
           color: index == _currentPage
               ? hexToColor(_walkthroughData[_currentPage].waveColor)
               : const Color(0xFFD8D8D8),
-          borderRadius: BorderRadius.circular(3),
+          borderRadius: BorderRadius.circular(3.r),
         ));
   }
 }
