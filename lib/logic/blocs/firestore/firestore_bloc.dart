@@ -10,9 +10,9 @@ part 'firestore_event.dart';
 part 'firestore_state.dart';
 
 class FirestoreBloc<T> extends Bloc<FirestoreEvent<T>, FirestoreState<T>> {
-  FirestoreBloc(this._firestoreRepository) : super(FirestoreInitial<T>());
+  FirestoreBloc(this.firestoreRepository) : super(FirestoreInitial<T>());
 
-  final FirestoreRepository<T> _firestoreRepository;
+  final FirestoreRepository<T> firestoreRepository;
   List<T> _allDoc = [];
   StreamSubscription? _subscription;
 
@@ -29,7 +29,7 @@ class FirestoreBloc<T> extends Bloc<FirestoreEvent<T>, FirestoreState<T>> {
     } else if (event is FindFirestoreByText<T>) {
       yield* _mapFindFirestoreByTextToState(event.findKey);
     } else {
-      mapMoreEventToState(event);
+      yield* mapMoreEventToState(event);
     }
   }
 
@@ -37,8 +37,9 @@ class FirestoreBloc<T> extends Bloc<FirestoreEvent<T>, FirestoreState<T>> {
 
   Stream<FirestoreState<T>> _mapLoadFirestoreToState(String uid) async* {
     yield FirestoreLoading();
+    await Future.delayed(Duration(seconds: 1));
     _subscription?.cancel();
-    _subscription = _firestoreRepository
+    _subscription = firestoreRepository
         .getAllDoc(uid)
         .listen((docs) => add(UpdateFirestore<T>(docs)));
   }
@@ -58,5 +59,11 @@ class FirestoreBloc<T> extends Bloc<FirestoreEvent<T>, FirestoreState<T>> {
       final docs = _allDoc.findByText(findKey: findKey);
       yield FirestoreFinded<T>(docs);
     }
+  }
+
+  @override
+  Future<void> close() {
+    _subscription?.cancel();
+    return super.close();
   }
 }

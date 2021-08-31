@@ -3,13 +3,13 @@ import 'package:aking/logic/utils/modules/color_module.dart';
 import 'package:aking/logic/utils/validator/auth_validators.dart';
 import 'package:aking/routing/app_routes.dart';
 import 'package:aking/routing/routes.dart';
-import 'package:aking/views/utils/modules/auth_module.dart';
 import 'package:aking/views/widgets/normal_text_field.dart';
 import 'package:aking/views/widgets/obscure_text_field.dart';
 import 'package:aking/views/widgets/rounded_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:aking/views/utils/extensions/view_extensions.dart';
 
 class ResetPasswordForm extends StatefulWidget {
   const ResetPasswordForm({Key? key}) : super(key: key);
@@ -126,24 +126,30 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
           BlocListener<ResetPasswordBloc, ResetPasswordState>(
             listener: (context, state) {
               if (state is ResetPasswordFailure) {
-                showFailureSnackBar(
-                  context,
-                  state.errorMessage,
-                );
+                ScaffoldMessenger.of(context)
+                  ..removeCurrentSnackBar()
+                  ..showSnackBar(ExpandedSnackBar.failureSnackBar(
+                    context,
+                    state.errorMessage,
+                  ));
               }
 
               if (state is ResetPasswordLoading) {
-                showLoadingSnackBar(
-                  context,
-                  'Resetting...',
-                );
+                ScaffoldMessenger.of(context)
+                  ..removeCurrentSnackBar()
+                  ..showSnackBar(ExpandedSnackBar.loadingSnackBar(
+                    context,
+                    'Resetting...',
+                  ));
               }
 
               if (state is ResetPasswordSuccess) {
-                showSuccessSnackBar(
-                  context,
-                  'Reset Password Success',
-                );
+                ScaffoldMessenger.of(context)
+                  ..removeCurrentSnackBar()
+                  ..showSnackBar(ExpandedSnackBar.successSnackBar(
+                    context,
+                    'Reset Password Success',
+                  ));
                 Future.delayed(const Duration(milliseconds: 500), () {
                   // Navigator.of(context).popUntil((route) => route.isFirst);
                   AppRoutes.appNav.currentState!.pushNamedAndRemoveUntil(

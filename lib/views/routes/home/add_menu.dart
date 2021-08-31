@@ -22,9 +22,9 @@ class _AddMenuState extends State<AddMenu> {
           AddMenuItem(
             text: 'Add Task',
             onPressed: () async {
-              await Future.delayed(Duration(milliseconds: 250));
+              await Future.delayed(Duration(milliseconds: 150));
+              if (!mounted) return;
               Navigator.pop(context);
-              await Future.delayed(Duration(milliseconds: 100));
               AppRoutes.mainNav.currentState!
                   .pushNamed(MainRouteNames.addTaskRoute);
             },

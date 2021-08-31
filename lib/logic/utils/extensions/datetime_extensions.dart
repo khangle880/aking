@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 extension ExpandedDateTime on DateTime {
@@ -28,7 +29,7 @@ extension ExpandedDateTime on DateTime {
     final yesterday = DateTime(now.year, now.month, now.day - 1);
     final tomorrow = DateTime(now.year, now.month, now.day + 1);
 
-    final aDate = getDateByLocal();
+    final aDate = getOnlyDate();
     if (aDate == today) {
       return "Today";
     } else if (aDate == yesterday) {
@@ -40,7 +41,19 @@ extension ExpandedDateTime on DateTime {
     }
   }
 
-  DateTime getDateByLocal() {
+  DateTime getOnlyDate() {
     return DateTime(year, month, day);
+  }
+
+  DateTime addTimeOfDate(TimeOfDay timeOfDay) {
+    return DateTime(year, month, day, timeOfDay.hour, timeOfDay.minute);
+  }
+
+  bool isSameDate(DateTime other) {
+    return differenceOnlyDate(other) == 0;
+  }
+
+  int differenceOnlyDate(DateTime other) {
+    return getOnlyDate().difference(other.getOnlyDate()).inDays;
   }
 }

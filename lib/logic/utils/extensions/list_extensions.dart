@@ -10,6 +10,10 @@ extension ExtendedList<T> on List<T> {
         .toList();
     return result;
   }
+
+  List<T> difference(List<T> other) {
+    return where((element) => !other.contains(element)).toList();
+  }
 }
 
 extension FirestoreDocList on List<FirestoreDoc> {

@@ -32,3 +32,5 @@ class FindFirestoreByText<T> extends FirestoreEvent<T> {
   @override
   List<Object> get props => [findKey];
 }
+
+

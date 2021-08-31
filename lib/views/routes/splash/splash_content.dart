@@ -16,7 +16,7 @@ class SplashContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(milliseconds: 4000), () {
+    Future.delayed(const Duration(milliseconds: 5000), () {
       AppRoutes.appNav.currentState!
           .pushReplacementNamed(AppRouteNames.wrapperRoute);
     });

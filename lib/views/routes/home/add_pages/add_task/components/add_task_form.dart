@@ -1,5 +1,6 @@
-import 'package:aking/logic/provider/add_task.dart';
+import 'package:aking/logic/blocs/task/add_task/add_task_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -17,29 +18,36 @@ class _AddTaskFormState extends State<AddTaskForm> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return Consumer<AddTaskProvider>(
-      builder: (context, value, child) => Column(
-        children: <Widget>[
-          SizedBox(height: 30.h),
-          SearchTextFieldRow(),
-          SizedBox(height: 24.h),
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 1000),
-            transitionBuilder: (Widget child, Animation<double> animation) {
-              return SizeTransition(
-                  sizeFactor: animation, axisAlignment: 3, child: child);
-            },
-            child: () {
-              if (value.forcusingStatus == FocusingStatus.assignee) {
-                return AssigneeSuggest();
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => context
+          .read<AddTaskBloc>()
+          .add(FocusingStatusOnChange(focusingStatus: FocusingStatus.none)),
+      child: BlocBuilder<AddTaskBloc, AddTaskState>(
+        builder: (context, state) => Column(
+          children: <Widget>[
+            SizedBox(height: 30.h),
+            SearchTextFieldRow(),
+            SizedBox(height: 24.h),
+            // AnimatedSwitcher(
+            //   duration: const Duration(milliseconds: 950),
+            //   transitionBuilder: (Widget child, Animation<double> animation) {
+            //     return SizeTransition(
+            //         sizeFactor: animation, axisAlignment: 3, child: child);
+            //   },
+            //   child:
+            () {
+              if (state.focusingStatus == FocusingStatus.assignee) {
+                return const AssigneeSuggest();
               }
-              if (value.forcusingStatus == FocusingStatus.project) {
-                return ProjectSuggest();
+              if (state.focusingStatus == FocusingStatus.project) {
+                return const ProjectSuggest();
               }
-              return DetailForm();
+              return const DetailForm();
             }(),
-          ),
-        ],
+            // ),
+          ],
+        ),
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'package:aking/views/routes/exception/exception_page.dart';
 import 'package:aking/views/routes/home/add_menu.dart';
 import 'package:aking/views/routes/home/bottom_app_bar_navigation.dart';
 import 'package:aking/views/routes/home/work_list/work_list_page.dart';
+import 'package:aking/views/utils/extensions/snack_bar.dart';
 import 'package:aking/views/widgets/simple_rive_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,6 +49,7 @@ class _HomePageState extends State<HomePage> {
         padding: EdgeInsets.only(top: 15.h),
         width: 50.w,
         child: FloatingActionButton(
+            heroTag: "Add Button",
             onPressed: _showAddMenu,
             elevation: 4.0,
             backgroundColor: hexToColor("#F96060"),

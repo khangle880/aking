@@ -27,7 +27,7 @@ extension TaskList on List<Task> {
 
   Map<DateTime, List<Task>> groupAndSortByTime() {
     final groupedList = groupBy(
-        this, (Task obj) => (obj.dueDate ?? obj.createdDate).getDateByLocal());
+        this, (Task obj) => (obj.dueDate ?? obj.createdDate).getOnlyDate());
     return groupedList.sortByKey();
   }
 

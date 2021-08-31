@@ -1,7 +1,8 @@
-import 'package:aking/logic/provider/add_task.dart';
+import 'package:aking/logic/blocs/task/add_task/add_task_bloc.dart';
 import 'package:aking/logic/utils/modules/color_module.dart';
 import 'package:aking/views/widgets/rounded_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -17,7 +18,6 @@ class DueDatePicker extends StatefulWidget {
 
 class _DueDatePickerState extends State<DueDatePicker>
     with SingleTickerProviderStateMixin {
-
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -32,7 +32,7 @@ class _DueDatePickerState extends State<DueDatePicker>
           SizedBox(width: 8.w),
           AnimatedSize(
             vsync: this,
-            duration: Duration(milliseconds: 1500),
+            duration: Duration(milliseconds: 800),
             curve: Curves.easeIn,
             child: Container(
               height: 32.h,
@@ -41,14 +41,14 @@ class _DueDatePickerState extends State<DueDatePicker>
                 borderRadius: BorderRadius.circular(5.r),
                 color: hexToColor("#6074F9"),
               ),
-              child: Consumer<AddTaskProvider>(
-                builder: (context, value, child) => Center(
+              child: BlocBuilder<AddTaskBloc, AddTaskState>(
+                builder: (context, state) => Center(
                   child: InkWell(
                     onTap: () => _showDatePicker(context),
                     child: Text(
-                      value.dueDate == null
+                      state.dueDate == null
                           ? "Any Time"
-                          : value.dueDate!.formatOrAroundToday("dd/MM/yyyy"),
+                          : state.dueDate!.formatOrAroundToday("dd/MM/yyyy"),
                       style: textTheme.bodyText1!.copyWith(
                           fontSize: 14.sp, color: hexToColor("#FFFFFF")),
                     ),
@@ -63,28 +63,29 @@ class _DueDatePickerState extends State<DueDatePicker>
   }
 
   void _showDatePicker(BuildContext context) {
+    DateTime? datePicked;
+    TimeOfDay? timePicked;
+
     showDialog(
       context: context,
       builder: (popContext) {
         final textTheme = Theme.of(context).textTheme;
         final datePickerStyle =
             textTheme.bodyText1!.copyWith(fontSize: 13.5.sp);
-
         return Dialog(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.r)),
           child: SizedBox(
-              height: 420.h,
+              height: 450.h,
               width: 345.w,
               child: Column(
                 children: <Widget>[
                   SizedBox(height: 20.h),
                   SfDateRangePicker(
-                    onSelectionChanged: (datePicked) => context
-                        .read<AddTaskProvider>()
-                        .changeDueDate(datePicked.value as DateTime),
+                    onSelectionChanged: (dateSelected) =>
+                        datePicked = dateSelected.value as DateTime,
                     initialSelectedDate:
-                        context.watch<AddTaskProvider>().dueDate,
+                        context.watch<AddTaskBloc>().state.dueDate,
                     selectionColor: hexToColor('#6074F9'),
                     headerHeight: 50.h,
                     headerStyle: DateRangePickerHeaderStyle(
@@ -123,6 +124,35 @@ class _DueDatePickerState extends State<DueDatePicker>
               )),
         );
       },
-    );
+    ).then(
+      (value) async {
+        timePicked = await showTimePicker(
+          context: context,
+          initialTime: TimeOfDay.now(),
+          builder: (timePickerContext, child) {
+            return Theme(
+              data: Theme.of(context).copyWith(
+                timePickerTheme: TimePickerThemeData(
+                  helpTextStyle: Theme.of(context).textTheme.subtitle2,
+                ),
+                textTheme:
+                    TextTheme(button: Theme.of(context).textTheme.subtitle1),
+                splashColor: Colors.black,
+                accentColor: Colors.black,
+                colorScheme: ColorScheme.light(
+                  primary: Colors.pinkAccent,
+                ),
+                dialogBackgroundColor: Colors.white,
+              ),
+              child: child ?? Text(""),
+            );
+          },
+        );
+      },
+    ).then((value) {
+      context
+          .read<AddTaskBloc>()
+          .add(DueDateOnChange(dueDate: datePicked, timeOfDay: timePicked));
+    });
   }
 }

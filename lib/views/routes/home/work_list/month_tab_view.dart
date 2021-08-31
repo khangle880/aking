@@ -1,5 +1,5 @@
 import 'package:aking/global/constants/assets_path.dart';
-import 'package:aking/logic/blocs/tasks_group/tasks_group_bloc.dart';
+import 'package:aking/logic/blocs/task/tasks_group/tasks_group_bloc.dart';
 import 'package:aking/logic/models/task.dart';
 import 'package:aking/logic/provider/calendar.dart';
 import 'package:aking/logic/utils/queries/filter.dart';

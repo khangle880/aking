@@ -21,7 +21,7 @@ class SearchTextFieldRow extends StatelessWidget {
         ),
         SizedBox(width: 8.w),
         AssigneeTextField(),
-        SizedBox(width: 52.w),
+        SizedBox(width: 12.w),
         Text(
           'In',
           style: titleStyle,

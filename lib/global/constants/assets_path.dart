@@ -20,7 +20,6 @@ const seeMoreIcon = "assets/icons/see_more.svg";
 const settingIcon = "assets/icons/setting.svg";
 const tagIcon = "assets/icons/tag.svg";
 
-
 /// Rive
 const splashRive = "assets/rives/splash.riv";
 const splashSimpleAnimation = "Animation 1";
@@ -28,3 +27,5 @@ const loader1Rive = "assets/rives/loader1.riv";
 const loader1SimpleAnimation = "Animation 1";
 const loader2Rive = "assets/rives/loader2.riv";
 const loader2SimpleAnimation = "infinite 2";
+const loadingCatRive = "assets/rives/octocat.riv";
+const loadingCatSimpleAnimation = "Animation 1";

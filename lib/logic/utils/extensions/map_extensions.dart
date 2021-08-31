@@ -8,27 +8,27 @@ extension ExtendedMap<K, V> on Map<K, V> {
 
     switch (K) {
       case DateTime:
-        final point = (pointSelected as DateTime).getDateByLocal();
+        final point = (pointSelected as DateTime).getOnlyDate();
         result = Map.fromEntries(entries.where((element) {
           final keyValue = element.key as DateTime;
           switch (option) {
             case OptionPointFilter.isEqualTo:
-              return keyValue.difference(point).inDays == 0;
+              return keyValue.differenceOnlyDate(point) == 0;
 
             case OptionPointFilter.isGreaterThan:
-              return keyValue.difference(point).inDays > 0;
+              return keyValue.differenceOnlyDate(point) > 0;
 
             case OptionPointFilter.isGreaterThanOrEqualTo:
-              return keyValue.difference(point).inDays >= 0;
+              return keyValue.differenceOnlyDate(point) >= 0;
 
             case OptionPointFilter.isLessThan:
-              return keyValue.difference(point).inDays < 0;
+              return keyValue.differenceOnlyDate(point) < 0;
 
             case OptionPointFilter.isLessThanOrEqualTo:
-              return keyValue.difference(point).inDays <= 0;
+              return keyValue.differenceOnlyDate(point) <= 0;
 
             case OptionPointFilter.isNotEqualTo:
-              return keyValue.difference(point).inDays != 0;
+              return keyValue.differenceOnlyDate(point) != 0;
           }
         }));
         return result;

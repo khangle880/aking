@@ -1,10 +1,11 @@
+import 'package:aking/logic/blocs/task/add_task/add_task_bloc.dart';
 import 'package:aking/logic/blocs/firestore/firestore_bloc.dart';
 import 'package:aking/logic/models/project.dart';
-import 'package:aking/logic/provider/add_task.dart';
 import 'package:aking/logic/utils/extensions/list_extensions.dart';
 import 'package:aking/logic/utils/modules/color_module.dart';
 import 'package:aking/views/utils/extensions/view_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -18,15 +19,14 @@ class ProjectTextField extends StatefulWidget {
 }
 
 class _ProjectTextFieldState extends State<ProjectTextField> {
-  FocusNode focusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
-    return Consumer<AddTaskProvider>(
-      builder: (context, value, child) {
+    return BlocBuilder<AddTaskBloc, AddTaskState>(
+      builder: (context, state) {
         final projectInfo = context
-            .read<FirestoreBloc<Project>>()
+            .watch<FirestoreBloc<Project>>()
             .allDoc
-            .findById(value.projectId) as Project?;
+            .findById(state.projectId) as Project?;
         final inputStyle =
             Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 14.sp);
         return Container(
@@ -36,25 +36,26 @@ class _ProjectTextFieldState extends State<ProjectTextField> {
             color: hexToColor("#F4F4F4"),
             borderRadius: BorderRadius.circular(50.r),
           ),
-          child: value.forcusingStatus == FocusingStatus.project
+          child: state.focusingStatus == FocusingStatus.project
               ? Padding(
                   padding: EdgeInsets.symmetric(horizontal: 12.w),
                   child: Center(
                     child: TextField(
                       style: inputStyle,
                       autofocus: true,
-                      focusNode: focusNode,
                       decoration: InputDecoration().toNoneBorder(),
+                      onChanged: (val) {
+                        context.read<AddTaskBloc>().add(
+                            ProjectSearchStringOnChange(
+                                projectSearchString: val));
+                      },
                     ),
                   ),
                 )
               : InkWell(
                   onTap: () async {
-                    context
-                        .read<AddTaskProvider>()
-                        .changeForcusingStatus(FocusingStatus.project);
-                    Future.delayed(Duration(milliseconds: 100),
-                        () => FocusScope.of(context).requestFocus(focusNode));
+                    context.read<AddTaskBloc>().add(FocusingStatusOnChange(
+                        focusingStatus: FocusingStatus.project));
                   },
                   child: Center(
                       child: Text(

@@ -13,6 +13,7 @@ class Task extends FirestoreDoc {
   final List<String> participants;
   final String projectId;
   final String title;
+  final bool status;
 
   const Task({
     required String id,
@@ -26,6 +27,7 @@ class Task extends FirestoreDoc {
     required this.members,
     required this.participants,
     required this.projectId,
+    required this.status,
   }) : super(id);
 
   factory Task.fromJson(Map<String, dynamic> json) => Task(
@@ -34,7 +36,7 @@ class Task extends FirestoreDoc {
             ? DateTime.fromMillisecondsSinceEpoch(
                 (json['dueDate'] as Timestamp).seconds * 1000)
             : null,
-          createdDate: DateTime.fromMillisecondsSinceEpoch(
+        createdDate: DateTime.fromMillisecondsSinceEpoch(
             (json['createdDate'] as Timestamp).seconds * 1000),
         title: json['title'] as String,
         description: json['description'] as String?,
@@ -45,19 +47,22 @@ class Task extends FirestoreDoc {
         participants: List.from(json['participants'] as List),
         isDone: json['isDone'] as bool,
         creatorId: json['creatorId'] as String,
+        status: json['status'] as bool,
       );
 
   Map<String, dynamic> toJson() {
     return {
-      'dueDate': dueDate != null ? Timestamp.fromDate(dueDate!) : null,
       'createdDate': Timestamp.fromDate(createdDate),
       'title': title,
+      'creatorId': creatorId,
       'assignedToId': assignedToId,
-      'description': description,
       'projectId': projectId,
-      'members': members,
-      'participants': participants,
       'isDone': isDone,
+      'participants': participants,
+      'status': status,
+      if (dueDate != null) 'dueDate': Timestamp.fromDate(dueDate!),
+      if (description != null) 'description': description,
+      if (members != null) 'members': members,
     };
   }
 

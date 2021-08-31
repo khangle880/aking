@@ -1,7 +1,7 @@
 import 'package:aking/logic/utils/modules/color_module.dart';
 import 'package:aking/routing/app_routes.dart';
 import 'package:aking/routing/routes.dart';
-import 'package:aking/views/utils/modules/auth_module.dart';
+import 'package:aking/views/utils/extensions/view_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:aking/logic/blocs/reset_password/reset_password_bloc.dart';
@@ -78,24 +78,30 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
           BlocListener<ResetPasswordBloc, ResetPasswordState>(
             listener: (context, state) {
               if (state is ResetPasswordLoading) {
-                showLoadingSnackBar(
-                  context,
-                  "Sending otp...",
-                );
+                ScaffoldMessenger.of(context)
+                  ..removeCurrentSnackBar()
+                  ..showSnackBar(ExpandedSnackBar.loadingSnackBar(
+                    context,
+                    "Sending otp...",
+                  ));
               }
 
               if (state is ResetPasswordRequestFailure) {
-                showFailureSnackBar(
-                  context,
-                  "OTP was not sent failure",
-                );
+                ScaffoldMessenger.of(context)
+                  ..removeCurrentSnackBar()
+                  ..showSnackBar(ExpandedSnackBar.failureSnackBar(
+                    context,
+                    "OTP was not sent failure",
+                  ));
               }
 
               if (state is ResetPasswordRequestSuccess) {
-                showSuccessSnackBar(
-                  context,
-                  "OTP sent successfully !",
-                );
+                ScaffoldMessenger.of(context)
+                  ..removeCurrentSnackBar()
+                  ..showSnackBar(ExpandedSnackBar.successSnackBar(
+                    context,
+                    "OTP sent successfully !",
+                  ));
                 Future.delayed(const Duration(milliseconds: 2000), () {
                   AppRoutes.appNav.currentState!.pushNamed(
                     AppRouteNames.resetPasswordRoute,

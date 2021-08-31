@@ -18,6 +18,8 @@ class CustomPopupMenuButton extends StatefulWidget {
   final double bottomOffsetHeight;
   final double menuOffset;
   final bool openWithTap;
+  final BuildContext? parentContext;
+  final bool useRootNavigator;
 
   const CustomPopupMenuButton({
     Key? key,
@@ -36,6 +38,8 @@ class CustomPopupMenuButton extends StatefulWidget {
     this.openWithTap = false,
     this.offset,
     this.enableChildInPopup = true,
+    this.useRootNavigator = true,
+    this.parentContext,
   }) : super(key: key);
 
   @override
@@ -79,9 +83,9 @@ class _CustomPopupMenuButtonState extends State<CustomPopupMenuButton> {
 
   Future openMenu(BuildContext context) async {
     getOffset();
-    await Navigator.push(
-        context,
-        PageRouteBuilder(
+    await Navigator.of(widget.parentContext ?? context,
+            rootNavigator: widget.useRootNavigator)
+        .push(PageRouteBuilder(
             transitionDuration: widget.duration,
             pageBuilder: (context, animation, secondaryAnimation) {
               animation = Tween(begin: 0.0, end: 1.0).animate(animation);
@@ -100,6 +104,8 @@ class _CustomPopupMenuButtonState extends State<CustomPopupMenuButton> {
                     bottomOffsetHeight: widget.bottomOffsetHeight,
                     menuOffset: widget.menuOffset,
                     enableChildInPopup: widget.enableChildInPopup,
+                    parentContext: widget.parentContext,
+                    useRootNavigator: widget.useRootNavigator,
                     child: widget.child,
                   ));
             },
@@ -121,24 +127,28 @@ class MenuDetails extends StatelessWidget {
   final Color blurBackgroundColor;
   final double bottomOffsetHeight;
   final double menuOffset;
+  final BuildContext? parentContext;
+  final bool useRootNavigator;
   final bool enableChildInPopup;
 
-  const MenuDetails(
-      {Key? key,
-      required this.menuItems,
-      required this.child,
-      required this.childOffset,
-      required this.childSize,
-      required this.menuBoxDecoration,
-      required this.menuWidth,
-      this.itemExtent = 50.0,
-      this.animateMenu = true,
-      this.blurSize = 4,
-      this.blurBackgroundColor = Colors.black,
-      this.bottomOffsetHeight = 0,
-      this.menuOffset = 0,
-      this.enableChildInPopup = true})
-      : super(key: key);
+  const MenuDetails({
+    Key? key,
+    required this.menuItems,
+    required this.child,
+    required this.childOffset,
+    required this.childSize,
+    required this.menuBoxDecoration,
+    required this.menuWidth,
+    this.itemExtent = 50.0,
+    this.animateMenu = true,
+    this.blurSize = 4,
+    this.blurBackgroundColor = Colors.black,
+    this.bottomOffsetHeight = 0,
+    this.menuOffset = 0,
+    this.useRootNavigator = true,
+    this.enableChildInPopup = true,
+    this.parentContext,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +173,9 @@ class MenuDetails extends StatelessWidget {
         children: <Widget>[
           GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              Navigator.of(parentContext ?? context,
+                      rootNavigator: useRootNavigator)
+                  .pop();
             },
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: blurSize, sigmaY: blurSize),
@@ -208,7 +220,9 @@ class MenuDetails extends StatelessWidget {
                       final CustomPopupMenuItem item = menuItems[index];
                       final Widget listItem = GestureDetector(
                           onTap: () {
-                            Navigator.pop(context);
+                            Navigator.of(parentContext ?? context,
+                                    rootNavigator: useRootNavigator)
+                                .pop();
                             item.onPressed();
                           },
                           child: Container(

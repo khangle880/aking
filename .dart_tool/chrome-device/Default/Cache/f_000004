@@ -1,0 +1,337 @@
+define(['dart_sdk', 'packages/aking/logic/repositories/user_repository.dart', 'packages/flutter_screenutil/flutter_screenutil.dart', 'packages/flutter_bloc/src/multi_bloc_provider.dart', 'packages/flutter_bloc/src/bloc_provider.dart', 'packages/aking/global/theme/bloc/theme_bloc.dart', 'packages/flutter/src/widgets/widget_span.dart', 'packages/aking/logic/blocs/authentication/authentication_bloc.dart', 'packages/flutter_bloc/src/multi_bloc_listener.dart', 'packages/flutter/src/material/icon_button.dart', 'packages/flutter/src/material/app.dart', 'packages/aking/views/routes/walkthrough/components/walkthrough_body.dart', 'packages/flutter/src/services/system_chrome.dart', 'packages/hydrated_bloc/src/hydrated_storage.dart', 'packages/path_provider/path_provider.dart', 'packages/hydrated_bloc/src/hydrated_bloc.dart', 'packages/firebase_core/firebase_core.dart', 'packages/aking/logic/blocs/simple_bloc_observer.dart', 'packages/bloc/src/bloc_observer.dart', 'packages/flutter_dotenv/src/dotenv.dart'], (function load__packages__aking__main_dart(dart_sdk, packages__aking__logic__repositories__user_repository$46dart, packages__flutter_screenutil__flutter_screenutil$46dart, packages__flutter_bloc__src__multi_bloc_provider$46dart, packages__flutter_bloc__src__bloc_provider$46dart, packages__aking__global__theme__bloc__theme_bloc$46dart, packages__flutter__src__widgets__widget_span$46dart, packages__aking__logic__blocs__authentication__authentication_bloc$46dart, packages__flutter_bloc__src__multi_bloc_listener$46dart, packages__flutter__src__material__icon_button$46dart, packages__flutter__src__material__app$46dart, packages__aking__views__routes__walkthrough__components__walkthrough_body$46dart, packages__flutter__src__services__system_chrome$46dart, packages__hydrated_bloc__src__hydrated_storage$46dart, packages__path_provider__path_provider$46dart, packages__hydrated_bloc__src__hydrated_bloc$46dart, packages__firebase_core__firebase_core$46dart, packages__aking__logic__blocs__simple_bloc_observer$46dart, packages__bloc__src__bloc_observer$46dart, packages__flutter_dotenv__src__dotenv$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const ui = dart_sdk.ui;
+  const _interceptors = dart_sdk._interceptors;
+  const async = dart_sdk.async;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const user_repository = packages__aking__logic__repositories__user_repository$46dart.logic__repositories__user_repository;
+  const flutter_screenutil = packages__flutter_screenutil__flutter_screenutil$46dart.flutter_screenutil;
+  const multi_bloc_provider = packages__flutter_bloc__src__multi_bloc_provider$46dart.src__multi_bloc_provider;
+  const bloc_provider = packages__flutter_bloc__src__bloc_provider$46dart.src__bloc_provider;
+  const theme_bloc = packages__aking__global__theme__bloc__theme_bloc$46dart.global__theme__bloc__theme_bloc;
+  const framework = packages__flutter__src__widgets__widget_span$46dart.src__widgets__framework;
+  const widget_inspector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__widget_inspector;
+  const navigator = packages__flutter__src__widgets__widget_span$46dart.src__widgets__navigator;
+  const binding = packages__flutter__src__widgets__widget_span$46dart.src__widgets__binding;
+  const authentication_bloc = packages__aking__logic__blocs__authentication__authentication_bloc$46dart.logic__blocs__authentication__authentication_bloc;
+  const bloc_builder = packages__flutter_bloc__src__multi_bloc_listener$46dart.src__bloc_builder;
+  const theme_data = packages__flutter__src__material__icon_button$46dart.src__material__theme_data;
+  const app = packages__flutter__src__material__app$46dart.src__material__app;
+  const app_routes = packages__aking__views__routes__walkthrough__components__walkthrough_body$46dart.routing__app_routes;
+  const system_chrome = packages__flutter__src__services__system_chrome$46dart.src__services__system_chrome;
+  const hydrated_storage = packages__hydrated_bloc__src__hydrated_storage$46dart.src__hydrated_storage;
+  const path_provider = packages__path_provider__path_provider$46dart.path_provider;
+  const hydrated_bloc = packages__hydrated_bloc__src__hydrated_bloc$46dart.src__hydrated_bloc;
+  const firebase_core = packages__firebase_core__firebase_core$46dart.firebase_core;
+  const simple_bloc_observer = packages__aking__logic__blocs__simple_bloc_observer$46dart.logic__blocs__simple_bloc_observer;
+  const bloc = packages__bloc__src__bloc_observer$46dart.src__bloc;
+  const dotenv = packages__flutter_dotenv__src__dotenv$46dart.src__dotenv;
+  var main = Object.create(dart.library);
+  dart._checkModuleNullSafetyMode(true);
+  var T = {
+    BlocProviderOfThemeBloc: () => (T.BlocProviderOfThemeBloc = dart.constFn(bloc_provider.BlocProvider$(theme_bloc.ThemeBloc)))(),
+    BuildContextToThemeBloc: () => (T.BuildContextToThemeBloc = dart.constFn(dart.fnType(theme_bloc.ThemeBloc, [framework.BuildContext])))(),
+    BlocProviderOfAuthenticationBloc: () => (T.BlocProviderOfAuthenticationBloc = dart.constFn(bloc_provider.BlocProvider$(authentication_bloc.AuthenticationBloc)))(),
+    BuildContextToAuthenticationBloc: () => (T.BuildContextToAuthenticationBloc = dart.constFn(dart.fnType(authentication_bloc.AuthenticationBloc, [framework.BuildContext])))(),
+    JSArrayOfBlocProviderSingleChildWidget: () => (T.JSArrayOfBlocProviderSingleChildWidget = dart.constFn(_interceptors.JSArray$(bloc_provider.BlocProviderSingleChildWidget)))(),
+    BlocBuilderOfThemeBloc$ThemeData: () => (T.BlocBuilderOfThemeBloc$ThemeData = dart.constFn(bloc_builder.BlocBuilder$(theme_bloc.ThemeBloc, theme_data.ThemeData)))(),
+    BuildContextAndThemeDataToMaterialApp: () => (T.BuildContextAndThemeDataToMaterialApp = dart.constFn(dart.fnType(app.MaterialApp, [framework.BuildContext, theme_data.ThemeData])))(),
+    VoidToMultiBlocProvider: () => (T.VoidToMultiBlocProvider = dart.constFn(dart.fnType(multi_bloc_provider.MultiBlocProvider, [])))(),
+    RouteSettingsToRoute: () => (T.RouteSettingsToRoute = dart.constFn(dart.fnType(navigator.Route, [navigator.RouteSettings])))(),
+    JSArrayOfDeviceOrientation: () => (T.JSArrayOfDeviceOrientation = dart.constFn(_interceptors.JSArray$(system_chrome.DeviceOrientation)))()
+  };
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C2() {
+      return C[2] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "create",
+        [_Location_column]: 24,
+        [_Location_line]: 41,
+        [_Location_file]: null
+      });
+    },
+    get C1() {
+      return C[1] = dart.constList([C[2] || CT.C2], widget_inspector._Location);
+    },
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[1] || CT.C1,
+        [_Location_name]: null,
+        [_Location_column]: 11,
+        [_Location_line]: 41,
+        [_Location_file]: "file:///D:/Study/flutter/aking/lib/main.dart"
+      });
+    },
+    get C5() {
+      return C[5] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "create",
+        [_Location_column]: 13,
+        [_Location_line]: 43,
+        [_Location_file]: null
+      });
+    },
+    get C4() {
+      return C[4] = dart.constList([C[5] || CT.C5], widget_inspector._Location);
+    },
+    get C3() {
+      return C[3] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[4] || CT.C4,
+        [_Location_name]: null,
+        [_Location_column]: 11,
+        [_Location_line]: 42,
+        [_Location_file]: "file:///D:/Study/flutter/aking/lib/main.dart"
+      });
+    },
+    get C8() {
+      return C[8] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "builder",
+        [_Location_column]: 11,
+        [_Location_line]: 49,
+        [_Location_file]: null
+      });
+    },
+    get C7() {
+      return C[7] = dart.constList([C[8] || CT.C8], widget_inspector._Location);
+    },
+    get C6() {
+      return C[6] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[7] || CT.C7,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 48,
+        [_Location_file]: "file:///D:/Study/flutter/aking/lib/main.dart"
+      });
+    },
+    get C11() {
+      return C[11] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "providers",
+        [_Location_column]: 9,
+        [_Location_line]: 40,
+        [_Location_file]: null
+      });
+    },
+    get C12() {
+      return C[12] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 9,
+        [_Location_line]: 48,
+        [_Location_file]: null
+      });
+    },
+    get C10() {
+      return C[10] = dart.constList([C[11] || CT.C11, C[12] || CT.C12], widget_inspector._Location);
+    },
+    get C9() {
+      return C[9] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[10] || CT.C10,
+        [_Location_name]: null,
+        [_Location_column]: 22,
+        [_Location_line]: 39,
+        [_Location_file]: "file:///D:/Study/flutter/aking/lib/main.dart"
+      });
+    },
+    get C15() {
+      return C[15] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "designSize",
+        [_Location_column]: 7,
+        [_Location_line]: 38,
+        [_Location_file]: null
+      });
+    },
+    get C16() {
+      return C[16] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "builder",
+        [_Location_column]: 7,
+        [_Location_line]: 39,
+        [_Location_file]: null
+      });
+    },
+    get C14() {
+      return C[14] = dart.constList([C[15] || CT.C15, C[16] || CT.C16], widget_inspector._Location);
+    },
+    get C13() {
+      return C[13] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[14] || CT.C14,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 37,
+        [_Location_file]: "file:///D:/Study/flutter/aking/lib/main.dart"
+      });
+    },
+    get C17() {
+      return C[17] = dart.fn(app_routes.AppRoutes.onGenerateAppRoute, T.RouteSettingsToRoute());
+    },
+    get C20() {
+      return C[20] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "debugShowCheckedModeBanner",
+        [_Location_column]: 7,
+        [_Location_line]: 57,
+        [_Location_file]: null
+      });
+    },
+    get C21() {
+      return C[21] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "title",
+        [_Location_column]: 7,
+        [_Location_line]: 58,
+        [_Location_file]: null
+      });
+    },
+    get C22() {
+      return C[22] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "theme",
+        [_Location_column]: 7,
+        [_Location_line]: 59,
+        [_Location_file]: null
+      });
+    },
+    get C23() {
+      return C[23] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "navigatorKey",
+        [_Location_column]: 7,
+        [_Location_line]: 60,
+        [_Location_file]: null
+      });
+    },
+    get C24() {
+      return C[24] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "initialRoute",
+        [_Location_column]: 7,
+        [_Location_line]: 61,
+        [_Location_file]: null
+      });
+    },
+    get C25() {
+      return C[25] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onGenerateRoute",
+        [_Location_column]: 7,
+        [_Location_line]: 62,
+        [_Location_file]: null
+      });
+    },
+    get C19() {
+      return C[19] = dart.constList([C[20] || CT.C20, C[21] || CT.C21, C[22] || CT.C22, C[23] || CT.C23, C[24] || CT.C24, C[25] || CT.C25], widget_inspector._Location);
+    },
+    get C18() {
+      return C[18] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[19] || CT.C19,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 56,
+        [_Location_file]: "file:///D:/Study/flutter/aking/lib/main.dart"
+      });
+    },
+    get C27() {
+      return C[27] = dart.constList([], widget_inspector._Location);
+    },
+    get C26() {
+      return C[26] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[27] || CT.C27,
+        [_Location_name]: null,
+        [_Location_column]: 10,
+        [_Location_line]: 30,
+        [_Location_file]: "file:///D:/Study/flutter/aking/lib/main.dart"
+      });
+    }
+  }, false);
+  var C = Array(28).fill(void 0);
+  var I = ["package:aking/main.dart"];
+  var _userRepository = dart.privateName(main, "_userRepository");
+  var _Location_parameterLocations = dart.privateName(widget_inspector, "_Location.parameterLocations");
+  var _Location_name = dart.privateName(widget_inspector, "_Location.name");
+  var _Location_column = dart.privateName(widget_inspector, "_Location.column");
+  var _Location_line = dart.privateName(widget_inspector, "_Location.line");
+  var _Location_file = dart.privateName(widget_inspector, "_Location.file");
+  var _buildWithTheme = dart.privateName(main, "_buildWithTheme");
+  main.MyApp = class MyApp extends framework.StatelessWidget {
+    build(context) {
+      return new flutter_screenutil.ScreenUtilInit.new({designSize: new ui.Size.new(375.0, 812.0), builder: dart.fn(() => new multi_bloc_provider.MultiBlocProvider.new({providers: T.JSArrayOfBlocProviderSingleChildWidget().of([new (T.BlocProviderOfThemeBloc()).new({create: dart.fn(_ => new theme_bloc.ThemeBloc.new(), T.BuildContextToThemeBloc()), $creationLocationd_0dea112b090073317d4: C[0] || CT.C0}), new (T.BlocProviderOfAuthenticationBloc()).new({create: dart.fn(context => {
+                let t0;
+                t0 = new authentication_bloc.AuthenticationBloc.new({userRepository: this[_userRepository]});
+                return (() => {
+                  t0.add(new authentication_bloc.AuthenticationStarted.new());
+                  return t0;
+                })();
+              }, T.BuildContextToAuthenticationBloc()), $creationLocationd_0dea112b090073317d4: C[3] || CT.C3})]), child: new (T.BlocBuilderOfThemeBloc$ThemeData()).new({builder: dart.fn((context, theme) => this[_buildWithTheme](theme), T.BuildContextAndThemeDataToMaterialApp()), $creationLocationd_0dea112b090073317d4: C[6] || CT.C6}), $creationLocationd_0dea112b090073317d4: C[9] || CT.C9}), T.VoidToMultiBlocProvider()), $creationLocationd_0dea112b090073317d4: C[13] || CT.C13});
+    }
+    [_buildWithTheme](theme) {
+      return new app.MaterialApp.new({debugShowCheckedModeBanner: false, title: "Todo List", theme: theme, navigatorKey: app_routes.AppRoutes.appNav, initialRoute: "/", onGenerateRoute: C[17] || CT.C17, $creationLocationd_0dea112b090073317d4: C[18] || CT.C18});
+    }
+  };
+  (main.MyApp.new = function(opts) {
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[_userRepository] = new user_repository.UserRepository.new();
+    main.MyApp.__proto__.new.call(this, {$creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = main.MyApp.prototype;
+  dart.addTypeTests(main.MyApp);
+  dart.addTypeCaches(main.MyApp);
+  dart.setMethodSignature(main.MyApp, () => ({
+    __proto__: dart.getMethods(main.MyApp.__proto__),
+    build: dart.fnType(framework.Widget, [framework.BuildContext]),
+    [_buildWithTheme]: dart.fnType(app.MaterialApp, [theme_data.ThemeData])
+  }));
+  dart.setLibraryUri(main.MyApp, I[0]);
+  dart.setFieldSignature(main.MyApp, () => ({
+    __proto__: dart.getFields(main.MyApp.__proto__),
+    [_userRepository]: dart.finalFieldType(user_repository.UserRepository)
+  }));
+  main.main = function main$() {
+    return async.async(dart.dynamic, function* main$() {
+      binding.WidgetsFlutterBinding.ensureInitialized();
+      system_chrome.SystemChrome.setPreferredOrientations(T.JSArrayOfDeviceOrientation().of([system_chrome.DeviceOrientation.portraitUp, system_chrome.DeviceOrientation.portraitDown]));
+      hydrated_bloc.HydratedBloc.storage = (yield hydrated_storage.HydratedStorage.build({storageDirectory: (yield path_provider.getApplicationDocumentsDirectory())}));
+      yield firebase_core.Firebase.initializeApp();
+      bloc.Bloc.observer = new simple_bloc_observer.SimpleBlocObserver.new();
+      yield dotenv.dotenv.load();
+      binding.runApp(new main.MyApp.new({$creationLocationd_0dea112b090073317d4: C[26] || CT.C26}));
+    });
+  };
+  dart.trackLibraries("packages/aking/main.dart", {
+    "package:aking/main.dart": main
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["main.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;UAmC4B;AACxB,YAAO,wDACO,gBAAK,OAAK,iBACb,cAAM,0DACF,+CACT,+CAAqB,QAAC,KAAM,uHAC5B,wDACU,QAAC;;AAAY,qFACH;sBADG;AAElB,yBAAI;;;0HAGJ,yDACI,SAAC,SAAS,UAAU,sBAAgB,KAAK;IAI1D;sBAEsC;AACpC,YAAO,sDACuB,cACrB,oBACA,KAAK,gBACY;IAI5B;;;;IA9BqB,wBAAkB;;;EA+BzC;;;;;;;;;;;;;;AAjDW;AAEgC,MAAnB;AAIpB,MAHW,oDAAyB,mCAClB,4CACA;AAInB,MAFY,sCAAU,MAAsB,2DACzB,MAAM;AAEI,MAA9B,MAAe;AACqB,MAA/B,qBAAW;AACG,MAAnB,MAAM,AAAO;AAEE,MAAf,eAAO;IACT","file":"../../../../packages/aking/main.dart.lib.js"}');
+  // Exports:
+  return {
+    main: main
+  };
+}));
+
+//# sourceMappingURL=main.dart.lib.js.map

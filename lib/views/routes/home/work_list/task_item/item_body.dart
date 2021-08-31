@@ -1,6 +1,15 @@
+import 'package:aking/logic/blocs/firestore/firestore_bloc.dart';
+import 'package:aking/logic/blocs/process_state.dart';
+import 'package:aking/logic/blocs/process_task/process_task_bloc.dart';
 import 'package:aking/logic/models/task.dart';
+import 'package:aking/logic/repositories/firestore/task_repository.dart';
+import 'package:aking/logic/utils/extensions/logic_extensions.dart';
 import 'package:aking/logic/utils/modules/color_module.dart';
+import 'package:aking/views/utils/extensions/flush_bar.dart';
+import 'package:aking/views/utils/extensions/view_extensions.dart';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
@@ -35,6 +44,7 @@ class ItemBody extends StatelessWidget {
       child: Card(
         shadowColor: Colors.transparent,
         child: ListTile(
+          //TODO: update isDone
           leading: LeadingButton(itemColorTheme: itemColorTheme, task: task),
           title: Text(task.title, style: textStyle),
           subtitle: Text(
@@ -65,22 +75,46 @@ class LeadingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-        onPressed: () {},
-        icon: Container(
-          width: 16.w,
-          height: 16.w,
-          decoration: BoxDecoration(
-            border:
-                Border.all(color: itemColorTheme, width: task.isDone ? 0 : 3.w),
-            borderRadius: BorderRadius.circular(100.r),
-            color: task.isDone ? itemColorTheme : null,
-          ),
-          child: Icon(
-            task.isDone ? Icons.check : null,
-            size: 14.w,
-            color: Colors.white,
-          ),
-        ));
+    return BlocProvider<ProcessTaskBloc>(
+      create: (context) => ProcessTaskBloc(TaskRepository()),
+      child: BlocConsumer<ProcessTaskBloc, ProcessState>(
+        listener: (context, state) {
+          if (state is Processing) {
+            ExpandedFlushbar.loadingFlushbar(context, "Updating").show(context);
+          }
+          if (state is ProcessFailure) {
+            ExpandedFlushbar.failureFlushbar(context, state.errorMessage)
+                .show(context);
+          }
+          if (state is Processing) {
+            ExpandedFlushbar.successFlushbar(context, 'Update Successfully!')
+                .show(context);
+          }
+        },
+        builder: (context, state) {
+          return IconButton(
+              onPressed: () {
+                print(task.isDone);
+                context.read<ProcessTaskBloc>().add(UpdateCompleteStatus(
+                    completeStatus: !task.isDone, id: task.id));
+              },
+              icon: Container(
+                width: 16.w,
+                height: 16.w,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                      color: itemColorTheme, width: task.isDone ? 0 : 3.w),
+                  borderRadius: BorderRadius.circular(100.r),
+                  color: task.isDone ? itemColorTheme : null,
+                ),
+                child: Icon(
+                  task.isDone ? Icons.check : null,
+                  size: 14.w,
+                  color: Colors.white,
+                ),
+              ));
+        },
+      ),
+    );
   }
 }

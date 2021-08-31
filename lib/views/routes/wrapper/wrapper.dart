@@ -21,7 +21,7 @@ class Wrapper extends StatelessWidget {
       }
 
       return Scaffold(
-        body: Center(child: Text("Loading")),
+        body: Center(child: CircularProgressIndicator()),
       );
     });
   }

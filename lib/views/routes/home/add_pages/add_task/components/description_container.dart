@@ -1,5 +1,5 @@
 import 'package:aking/global/constants/assets_path.dart';
-import 'package:aking/logic/provider/add_task.dart';
+import 'package:aking/logic/blocs/task/add_task/add_task_bloc.dart';
 import 'package:aking/logic/utils/modules/color_module.dart';
 import 'package:aking/views/utils/extensions/input_decoration.dart';
 import 'package:flutter/material.dart';
@@ -37,11 +37,13 @@ class DescriptionContainer extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.w),
-                  child: TextField(
+                  child: TextFormField(
                     maxLines: 3,
+                    initialValue: context.read<AddTaskBloc>().state.description,
                     decoration: InputDecoration().toNoneBorder(),
-                    onChanged:
-                        context.read<AddTaskProvider>().changeDescription,
+                    onChanged: (value) => context
+                        .read<AddTaskBloc>()
+                        .add(DescriptionOnChange(description: value)),
                   ),
                 ),
                 Container(
