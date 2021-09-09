@@ -1,6 +1,5 @@
 import 'package:aking/logic/blocs/authentication/authentication_bloc.dart';
 import 'package:aking/logic/blocs/login/login_bloc.dart';
-import 'package:aking/logic/utils/modules/color_module.dart';
 import 'package:aking/logic/utils/validator/auth_validators.dart';
 import 'package:aking/routing/app_routes.dart';
 import 'package:aking/routing/routes.dart';
@@ -141,13 +140,13 @@ class _SignInFormState extends State<SignInForm> {
             ),
             RoundedButton(
               text: 'Log In',
-              backgroundColor: hexToColor("#F96060"),
-              press: () {
+            
+              onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   _onFormSubmitted();
                 }
               },
-              textColor: hexToColor("#FFFFFF"),
+              
             ),
           ],
         ),

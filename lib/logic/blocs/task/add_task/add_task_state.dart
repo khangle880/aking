@@ -5,14 +5,6 @@ enum FocusingStatus {
   assignee,
   project,
 }
-enum AddStatus {
-  none,
-  adding,
-  assigneeInvalid,
-  projectInvalid,
-  titleInvalid,
-  success,
-}
 
 class AddTaskState extends Equatable {
   const AddTaskState({

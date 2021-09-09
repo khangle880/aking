@@ -8,11 +8,11 @@ class WalkthroughCache {
 
   static const List<Walkthrough> _walkthroughs = [
     Walkthrough("Welcome to aking", "Whats going to happen tomorrow?",
-        walkthroughSvgImage1, "#F96060"),
+        AssetPathConstants.walkthroughSvgImage1, "#F96060"),
     Walkthrough("Work happens", "Get notified when work happens.",
-        walkthroughSvgImage2, "#6074F9"),
+        AssetPathConstants.walkthroughSvgImage2, "#6074F9"),
     Walkthrough("Tasks and assign", "Task and assign them to colleagues.",
-        walkthroughSvgImage3, "#8560F9"),
+        AssetPathConstants.walkthroughSvgImage3, "#8560F9"),
   ];
 
   void addItem(Walkthrough item) {

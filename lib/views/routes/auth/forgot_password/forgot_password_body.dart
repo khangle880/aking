@@ -1,5 +1,5 @@
+import 'package:aking/views/utils/extensions/view_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:aking/logic/utils/modules/color_module.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'forgot_password_form.dart';
@@ -21,7 +21,7 @@ your password reset instructions''';
           style: Theme.of(context)
               .textTheme
               .bodyText2!
-              .copyWith(color: hexToColor("#9B9B9B")),
+              .copyWith(color: ExpandedColor.fromHex("#9B9B9B")),
           textAlign: TextAlign.left),
       SizedBox(height: 40.h),
       ForgotPasswordForm(),

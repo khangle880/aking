@@ -1,5 +1,4 @@
 import 'package:aking/logic/blocs/reset_password/reset_password_bloc.dart';
-import 'package:aking/logic/utils/modules/color_module.dart';
 import 'package:aking/logic/utils/validator/auth_validators.dart';
 import 'package:aking/routing/app_routes.dart';
 import 'package:aking/routing/routes.dart';
@@ -115,13 +114,13 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
           ),
           RoundedButton(
             text: 'Change password',
-            backgroundColor: hexToColor("#F96060"),
-            press: () {
+           
+            onPressed: () {
               if (_formKey.currentState!.validate()) {
                 _onFormSubmitted();
               }
             },
-            textColor: hexToColor("#FFFFFF"),
+           
           ),
           BlocListener<ResetPasswordBloc, ResetPasswordState>(
             listener: (context, state) {

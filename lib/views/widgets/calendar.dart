@@ -1,5 +1,5 @@
 import 'package:aking/logic/provider/calendar.dart';
-import 'package:aking/logic/utils/modules/color_module.dart';
+import 'package:aking/views/utils/extensions/view_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -43,12 +43,12 @@ class _CalendarState extends State<Calendar> {
         calendarStyle: CalendarStyle(
           markersMaxCount: 1,
           markerDecoration: BoxDecoration(
-            color: hexToColor("#F96060"),
+            color: ExpandedColor.fromHex("#F96060"),
             shape: BoxShape.circle,
           ),
           markerSizeScale: 0.15,
           selectedDecoration: BoxDecoration(
-            color: hexToColor("#0281F9"),
+            color: ExpandedColor.fromHex("#0281F9"),
             shape: BoxShape.circle,
           ),
           selectedTextStyle: textTheme.subtitle2!
@@ -56,12 +56,13 @@ class _CalendarState extends State<Calendar> {
           todayDecoration: BoxDecoration(
             color: Colors.transparent,
             shape: BoxShape.circle,
-            border: Border.all(color: hexToColor("#9A9CFF"), width: 2.w),
+            border:
+                Border.all(color: ExpandedColor.fromHex("#9A9CFF"), width: 2.w),
           ),
           todayTextStyle: textTheme.bodyText1!.copyWith(fontSize: 14.sp),
           defaultTextStyle: textTheme.bodyText1!.copyWith(fontSize: 14.sp),
-          outsideTextStyle: textTheme.bodyText1!
-              .copyWith(fontSize: 14.sp, color: hexToColor("#9E9E9E")),
+          outsideTextStyle: textTheme.bodyText1!.copyWith(
+              fontSize: 14.sp, color: ExpandedColor.fromHex("#9E9E9E")),
         ),
         headerStyle: HeaderStyle(
           leftChevronVisible: false,
@@ -84,10 +85,10 @@ class _CalendarState extends State<Calendar> {
         daysOfWeekStyle: DaysOfWeekStyle(
           dowTextFormatter: (date, locale) =>
               DateFormat.E(locale).format(date)[0],
-          weekdayStyle: textTheme.bodyText1!
-              .copyWith(fontSize: 14.sp, color: hexToColor("#9A9A9A")),
-          weekendStyle: textTheme.bodyText1!
-              .copyWith(fontSize: 14.sp, color: hexToColor("#9A9A9A")),
+          weekdayStyle: textTheme.bodyText1!.copyWith(
+              fontSize: 14.sp, color: ExpandedColor.fromHex("#9A9A9A")),
+          weekendStyle: textTheme.bodyText1!.copyWith(
+              fontSize: 14.sp, color: ExpandedColor.fromHex("#9A9A9A")),
         ),
       ),
     );

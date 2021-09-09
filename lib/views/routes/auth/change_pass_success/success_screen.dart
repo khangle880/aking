@@ -27,7 +27,7 @@ logging in.''';
             width: double.infinity,
           ),
           SvgPicture.asset(
-            successfulSvgImage,
+            AssetPathConstants. successfulSvgImage,
             width: 162.w,
             height: 170.h,
           ),

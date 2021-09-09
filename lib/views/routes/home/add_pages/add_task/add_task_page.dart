@@ -1,6 +1,8 @@
 import 'package:aking/logic/blocs/task/add_task/add_task_bloc.dart';
-import 'package:aking/logic/utils/modules/color_module.dart';
+import 'package:aking/logic/repositories/firestore/task_repository.dart';
+import 'package:aking/logic/repositories/user_repository.dart';
 import 'package:aking/views/routes/home/add_pages/add_task/components/add_task_form.dart';
+import 'package:aking/views/utils/extensions/view_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,7 +26,7 @@ class _AddTaskPageState extends State<AddTaskPage>
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: hexToColor("#F96060"),
+        backgroundColor: ExpandedColor.fromHex("#F96060"),
         title: Text(
           'New Task',
           style: textTheme.subtitle1!
@@ -39,12 +41,12 @@ class _AddTaskPageState extends State<AddTaskPage>
             children: <Widget>[
               Container(
                 height: 44.h,
-                color: hexToColor("#F96060"),
+                color: ExpandedColor.fromHex("#F96060"),
               ),
               Spacer(),
               Container(
                 height: 60.h,
-                color: hexToColor("#292E4E"),
+                color: ExpandedColor.fromHex("#292E4E"),
               ),
             ],
           ),
@@ -64,7 +66,10 @@ class _AddTaskPageState extends State<AddTaskPage>
                 ],
               ),
               child: BlocProvider<AddTaskBloc>(
-                  create: (_) => AddTaskBloc(), child: AddTaskForm()),
+                  create: (_) => AddTaskBloc(
+                      taskRepo: context.read<TaskRepository>(),
+                      userRepo: context.read<UserRepository>()),
+                  child: AddTaskForm()),
             ),
           )
         ],

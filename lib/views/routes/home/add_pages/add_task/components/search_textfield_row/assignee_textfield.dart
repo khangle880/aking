@@ -2,7 +2,7 @@ import 'package:aking/logic/blocs/task/add_task/add_task_bloc.dart';
 import 'package:aking/logic/blocs/firestore/firestore_bloc.dart';
 import 'package:aking/logic/models/public_user_info.dart';
 import 'package:aking/logic/utils/extensions/list_extensions.dart';
-import 'package:aking/logic/utils/modules/color_module.dart';
+import 'package:aking/views/utils/extensions/view_extensions.dart';
 import 'package:aking/views/utils/extensions/view_extensions.dart';
 import 'package:aking/views/widgets/network_avatar.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +44,7 @@ class _AssigneeTextFieldState extends State<AssigneeTextField> {
                     : 130.w,
                 height: 48.h,
                 decoration: BoxDecoration(
-                  color: hexToColor("#F4F4F4"),
+                  color: ExpandedColor.fromHex("#F4F4F4"),
                   borderRadius: BorderRadius.circular(50.r),
                 ),
                 child: state.focusingStatus == FocusingStatus.assignee
@@ -52,6 +52,7 @@ class _AssigneeTextFieldState extends State<AssigneeTextField> {
                         padding: EdgeInsets.symmetric(horizontal: 12.w),
                         child: Center(
                           child: TextField(
+                            textCapitalization: TextCapitalization.sentences,
                             style: inputStyle,
                             autofocus: true,
                             decoration: InputDecoration().toNoneBorder(),

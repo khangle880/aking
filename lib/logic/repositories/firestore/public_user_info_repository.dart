@@ -3,16 +3,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'base_firestore_repository.dart';
 
-
 class PublicUserInfoRepository extends FirestoreRepository<PublicUserInfo> {
-  final FirebaseFirestore _firebaseFirestore;
-
-  PublicUserInfoRepository({FirebaseFirestore? firebaseFirestore})
-      : _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance;
+  PublicUserInfoRepository({
+    FirebaseFirestore? firebaseFirestore,
+  }) : super(
+          firebaseFirestore: firebaseFirestore,
+          collectionRef: (firebaseFirestore ?? FirebaseFirestore.instance)
+              .collection('public_users_info'),
+        );
 
   @override
   Stream<List<PublicUserInfo>> getAllDoc(String uid) {
-    return _firebaseFirestore
+    return firebaseFirestore
         .collection('public_users_info')
         .where("status", isEqualTo: true)
         .snapshots()

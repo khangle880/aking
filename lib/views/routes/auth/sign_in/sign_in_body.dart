@@ -1,4 +1,4 @@
-import 'package:aking/logic/utils/modules/color_module.dart';
+import 'package:aking/views/utils/extensions/view_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -15,7 +15,8 @@ class SignInBody extends StatelessWidget {
       ),
       SizedBox(height: 10.h),
       Text('Sign in to continue',
-          style: textTheme.bodyText2!.copyWith(color: hexToColor("#9B9B9B")),
+          style: textTheme.bodyText2!
+              .copyWith(color: ExpandedColor.fromHex("#9B9B9B")),
           textAlign: TextAlign.left),
       SizedBox(height: 40.h),
       SignInForm(),

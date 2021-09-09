@@ -2,7 +2,6 @@ import 'package:aking/logic/blocs/task/add_task/add_task_bloc.dart';
 import 'package:aking/logic/blocs/firestore/firestore_bloc.dart';
 import 'package:aking/logic/models/project.dart';
 import 'package:aking/logic/utils/extensions/list_extensions.dart';
-import 'package:aking/logic/utils/modules/color_module.dart';
 import 'package:aking/views/utils/extensions/view_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +32,7 @@ class _ProjectTextFieldState extends State<ProjectTextField> {
           width: 90.w,
           height: 48.h,
           decoration: BoxDecoration(
-            color: hexToColor("#F4F4F4"),
+            color: ExpandedColor.fromHex("#F4F4F4"),
             borderRadius: BorderRadius.circular(50.r),
           ),
           child: state.focusingStatus == FocusingStatus.project
@@ -41,6 +40,7 @@ class _ProjectTextFieldState extends State<ProjectTextField> {
                   padding: EdgeInsets.symmetric(horizontal: 12.w),
                   child: Center(
                     child: TextField(
+                      textCapitalization: TextCapitalization.sentences,
                       style: inputStyle,
                       autofocus: true,
                       decoration: InputDecoration().toNoneBorder(),
@@ -59,7 +59,7 @@ class _ProjectTextFieldState extends State<ProjectTextField> {
                   },
                   child: Center(
                       child: Text(
-                          projectInfo != null ? projectInfo.name : "Project",
+                          projectInfo != null ? projectInfo.title : "Project",
                           style: inputStyle)),
                 ),
         );

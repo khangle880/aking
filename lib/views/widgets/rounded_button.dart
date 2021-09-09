@@ -1,4 +1,4 @@
-import 'package:aking/logic/utils/modules/color_module.dart';
+import 'package:aking/views/utils/extensions/view_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,15 +6,15 @@ class RoundedButton extends StatelessWidget {
   const RoundedButton({
     Key? key,
     required this.text,
-    required this.press,
-    required this.backgroundColor,
-    required this.textColor,
+    required this.onPressed,
+    this.backgroundColor = const Color(0xFFF96060),
+    this.textColor = const Color(0xFFFFFFFF),
   }) : super(key: key);
 
   final String text;
   final Color backgroundColor;
   final Color textColor;
-  final VoidCallback press;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +22,9 @@ class RoundedButton extends StatelessWidget {
         width: double.infinity,
         height: 48.h,
         child: TextButton(
-          onPressed: press,
+          onPressed: onPressed,
           style: TextButton.styleFrom(
-              primary: hexToColor("#313131"),
+              primary: ExpandedColor.fromHex("#313131"),
               backgroundColor: backgroundColor,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.r))),

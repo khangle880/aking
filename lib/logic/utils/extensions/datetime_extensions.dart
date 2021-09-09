@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 extension ExpandedDateTime on DateTime {
-  String formatWithToday([String? newPattern, String? locale]) {
+  /// add today, tomorrow, yesterday before date format
+  String formatWithToday(
+      {String? newPattern, String? locale, String? subPattern = ""}) {
     final aroundWithToday = toAroundWithToday();
     final dateTimeFormatted = DateFormat(newPattern, locale).format(this);
 
     if (aroundWithToday != null) {
       return "${aroundWithToday.toUpperCase()}, $dateTimeFormatted";
     } else {
-      return DateFormat('EEE, ').format(this) + dateTimeFormatted;
+      return DateFormat(subPattern).format(this) + dateTimeFormatted;
     }
   }
 
+  /// today, tomorrow, yesterday or date format
   String formatOrAroundToday([String? newPattern, String? locale]) {
     final aroundWithToday = toAroundWithToday();
 
@@ -23,6 +26,7 @@ extension ExpandedDateTime on DateTime {
     }
   }
 
+  /// today, tomorrow, yesterday or null
   String? toAroundWithToday() {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);

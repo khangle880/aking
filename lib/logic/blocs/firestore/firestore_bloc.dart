@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:aking/logic/models/firestore_doc.dart';
 import 'package:aking/logic/repositories/firestore/base_firestore_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -9,7 +10,8 @@ import 'package:aking/logic/utils/extensions/logic_extensions.dart';
 part 'firestore_event.dart';
 part 'firestore_state.dart';
 
-class FirestoreBloc<T> extends Bloc<FirestoreEvent<T>, FirestoreState<T>> {
+class FirestoreBloc<T extends FirestoreDoc>
+    extends Bloc<FirestoreEvent<T>, FirestoreState<T>> {
   FirestoreBloc(this.firestoreRepository) : super(FirestoreInitial<T>());
 
   final FirestoreRepository<T> firestoreRepository;
@@ -45,12 +47,11 @@ class FirestoreBloc<T> extends Bloc<FirestoreEvent<T>, FirestoreState<T>> {
   }
 
   Stream<FirestoreState<T>> _mapUpdateFirestoreToState(List<T> docs) async* {
-    _allDoc = docs;
-    // // TODO: log
+    _allDoc = List.from(docs);
     // log(T.toString());
     // log(_allDoc.toString());
     // log(_allDoc.length.toString());
-    yield FirestoreLoaded<T>(docs);
+    yield FirestoreLoaded<T>(List.from(docs));
   }
 
   Stream<FirestoreState<T>> _mapFindFirestoreByTextToState(

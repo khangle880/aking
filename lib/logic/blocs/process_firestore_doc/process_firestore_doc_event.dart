@@ -1,13 +1,24 @@
 part of 'process_firestore_doc_bloc.dart';
 
-abstract class ProcessFirestoreDocEvent<T> extends Equatable {
-  const ProcessFirestoreDocEvent();
+abstract class ProcessFSDocEvent<T> extends Equatable {
+  const ProcessFSDocEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class UpdateFSDocByObject<T> extends ProcessFirestoreDocEvent<T> {
+class DeleteFSDoc<T> extends ProcessFSDocEvent<T> {
+  final String docId;
+
+  const DeleteFSDoc({
+    required this.docId,
+  });
+
+  @override
+  List<Object> get props => [docId];
+}
+
+class UpdateFSDocByObject<T> extends ProcessFSDocEvent<T> {
   final T object;
   const UpdateFSDocByObject({
     required this.object,
@@ -17,7 +28,7 @@ class UpdateFSDocByObject<T> extends ProcessFirestoreDocEvent<T> {
   List<Object> get props => [object.hashCode];
 }
 
-class UpdateFSDocByJson<T> extends ProcessFirestoreDocEvent<T> {
+class UpdateFSDocByJson<T> extends ProcessFSDocEvent<T> {
   final Map<String, dynamic> json;
   final String docId;
   const UpdateFSDocByJson({

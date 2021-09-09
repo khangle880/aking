@@ -11,6 +11,7 @@ class AppRouteNames {
 class MainRouteNames {
   static const String initHomeRoute = "/";
   static const String addTaskRoute = "/add_task";
-  static const String addQuickNoteRoute = "/add_quick_note";
+  static const String addNoteRoute = "/add_note";
   static const String addCheckListRoute = "/add_check_list";
+  static const String viewTaskDetailsRoute = "/view_task_details";
 }

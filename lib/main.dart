@@ -1,4 +1,9 @@
 import 'package:aking/logic/blocs/simple_bloc_observer.dart';
+import 'package:aking/logic/models/quick_note.dart';
+import 'package:aking/logic/repositories/firestore/project_repository.dart';
+import 'package:aking/logic/repositories/firestore/public_user_info_repository.dart';
+import 'package:aking/logic/repositories/firestore/quick_note_repository.dart';
+import 'package:aking/logic/repositories/firestore/task_repository.dart';
 import 'package:aking/logic/repositories/user_repository.dart';
 import 'package:aking/routing/app_routes.dart';
 import 'package:aking/routing/routes.dart';
@@ -31,22 +36,40 @@ Future main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final UserRepository _userRepository = UserRepository();
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: Size(375, 812),
-      builder: () => MultiBlocProvider(
+      builder: () => MultiRepositoryProvider(
         providers: [
-          BlocProvider(create: (_) => ThemeBloc()),
-          BlocProvider(
-            create: (context) => AuthenticationBloc(
-              userRepository: _userRepository,
-            )..add(AuthenticationStarted()),
-          )
+          RepositoryProvider<UserRepository>(
+            create: (context) => UserRepository(),
+          ),
+          RepositoryProvider<TaskRepository>(
+            create: (context) => TaskRepository(),
+          ),
+          RepositoryProvider<PublicUserInfoRepository>(
+            create: (context) => PublicUserInfoRepository(),
+          ),
+          RepositoryProvider<ProjectRepository>(
+            create: (context) => ProjectRepository(),
+          ),
+          RepositoryProvider<QuickNoteRepository>(
+            create: (context) => QuickNoteRepository(),
+          ),
         ],
-        child: BlocBuilder<ThemeBloc, ThemeData>(
-          builder: (context, theme) => _buildWithTheme(theme),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (_) => ThemeBloc()),
+            BlocProvider(
+              create: (context) => AuthenticationBloc(
+                userRepository: context.read<UserRepository>(),
+              )..add(AuthenticationStarted()),
+            )
+          ],
+          child: BlocBuilder<ThemeBloc, ThemeData>(
+            builder: (context, theme) => _buildWithTheme(theme),
+          ),
         ),
       ),
     );

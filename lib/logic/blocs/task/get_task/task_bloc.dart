@@ -10,7 +10,9 @@ part 'task_event.dart';
 part 'task_state.dart';
 
 class TaskBloc extends FirestoreBloc<Task> {
-  TaskBloc({required TaskRepository taskRepository}) : super(taskRepository);
+  TaskBloc(TaskRepository taskRepository) : super(taskRepository);
+
+  String? currentTask;
 
   @override
   Stream<FirestoreState<Task>> mapMoreEventToState(
@@ -18,6 +20,8 @@ class TaskBloc extends FirestoreBloc<Task> {
   ) async* {
     if (event is FilterByStatusTasks) {
       yield* _mapFilterByStatusTasksToState(event.optionFilter);
+    } else if (event is ViewTask) {
+      currentTask = event.id;
     }
   }
 
@@ -28,5 +32,4 @@ class TaskBloc extends FirestoreBloc<Task> {
       yield TaskFiltered(optionFilter, tasks);
     }
   }
-
 }

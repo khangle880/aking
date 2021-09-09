@@ -1,16 +1,16 @@
-import 'package:aking/global/constants/assets_path.dart';
-import 'package:aking/logic/blocs/authentication/authentication_bloc.dart';
+import 'package:aking/global/constants/app_constants.dart';
+import 'package:aking/views/routes/home/tabs/profile/profile_page.dart';
+import 'package:aking/views/routes/home/tabs/quick_note/quick_note_page.dart';
 
-import 'package:aking/logic/utils/modules/color_module.dart';
+import 'package:aking/views/utils/extensions/view_extensions.dart';
 import 'package:aking/views/routes/exception/exception_page.dart';
 import 'package:aking/views/routes/home/add_menu.dart';
 import 'package:aking/views/routes/home/bottom_app_bar_navigation.dart';
-import 'package:aking/views/routes/home/work_list/work_list_page.dart';
-import 'package:aking/views/utils/extensions/snack_bar.dart';
-import 'package:aking/views/widgets/simple_rive_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'tabs/menu/project_navigator.dart';
+import 'tabs/work_list/work_list_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -35,25 +35,30 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onTapped(int index) {
-    setState(() {
-      _pageController.animateToPage(index,
-          duration: Duration(milliseconds: 100), curve: Curves.easeOut);
-    });
+    _pageController.animateToPage(index,
+        duration: Duration(milliseconds: 100), curve: Curves.easeOut);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-        padding: EdgeInsets.only(top: 15.h),
-        width: 50.w,
-        child: FloatingActionButton(
-            heroTag: "Add Button",
-            onPressed: _showAddMenu,
-            elevation: 4.0,
-            backgroundColor: hexToColor("#F96060"),
-            child: Center(child: Icon(Icons.add))),
+      floatingActionButton: GestureDetector(
+        onTap: () => _showAddMenu(),
+        child: Container(
+          margin: EdgeInsets.only(top: 15.h),
+          height: 56.h,
+          width: 56.h,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100.r),
+            gradient: ColorConstants.kPrimaryGradientColor,
+          ),
+          child: Icon(
+            Icons.add,
+            color: ExpandedColor.fromHex("#FFFFFF"),
+          ),
+        ),
       ),
       bottomNavigationBar: FABBottomAppBar(
         items: [
@@ -68,11 +73,11 @@ class _HomePageState extends State<HomePage> {
         centerItemText: '',
         height: 70.h,
         iconSize: 22.h,
-        backgroundColor: hexToColor("#292E4E"),
+        backgroundColor: ExpandedColor.fromHex("#292E4E"),
         onTabSelected: _onTapped,
-        selectedColor: hexToColor("#FFFFFF"),
-        selectedBarColor: hexToColor("#F96060"),
-        defaultColor: hexToColor("#8E8E93"),
+        selectedColor: ExpandedColor.fromHex("#FFFFFF"),
+        selectedBarColor: ExpandedColor.fromHex("#F96060"),
+        defaultColor: ExpandedColor.fromHex("#8E8E93"),
         textStyle:
             Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 12.sp),
       ),
@@ -81,9 +86,9 @@ class _HomePageState extends State<HomePage> {
         physics: NeverScrollableScrollPhysics(),
         children: const <Widget>[
           WorkListPage(),
-          ExceptionPage(),
-          ExceptionPage(),
-          ExceptionPage(),
+          ProjectNav(),
+          QuickNotePage(),
+          ProfilePage(),
         ],
       ),
     );

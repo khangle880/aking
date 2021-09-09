@@ -1,35 +1,48 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:aking/logic/blocs/process_state.dart';
+import 'package:aking/logic/models/firestore_doc.dart';
 import 'package:aking/logic/repositories/firestore/base_firestore_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 part 'process_firestore_doc_event.dart';
 
-class ProcessFirestoreDocBloc<T>
-    extends Bloc<ProcessFirestoreDocEvent<T>, ProcessState> {
-  ProcessFirestoreDocBloc(this.firestoreRepository) : super(ProcessInitial());
+class ProcessFSDocBloc<T extends FirestoreDoc>
+    extends Bloc<ProcessFSDocEvent<T>, ProcessState> {
+  ProcessFSDocBloc(this.firestoreRepository) : super(ProcessInitial());
   final FirestoreRepository<T> firestoreRepository;
 
   @override
   Stream<ProcessState> mapEventToState(
-    ProcessFirestoreDocEvent<T> event,
+    ProcessFSDocEvent<T> event,
   ) async* {
     if (event is UpdateFSDocByObject<T>) {
-      yield* _mapUpdateFSDocByObjectToState(event.object);
+      yield* mapProcessToState(
+          firestoreRepository.updateByObject(event.object));
     } else if (event is UpdateFSDocByJson<T>) {
-      yield* _mapUpdateFSDocByJsonToState(event.json, event.docId);
+      yield* mapProcessToState(
+          firestoreRepository.updateWithJson(event.json, event.docId));
+    } else if (event is DeleteFSDoc<T>) {
+      yield* mapProcessToState(firestoreRepository.deleteObject(event.docId));
     } else {
       yield* mapMoreEventToState(event);
     }
   }
 
-  Stream<ProcessState> mapMoreEventToState(
-      ProcessFirestoreDocEvent event) async* {}
+  Stream<ProcessState> mapMoreEventToState(ProcessFSDocEvent event) async* {}
 
-  Stream<ProcessState> _mapUpdateFSDocByObjectToState(T object) async* {}
-
-  Stream<ProcessState> _mapUpdateFSDocByJsonToState(
-      Map<String, dynamic> json, String id) async* {}
+  Stream<ProcessState> mapProcessToState(Future<String?> onProcess) async* {
+    yield Processing();
+    log('processing');
+    final String? error = await onProcess;
+    if (error == null) {
+      yield ProcessSuccess();
+      yield ProcessInitial();
+    } else {
+      yield ProcessFailure(error);
+      yield ProcessInitial();
+    }
+  }
 }

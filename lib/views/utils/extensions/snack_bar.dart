@@ -27,7 +27,7 @@ extension ExpandedSnackBar on SnackBar {
               .copyWith(color: Colors.white),
         ),
         SizedBox(
-          height: 20.w,
+          height: 20.h,
           width: 20.h,
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(Colors.white),

@@ -9,7 +9,12 @@ class Note extends QuickNote {
     required this.description,
     required String hexColor,
     required DateTime createdDate,
-  }) : super(id: id, hexColor: hexColor, createdDate: createdDate);
+    required bool status,
+  }) : super(
+            id: id,
+            hexColor: hexColor,
+            createdDate: createdDate,
+            status: status);
 
   factory Note.fromJson(Map<String, dynamic> json) => Note(
         id: json['id'] as String,
@@ -17,6 +22,7 @@ class Note extends QuickNote {
         hexColor: json['hexColor'] as String,
         createdDate: DateTime.fromMillisecondsSinceEpoch(
             (json['createdDate'] as Timestamp).seconds * 1000),
+        status: json['status'] as bool,
       );
 
   @override
@@ -27,7 +33,8 @@ class Note extends QuickNote {
     return {
       'createdDate': Timestamp.fromDate(createdDate),
       'description': description,
-      'hexColor': hexColor
+      'hexColor': hexColor,
+      'status': status,
     };
   }
 

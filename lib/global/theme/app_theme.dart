@@ -1,5 +1,5 @@
 // 🐦 Flutter imports:
-import 'package:aking/logic/utils/modules/color_module.dart';
+import 'package:aking/views/utils/extensions/view_extensions.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
@@ -8,9 +8,9 @@ class AppTheme {
     return InputDecorationTheme(
       errorStyle: TextStyle(
           fontFamily: "Avenir Next Rounded Pro", fontWeight: FontWeight.w500),
-      hintStyle: _bodyText2.copyWith(color: hexToColor("#c6c6c6")),
+      hintStyle: _bodyText2.copyWith(color: ExpandedColor.fromHex("#c6c6c6")),
       enabledBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: hexToColor("#EDEDED")),
+        borderSide: BorderSide(color: ExpandedColor.fromHex("#EDEDED")),
       ),
     );
   }
@@ -20,7 +20,7 @@ class AppTheme {
       color: Colors.white,
       elevation: 0,
       brightness: Brightness.light,
-      iconTheme: IconThemeData(color: hexToColor("#313131")),
+      iconTheme: IconThemeData(color: ExpandedColor.fromHex("#313131")),
       textTheme: TextTheme(
         headline6: _headline6,
       ),
@@ -28,48 +28,48 @@ class AppTheme {
   }
 
   static final TextStyle _headline3 = TextStyle(
-      color: hexToColor("#010101"),
+      color: ExpandedColor.fromHex("#010101"),
       fontSize: 48.sp,
       fontWeight: FontWeight.w600);
 
   static final TextStyle _headline4 = TextStyle(
-      color: hexToColor("#313131"),
+      color: ExpandedColor.fromHex("#313131"),
       fontSize: 32.sp,
       fontWeight: FontWeight.w600);
 
   static final TextStyle _headline5 = TextStyle(
       fontSize: 24.sp,
-      color: hexToColor("#313131"),
+      color: ExpandedColor.fromHex("#313131"),
       fontWeight: FontWeight.w600);
 
   static final TextStyle _headline6 = TextStyle(
       fontSize: 20.sp,
-      color: hexToColor("#313131"),
+      color: ExpandedColor.fromHex("#313131"),
       fontWeight: FontWeight.w500);
 
   static final TextStyle _subtitle1 = TextStyle(
       fontSize: 18.sp,
-      color: hexToColor("#313131"),
+      color: ExpandedColor.fromHex("#313131"),
       fontWeight: FontWeight.w600);
 
   static final TextStyle _subtitle2 = TextStyle(
       fontSize: 14.sp,
-      color: hexToColor("#313131"),
+      color: ExpandedColor.fromHex("#313131"),
       fontWeight: FontWeight.w600);
 
   static final TextStyle _bodyText1 = TextStyle(
       fontSize: 18.sp,
-      color: hexToColor("#313131"),
+      color: ExpandedColor.fromHex("#313131"),
       fontWeight: FontWeight.w500);
 
   static final TextStyle _bodyText2 = TextStyle(
       fontSize: 16.sp,
-      color: hexToColor("#313131"),
+      color: ExpandedColor.fromHex("#313131"),
       fontWeight: FontWeight.w400);
 
   static final TextStyle _button = TextStyle(
       fontSize: 16.sp,
-      color: hexToColor("#313131"),
+      color: ExpandedColor.fromHex("#313131"),
       fontWeight: FontWeight.w500);
 
   static TextTheme _textLightTheme() {
@@ -88,7 +88,7 @@ class AppTheme {
 
   static ThemeData light() {
     return ThemeData(
-      scaffoldBackgroundColor: Colors.white,
+      scaffoldBackgroundColor: const Color(0xFFFDFDFD),
       fontFamily: "Avenir Next Rounded Pro",
       appBarTheme: _appBarLightTheme(),
       textTheme: _textLightTheme(),

@@ -6,14 +6,12 @@ import 'package:aking/logic/blocs/process_state.dart';
 import 'package:aking/logic/blocs/firestore/firestore_bloc.dart';
 import 'package:aking/logic/models/project.dart';
 import 'package:aking/logic/models/public_user_info.dart';
-import 'package:aking/logic/utils/modules/color_module.dart';
-import 'package:aking/views/routes/home/add_pages/add_task/components/add_member.dart';
+import 'package:aking/views/routes/home/add_pages/add_task/components/add_member/add_member.dart';
 import 'package:aking/views/routes/home/add_pages/add_task/components/due_date_picker.dart';
 import 'package:aking/views/utils/extensions/view_extensions.dart';
 import 'package:aking/views/widgets/network_avatar.dart';
 import 'package:aking/views/widgets/rounded_button.dart';
-import 'package:aking/views/widgets/search_loading.dart';
-import 'package:aking/views/widgets/simple_rive_widget.dart';
+import 'package:aking/views/widgets/empty_view.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -59,10 +57,11 @@ class DetailForm extends StatelessWidget {
         children: [
           Container(
             height: 66.h,
-            color: hexToColor("#F4F4F4"),
+            color: ExpandedColor.fromHex("#F4F4F4"),
             padding: EdgeInsets.symmetric(horizontal: 24.w),
             child: Center(
               child: TextFormField(
+                textCapitalization: TextCapitalization.sentences,
                 style: textTheme.subtitle1,
                 initialValue: context.read<AddTaskBloc>().state.title,
                 decoration: InputDecoration(
@@ -103,7 +102,7 @@ class DetailForm extends StatelessWidget {
           } else if (submitStatus is ProcessFailure) {
             Navigator.of(context, rootNavigator: true).pop();
             CoolAlert.show(
-              backgroundColor: hexToColor("#FFD371"),
+              backgroundColor: ExpandedColor.fromHex("#FFD371"),
               context: context,
               barrierDismissible: false,
               type: CoolAlertType.error,
@@ -112,10 +111,11 @@ class DetailForm extends StatelessWidget {
             );
           } else if (submitStatus is ProcessSuccess) {
             Navigator.of(context, rootNavigator: true).pop();
+            Navigator.pop(context);
             CoolAlert.show(
               context: context,
               barrierDismissible: false,
-              backgroundColor: hexToColor("#9DDAC6"),
+              backgroundColor: ExpandedColor.fromHex("#9DDAC6"),
               type: CoolAlertType.success,
               text: 'Add Task Successfully!',
             );
@@ -123,11 +123,10 @@ class DetailForm extends StatelessWidget {
         },
         builder: (context, state) => RoundedButton(
             text: "Add Task",
-            press: () {
+            onPressed: () {
               context.read<AddTaskBloc>().add(SubmitForm());
             },
-            backgroundColor: hexToColor("#F96060"),
-            textColor: hexToColor("#FFFFFF")),
+            ),
       ),
     );
   }
@@ -139,7 +138,7 @@ class AssigneeSuggest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DetailPanel(
-      backgroundColor: hexToColor("#F4F4F4"),
+      backgroundColor: ExpandedColor.fromHex("#F4F4F4"),
       child: AssigneeListView(
         data: context.watch<FirestoreBloc<PublicUserInfo>>().allDoc.findByText(
             findKey: context.watch<AddTaskBloc>().state.assigneeSearchString),
@@ -166,7 +165,7 @@ class AssigneeListView extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return data.isEmpty
-        ? SearchLoading()
+        ? EmptyView()
         : ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, index) => InkWell(
@@ -195,7 +194,7 @@ class ProjectSuggest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DetailPanel(
-      backgroundColor: hexToColor("#F4F4F4"),
+      backgroundColor: ExpandedColor.fromHex("#F4F4F4"),
       child: ProjectListView(
         data: context.watch<FirestoreBloc<Project>>().allDoc.findByText(
             findKey: context.watch<AddTaskBloc>().state.projectSearchString),
@@ -222,15 +221,15 @@ class ProjectListView extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return data.isEmpty
-        ? SearchLoading()
+        ? EmptyView()
         : ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, index) => InkWell(
               onTap: () => onSelected(data[index].id),
               child: ListTile(
-                leading: SvgPicture.asset(tagIcon),
-                title: Text(data[index].name,
-                    style: textTheme.subtitle1!.copyWith(fontSize: 16.sp)),
+                leading: SvgPicture.asset(AssetPathConstants.tagIcon),
+                title: Text(data[index].title,
+                    style: textTheme.button),
               ),
             ),
           );

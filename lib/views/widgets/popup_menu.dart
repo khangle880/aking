@@ -20,6 +20,7 @@ class CustomPopupMenuButton extends StatefulWidget {
   final bool openWithTap;
   final BuildContext? parentContext;
   final bool useRootNavigator;
+  final EdgeInsetsGeometry? itemPadding;
 
   const CustomPopupMenuButton({
     Key? key,
@@ -40,6 +41,7 @@ class CustomPopupMenuButton extends StatefulWidget {
     this.enableChildInPopup = true,
     this.useRootNavigator = true,
     this.parentContext,
+    this.itemPadding,
   }) : super(key: key);
 
   @override
@@ -106,6 +108,7 @@ class _CustomPopupMenuButtonState extends State<CustomPopupMenuButton> {
                     enableChildInPopup: widget.enableChildInPopup,
                     parentContext: widget.parentContext,
                     useRootNavigator: widget.useRootNavigator,
+                    itemPadding: widget.itemPadding,
                     child: widget.child,
                   ));
             },
@@ -129,6 +132,7 @@ class MenuDetails extends StatelessWidget {
   final double menuOffset;
   final BuildContext? parentContext;
   final bool useRootNavigator;
+  final EdgeInsetsGeometry? itemPadding;
   final bool enableChildInPopup;
 
   const MenuDetails({
@@ -148,6 +152,7 @@ class MenuDetails extends StatelessWidget {
     this.useRootNavigator = true,
     this.enableChildInPopup = true,
     this.parentContext,
+    this.itemPadding,
   }) : super(key: key);
 
   @override
@@ -216,7 +221,7 @@ class MenuDetails extends StatelessWidget {
                     itemCount: menuItems.length,
                     padding: EdgeInsets.zero,
                     physics: BouncingScrollPhysics(),
-                    itemBuilder: (context, index) {
+                    itemBuilder: (_, index) {
                       final CustomPopupMenuItem item = menuItems[index];
                       final Widget listItem = GestureDetector(
                           onTap: () {
@@ -231,7 +236,7 @@ class MenuDetails extends StatelessWidget {
                               color: item.backgroundColor,
                               height: itemExtent,
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(
+                                padding: itemPadding?? EdgeInsets.symmetric(
                                     vertical: 8.0, horizontal: 14),
                                 child: Row(
                                   mainAxisAlignment:

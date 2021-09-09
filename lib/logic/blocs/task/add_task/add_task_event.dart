@@ -65,6 +65,13 @@ class AddMemberToList extends AddTaskEvent {
   final String memberId;
 }
 
+class RemoveMemberToList extends AddTaskEvent {
+  const RemoveMemberToList({
+    required this.memberId,
+  });
+  final String memberId;
+}
+
 class MembersOnChange extends AddTaskEvent {
   const MembersOnChange({
     required this.members,

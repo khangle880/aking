@@ -13,7 +13,6 @@ class Task extends FirestoreDoc {
   final List<String> participants;
   final String projectId;
   final String title;
-  final bool status;
 
   const Task({
     required String id,
@@ -27,8 +26,8 @@ class Task extends FirestoreDoc {
     required this.members,
     required this.participants,
     required this.projectId,
-    required this.status,
-  }) : super(id);
+    required bool status,
+  }) : super(id, status);
 
   factory Task.fromJson(Map<String, dynamic> json) => Task(
         id: json['id'] as String,
@@ -50,6 +49,7 @@ class Task extends FirestoreDoc {
         status: json['status'] as bool,
       );
 
+  @override
   Map<String, dynamic> toJson() {
     return {
       'createdDate': Timestamp.fromDate(createdDate),
@@ -61,21 +61,23 @@ class Task extends FirestoreDoc {
       'participants': participants,
       'status': status,
       if (dueDate != null) 'dueDate': Timestamp.fromDate(dueDate!),
-      if (description != null) 'description': description,
+      if (description != null && description != '') 'description': description,
       if (members != null) 'members': members,
     };
   }
 
   @override
   List<Object?> get props => [
-        id,
-        title,
-        isDone,
         assignedToId,
         createdDate,
         creatorId,
+        description,
+        dueDate,
+        isDone,
+        members,
         participants,
         projectId,
+        title,
       ];
 
   @override

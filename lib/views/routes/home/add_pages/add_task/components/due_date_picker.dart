@@ -1,5 +1,4 @@
 import 'package:aking/logic/blocs/task/add_task/add_task_bloc.dart';
-import 'package:aking/logic/utils/modules/color_module.dart';
 import 'package:aking/views/widgets/rounded_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,12 +22,12 @@ class _DueDatePickerState extends State<DueDatePicker>
     final textTheme = Theme.of(context).textTheme;
     return Container(
       height: 66.h,
-      color: hexToColor("#F4F4F4"),
+      color: ExpandedColor.fromHex("#F4F4F4"),
       padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 17.h),
       child: Row(
         children: [
           Text("Due Date",
-              style: textTheme.bodyText1!.copyWith(fontSize: 16.sp)),
+              style: textTheme.button),
           SizedBox(width: 8.w),
           AnimatedSize(
             vsync: this,
@@ -39,18 +38,22 @@ class _DueDatePickerState extends State<DueDatePicker>
               padding: EdgeInsets.symmetric(horizontal: 15.w),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5.r),
-                color: hexToColor("#6074F9"),
+                color: ExpandedColor.fromHex("#6074F9"),
               ),
               child: BlocBuilder<AddTaskBloc, AddTaskState>(
                 builder: (context, state) => Center(
                   child: InkWell(
-                    onTap: () => _showDatePicker(context),
+                    onTap: () {
+                      FocusScope.of(context).unfocus();
+                      _showDatePicker(context);
+                    },
                     child: Text(
                       state.dueDate == null
                           ? "Any Time"
                           : state.dueDate!.formatOrAroundToday("dd/MM/yyyy"),
                       style: textTheme.bodyText1!.copyWith(
-                          fontSize: 14.sp, color: hexToColor("#FFFFFF")),
+                          fontSize: 14.sp,
+                          color: ExpandedColor.fromHex("#FFFFFF")),
                     ),
                   ),
                 ),
@@ -86,7 +89,7 @@ class _DueDatePickerState extends State<DueDatePicker>
                         datePicked = dateSelected.value as DateTime,
                     initialSelectedDate:
                         context.watch<AddTaskBloc>().state.dueDate,
-                    selectionColor: hexToColor('#6074F9'),
+                    selectionColor: ExpandedColor.fromHex('#6074F9'),
                     headerHeight: 50.h,
                     headerStyle: DateRangePickerHeaderStyle(
                         textAlign: TextAlign.center,
@@ -115,9 +118,8 @@ class _DueDatePickerState extends State<DueDatePicker>
                     height: 48.h,
                     child: RoundedButton(
                       text: "Done",
-                      press: () => Navigator.of(popContext).pop(),
-                      backgroundColor: hexToColor("#F96060"),
-                      textColor: hexToColor("#FFFFFF"),
+                      onPressed: () => Navigator.of(popContext).pop(),
+                      
                     ),
                   )
                 ],

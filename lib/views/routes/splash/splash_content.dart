@@ -24,10 +24,11 @@ class SplashContent extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SimpleRiveWidget(
-            rivePath: splashRive,
-            simpleAnimation: splashSimpleAnimation,
-            width: 149.w,
-            height: 149.w),
+          rivePath: AssetPathConstants.splashRive,
+          simpleAnimation: AssetPathConstants.splashSimpleAnimation,
+          width: 149.w,
+          height: 149.w,
+        ),
         FadeWidget(
           milliseconds: 2500,
           child: Text(text,

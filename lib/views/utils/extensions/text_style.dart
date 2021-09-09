@@ -1,9 +1,9 @@
-import 'package:aking/logic/utils/modules/color_module.dart';
+import 'package:aking/views/utils/extensions/view_extensions.dart';
 import 'package:flutter/widgets.dart';
 
 extension ExpandedTextStyle on TextStyle {
   TextStyle toBlurColor() {
-    return copyWith(color: hexToColor("#9E9E9E"));
+    return copyWith(color: ExpandedColor.fromHex("#9E9E9E"));
   }
 
   Size textSize(String text) {

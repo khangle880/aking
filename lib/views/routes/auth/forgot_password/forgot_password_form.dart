@@ -1,4 +1,3 @@
-import 'package:aking/logic/utils/modules/color_module.dart';
 import 'package:aking/routing/app_routes.dart';
 import 'package:aking/routing/routes.dart';
 import 'package:aking/views/utils/extensions/view_extensions.dart';
@@ -65,15 +64,15 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
           SizedBox(height: 30.h),
           RoundedButton(
             text: 'Send Request',
-            backgroundColor: hexToColor("#F96060"),
-            press: () {
+           
+            onPressed: () {
               if (_formKey.currentState!.validate()) {
                 context
                     .read<ResetPasswordBloc>()
                     .add(ResetPassSendRequest(email: _emailController.text));
               }
             },
-            textColor: hexToColor("#FFFFFF"),
+         
           ),
           BlocListener<ResetPasswordBloc, ResetPasswordState>(
             listener: (context, state) {

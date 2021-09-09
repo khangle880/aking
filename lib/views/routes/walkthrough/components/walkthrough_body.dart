@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:aking/global/constants/app_constants.dart';
 import 'package:aking/logic/models/walkthrough.dart';
 import 'package:aking/logic/provider/walkthrough_cache.dart';
-import 'package:aking/logic/utils/modules/color_module.dart';
+import 'package:aking/views/utils/extensions/view_extensions.dart';
 import 'package:aking/routing/app_routes.dart';
 import 'package:aking/routing/routes.dart';
 import 'package:aking/views/widgets/rounded_button.dart';
@@ -31,15 +31,15 @@ class _BodyState extends State<WalkthroughBody> {
       TweenSequenceItem(
         weight: 1.0,
         tween: ColorTween(
-          begin: hexToColor(_walkthroughData[0].waveColor),
-          end: hexToColor(_walkthroughData[1].waveColor),
+          begin: ExpandedColor.fromHex(_walkthroughData[0].waveColor),
+          end: ExpandedColor.fromHex(_walkthroughData[1].waveColor),
         ),
       ),
       TweenSequenceItem(
         weight: 1.0,
         tween: ColorTween(
-          begin: hexToColor(_walkthroughData[1].waveColor),
-          end: hexToColor(_walkthroughData[2].waveColor),
+          begin: ExpandedColor.fromHex(_walkthroughData[1].waveColor),
+          end: ExpandedColor.fromHex(_walkthroughData[2].waveColor),
         ),
       ),
     ]);
@@ -126,13 +126,12 @@ class _BodyState extends State<WalkthroughBody> {
                               flex: 4,
                             ),
                             RoundedButton(
-                              backgroundColor: hexToColor("#FFFFFF"),
-                              press: () {
+                              onPressed: () {
                                 AppRoutes.appNav.currentState!
                                     .pushNamed(AppRouteNames.signInRoute);
                               },
                               text: "Get Started",
-                              textColor: hexToColor("#313131"),
+                              textColor: ExpandedColor.fromHex("#313131"),
                             ),
                             const Spacer(),
                             TextButton(
@@ -145,7 +144,9 @@ class _BodyState extends State<WalkthroughBody> {
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle1!
-                                    .copyWith(color: hexToColor("#FFFFFF")),
+                                    .copyWith(
+                                        color:
+                                            ExpandedColor.fromHex("#FFFFFF")),
                               ),
                             ),
                             const Spacer(
@@ -165,13 +166,13 @@ class _BodyState extends State<WalkthroughBody> {
 
   AnimatedContainer buildDot({required int index}) {
     return AnimatedContainer(
-        duration: kAnimationDuration,
+        duration: AppConstants.kAnimationDuration,
         margin: const EdgeInsets.only(right: 5),
         height: 6,
         width: index == _currentPage ? 20 : 6,
         decoration: BoxDecoration(
           color: index == _currentPage
-              ? hexToColor(_walkthroughData[_currentPage].waveColor)
+              ? ExpandedColor.fromHex(_walkthroughData[_currentPage].waveColor)
               : const Color(0xFFD8D8D8),
           borderRadius: BorderRadius.circular(3.r),
         ));

@@ -1,19 +1,25 @@
 import 'dart:developer';
 
+import 'package:aking/logic/models/project.dart';
 import 'package:aking/logic/models/task.dart';
+import 'package:aking/logic/repositories/firestore/project_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:aking/logic/utils/extensions/logic_extensions.dart';
 
 import 'base_firestore_repository.dart';
 
 class TaskRepository extends FirestoreRepository<Task> {
-  final FirebaseFirestore _firebaseFirestore;
-
-  TaskRepository({FirebaseFirestore? firebaseFirestore})
-      : _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance;
+  TaskRepository({
+    FirebaseFirestore? firebaseFirestore,
+  }) : super(
+          firebaseFirestore: firebaseFirestore,
+          collectionRef: (firebaseFirestore ?? FirebaseFirestore.instance)
+              .collection('tasks'),
+        );
 
   @override
   Stream<List<Task>> getAllDoc(String uid) {
-    return FirebaseFirestore.instance
+    return firebaseFirestore
         .collection('tasks')
         .where("participants", arrayContains: uid)
         .where("status", isEqualTo: true)
@@ -25,28 +31,56 @@ class TaskRepository extends FirestoreRepository<Task> {
             }).toList());
   }
 
-  Future<String?> addTask(Task task) async {
+  @override
+  Future<String?> addObject(Task task) {
     return handleWriteData(
-        _firebaseFirestore.collection('tasks').add(task.toJson()));
+      firebaseFirestore.collection('tasks').add(task.toJson()).then(
+        (value) async {
+          if (task.members != null) {
+            List<String> projectParticipants = [];
+            await firebaseFirestore
+                .collection('projects')
+                .doc(task.projectId)
+                .get()
+                .then((documentSnapshot) {
+              if (documentSnapshot.exists) {
+                final data = documentSnapshot.data();
+                data!['id'] = documentSnapshot.id;
+                projectParticipants = Project.fromJson(data).participants;
+              }
+            });
+            return firebaseFirestore
+                .collection('projects')
+                .doc(task.projectId)
+                .update({
+              "participants":
+                  <String>{...task.members!, ...projectParticipants}.toList()
+            });
+          }
+        },
+      ),
+    );
   }
 
-  Future<String?> updateTask(Task task) async {
-    return handleWriteData(_firebaseFirestore
-        .collection('tasks')
-        .doc(task.id)
-        .update(task.toJson()));
-  }
+  // @override
+  // Future<String?> updateByObject(Task task) async {
+  //   return handleWriteData(firebaseFirestore
+  //       .collection('tasks')
+  //       .doc(task.id)
+  //       .update(task.toJson()));
+  // }
 
-  Future<String?> updateTaskWithJson(
-      Map<String, dynamic> json, String id) async {
-    return handleWriteData(
-        _firebaseFirestore.collection('tasks').doc(id).update(json));
-  }
+  // @override
+  // Future<String?> updateWithJson(Map<String, dynamic> json, String id) async {
+  //   return handleWriteData(
+  //       firebaseFirestore.collection('tasks').doc(id).update(json));
+  // }
 
-  Future<String?> deleteTask(String id) async {
-    return handleWriteData(_firebaseFirestore
-        .collection('tasks')
-        .doc(id)
-        .update({'status': false}));
-  }
+  // @override
+  // Future<String?> deleteObject(String id) async {
+  //   return handleWriteData(firebaseFirestore
+  //       .collection('tasks')
+  //       .doc(id)
+  //       .update({'status': false}));
+  // }
 }

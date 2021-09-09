@@ -35,28 +35,36 @@ class _MainPageState extends State<MainPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    //TODO: popup "not responding" after 30s (future.delay)
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider<TaskBloc>(
-          create: (_) => TaskBloc(taskRepository: TaskRepository())
+          create: (_) => TaskBloc(context.read<TaskRepository>())
             ..add(LoadFirestore<Task>(widget.uid)),
           lazy: false,
         ),
         BlocProvider<FirestoreBloc<PublicUserInfo>>(
-          create: (_) =>
-              FirestoreBloc<PublicUserInfo>(PublicUserInfoRepository())
-                ..add(LoadFirestore<PublicUserInfo>(widget.uid)),
+          create: (_) => FirestoreBloc<PublicUserInfo>(
+              context.read<PublicUserInfoRepository>())
+            ..add(LoadFirestore<PublicUserInfo>(widget.uid)),
           lazy: false,
         ),
         BlocProvider<FirestoreBloc<Project>>(
-          create: (_) => FirestoreBloc<Project>(ProjectRepository())
-            ..add(LoadFirestore<Project>(widget.uid)),
+          create: (_) =>
+              FirestoreBloc<Project>(context.read<ProjectRepository>())
+                ..add(LoadFirestore<Project>(widget.uid)),
           lazy: false,
         ),
         BlocProvider<FirestoreBloc<QuickNote>>(
-          create: (_) => FirestoreBloc<QuickNote>(QuickNoteRepository())
-            ..add(LoadFirestore<QuickNote>(widget.uid)),
+          create: (_) =>
+              FirestoreBloc<QuickNote>(context.read<QuickNoteRepository>())
+                ..add(LoadFirestore<QuickNote>(widget.uid)),
           lazy: false,
         ),
       ],
@@ -83,6 +91,7 @@ class _MainPageState extends State<MainPage> {
           ),
           BlocListener<FirestoreBloc<QuickNote>, FirestoreState<QuickNote>>(
             listener: (context, state) {
+              print("listen ${state.runtimeType}");
               changeLoadStatus(
                   index: 3, status: state is FirestoreLoaded<QuickNote>);
             },
@@ -92,8 +101,8 @@ class _MainPageState extends State<MainPage> {
             ? Scaffold(
                 body: Center(
                   child: SimpleRiveWidget(
-                    rivePath: loader1Rive,
-                    simpleAnimation: loader1SimpleAnimation,
+                    rivePath: AssetPathConstants.loader1Rive,
+                    simpleAnimation: AssetPathConstants.loader1SimpleAnimation,
                     width: 80.w,
                     height: 120.h,
                   ),

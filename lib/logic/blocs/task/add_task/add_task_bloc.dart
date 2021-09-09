@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:aking/logic/blocs/process_state.dart';
+import 'package:aking/logic/models/public_user_info.dart';
 import 'package:aking/logic/models/task.dart';
 import 'package:aking/logic/repositories/firestore/task_repository.dart';
 import 'package:aking/logic/repositories/user_repository.dart';
@@ -14,18 +15,17 @@ part 'add_task_event.dart';
 part 'add_task_state.dart';
 
 class AddTaskBloc extends Bloc<AddTaskEvent, AddTaskState> {
-  AddTaskBloc() : super(AddTaskState());
+  AddTaskBloc({required this.taskRepo, required this.userRepo})
+      : super(AddTaskState());
 
-  final TaskRepository _taskRepository = TaskRepository();
-  final UserRepository _userRepository = UserRepository();
+  final TaskRepository taskRepo;
+  final UserRepository userRepo;
 
   @override
   Stream<AddTaskState> mapEventToState(
     AddTaskEvent event,
   ) async* {
     if (event is TitleOnChange) {
-      yield state.copyWith(title: event.title);
-    } else if (event is TitleOnChange) {
       yield state.copyWith(title: event.title);
     } else if (event is DueDateOnChange) {
       yield* _mapDueDateOnchangeToState(event.dueDate, event.timeOfDay);
@@ -48,6 +48,11 @@ class AddTaskBloc extends Bloc<AddTaskEvent, AddTaskState> {
           state.members == null ? [] : List<String>.from(state.members!);
       newMembers.add(event.memberId);
       yield state.copyWith(members: newMembers);
+    } else if (event is RemoveMemberToList) {
+      final List<String> newMembers =
+          state.members == null ? [] : List<String>.from(state.members!);
+      newMembers.remove(event.memberId);
+      yield state.copyWith(members: newMembers);
     } else if (event is SubmitForm) {
       yield* _mapSubmitFormToState();
     }
@@ -63,7 +68,6 @@ class AddTaskBloc extends Bloc<AddTaskEvent, AddTaskState> {
   }
 
   Stream<AddTaskState> _mapSubmitFormToState() async* {
-    log("submit");
     yield state.copyWith(addStatus: Processing());
     if (state.assigneeId == "") {
       yield state.copyWith(addStatus: ProcessFailure("Assignee invalid"));
@@ -78,18 +82,18 @@ class AddTaskBloc extends Bloc<AddTaskEvent, AddTaskState> {
       final task = Task(
         assignedToId: state.assigneeId,
         createdDate: DateTime.now(),
-        creatorId: _userRepository.getUser()!.uid,
+        creatorId: userRepo.getUser()!.uid,
         description: state.description,
         dueDate: state.dueDate,
         isDone: false,
         members: state.members,
-        participants: [_userRepository.getUser()!.uid, ...?state.members],
+        participants: {userRepo.getUser()!.uid, ...?state.members}.toList(),
         projectId: state.projectId,
         title: state.title,
         status: true,
         id: DateTime.now().toString(),
       );
-      final String? error = await _taskRepository.addTask(task);
+      final String? error = await taskRepo.addObject(task);
       if (error == null) {
         yield state.copyWith(addStatus: ProcessSuccess());
       } else {

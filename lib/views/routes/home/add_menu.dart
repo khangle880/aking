@@ -1,6 +1,6 @@
-import 'package:aking/logic/utils/modules/color_module.dart';
 import 'package:aking/routing/app_routes.dart';
 import 'package:aking/routing/routes.dart';
+import 'package:aking/views/utils/extensions/view_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -32,20 +32,32 @@ class _AddMenuState extends State<AddMenu> {
           Divider(
             thickness: 1.w,
             height: 2.h,
-            color: hexToColor("#E4E4E4"),
+            color: ExpandedColor.fromHex("#E4E4E4"),
           ),
           AddMenuItem(
             text: 'Add Quick Note',
-            onPressed: () {},
+            onPressed: () async {
+              await Future.delayed(Duration(milliseconds: 150));
+              if (!mounted) return;
+              Navigator.pop(context);
+              AppRoutes.mainNav.currentState!
+                  .pushNamed(MainRouteNames.addNoteRoute);
+            },
           ),
           Divider(
             thickness: 1.w,
             height: 2.h,
-            color: hexToColor("#E4E4E4"),
+            color: ExpandedColor.fromHex("#E4E4E4"),
           ),
           AddMenuItem(
             text: 'Add Check List',
-            onPressed: () {},
+            onPressed: () async {
+              await Future.delayed(Duration(milliseconds: 150));
+              if (!mounted) return;
+              Navigator.pop(context);
+              AppRoutes.mainNav.currentState!
+                  .pushNamed(MainRouteNames.addCheckListRoute);
+            },
           ),
         ],
       ),

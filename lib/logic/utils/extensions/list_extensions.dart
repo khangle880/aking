@@ -16,10 +16,10 @@ extension ExtendedList<T> on List<T> {
   }
 }
 
-extension FirestoreDocList on List<FirestoreDoc> {
-  FirestoreDoc? findById(String uid) {
-    if (uid == "" || isEmpty) return null;
-    final filteredList = where((element) => element.id == uid);
+extension FirestoreDocList<T extends FirestoreDoc> on List<T> {
+  T? findById(String id) {
+    if (id == "" || isEmpty) return null;
+    final filteredList = where((element) => element.id == id);
     return filteredList.isEmpty ? null : filteredList.first;
   }
 }
