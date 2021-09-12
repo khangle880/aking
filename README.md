@@ -58,6 +58,7 @@ My First Flutter project.
 - [ ] Edit feature
 - [x] Profile page
 - [x] View task detail
+- [x] Share data task, project within (creator, member, assignee)
 - [ ] Handle menu in task detail
 - [ ] On development
 
@@ -90,12 +91,14 @@ My First Flutter project.
 
 ## Some thing i had<a name = "created"></a>
 
-### Firebase rule<a name = "aws"></a>
+### Firebase Schema<a name = "schema"></a>
 
 ----------
 
 ### These Rules for firestore i'm proud of<a name = "rule"></a>
 
+- - Rule setting only user authenticated see private info
+- - Only members in participants field can view data
 
 [**Rules Link.**](https://firebasestorage.googleapis.com/v0/b/icon-af204.appspot.com/o/rule_aking.png?alt=media&token=62f5eeca-70ed-48a4-a860-0a9aff29febd)<br>
 
