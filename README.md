@@ -90,7 +90,8 @@ My First Flutter project.
 
 ### These Rules for firestore i'm proud of<a name = "rule"></a>
 
-----------
+
+[**Rules Link.**](https://firebasestorage.googleapis.com/v0/b/icon-af204.appspot.com/o/rule_aking.png?alt=media&token=62f5eeca-70ed-48a4-a860-0a9aff29febd)<br>
 
 
 ## Some Note<a name = "note"></a>
