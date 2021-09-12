@@ -4,6 +4,16 @@ My First Flutter project.
 
 ## Getting Started
 
+### Account for test:
+
+- Account 1:
+-- Email: daiacma880v1@gmail.com
+-- Password: a123123321
+
+- Account 1:
+-- Email: abc@gmail.com
+-- Password: a123123321
+
 ### I was provided with a beautifully designed ui
 
 [**Design Link.**](https://www.figma.com/file/Lg4BWGwHR2L3Qwk6s0yIHO/Devera-Aking-To-Do-List-App?node-id=0%3A1)<br>
