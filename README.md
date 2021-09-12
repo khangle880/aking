@@ -54,6 +54,7 @@ My First Flutter project.
 - [x] View list (projects, quick notes)
 - [x] Add popup and page
 - [x] Delete feature
+- [ ] Delete quick note
 - [ ] Edit feature
 - [x] Profile page
 - [x] View task detail
@@ -79,6 +80,12 @@ My First Flutter project.
 - - Problem: builder function (context) ..., this context is new not context previous
 - - Solution: "useRootNavigator = false" and "(context)" -> "(_)"
 - - Solution: I dont fully undertand becauce this solution temporary
+
+- [] Color of walkthrough unexpected color changed
+- - Problem: I change color of common widget at some point so color unexpected
+
+- [ ] Data show unexpected
+- - Problem: Firebase occurring problems so data same in all account
 
 - [ ] Mutil navigator can error duplication key
 - - Problem: No idea!
