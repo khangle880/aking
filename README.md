@@ -84,9 +84,6 @@ My First Flutter project.
 - [] Color of walkthrough unexpected color changed
 - - Problem: I change color of common widget at some point so color unexpected
 
-- [ ] Data show unexpected
-- - Problem: Firebase occurring problems so data same in all account
-
 - [ ] Mutil navigator can error duplication key
 - - Problem: No idea!
 - - Solution: No Idea!
