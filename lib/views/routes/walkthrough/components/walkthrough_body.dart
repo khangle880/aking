@@ -130,6 +130,7 @@ class _BodyState extends State<WalkthroughBody> {
                                 AppRoutes.appNav.currentState!
                                     .pushNamed(AppRouteNames.signInRoute);
                               },
+                              backgroundColor: Colors.white,
                               text: "Get Started",
                               textColor: ExpandedColor.fromHex("#313131"),
                             ),

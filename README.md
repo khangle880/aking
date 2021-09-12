@@ -82,9 +82,6 @@ My First Flutter project.
 - - Solution: "useRootNavigator = false" and "(context)" -> "(_)"
 - - Solution: I dont fully undertand becauce this solution temporary
 
-- [] Color of walkthrough unexpected color changed
-- - Problem: I change color of common widget at some point so color unexpected
-
 - [ ] Mutil navigator can error duplication key
 - - Problem: No idea!
 - - Solution: No Idea!
