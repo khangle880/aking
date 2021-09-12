@@ -7,6 +7,7 @@ abstract class LoginEvent extends Equatable {
   List<Object> get props => [];
 }
 
+/// update email input text field
 class LoginEmailChange extends LoginEvent {
   final String email;
 
@@ -16,6 +17,7 @@ class LoginEmailChange extends LoginEvent {
   List<Object> get props => [email];
 }
 
+/// update password imput text field
 class LoginPasswordChanged extends LoginEvent {
   final String password;
 
@@ -25,6 +27,7 @@ class LoginPasswordChanged extends LoginEvent {
   List<Object> get props => [password];
 }
 
+/// login firebase with credentials
 class LoginWithCredentialsPressed extends LoginEvent {
   final String email;
   final String password;

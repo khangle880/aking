@@ -14,6 +14,7 @@ import 'package:image_picker/image_picker.dart';
 part 'add_comment_event.dart';
 part 'add_comment_state.dart';
 
+// ignore_for_file: public_member_api_docs
 class AddCommentBloc extends Bloc<AddCommentEvent, AddCommentState> {
   AddCommentBloc({required this.commentRepository, required this.userRepo})
       : super(AddCommentInitial());

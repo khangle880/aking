@@ -3,6 +3,7 @@ import 'package:aking/views/utils/extensions/view_extensions.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
+/// Theme for app, apply for main, and custom for you
 class AppTheme {
   static InputDecorationTheme _inputDecorationLightTheme() {
     return InputDecorationTheme(
@@ -86,6 +87,7 @@ class AppTheme {
     );
   }
 
+  /// light theme custom
   static ThemeData light() {
     return ThemeData(
       scaffoldBackgroundColor: const Color(0xFFFDFDFD),
@@ -97,6 +99,7 @@ class AppTheme {
     );
   }
 
+  /// dart theme custom
   static ThemeData dark() {
     return ThemeData.dark();
   }

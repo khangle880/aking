@@ -15,14 +15,18 @@ import 'package:flutter/material.dart';
 part 'add_check_list_event.dart';
 part 'add_check_list_state.dart';
 
+/// Bloc for add a check list page
 class AddCheckListBloc extends Bloc<AddCheckListEvent, AddCheckListState> {
+  /// 
   AddCheckListBloc({
     required this.quickNoteRepository,
     required this.userRepo,
     required AnimatedListModel<CheckItem> animatedListModel,
   }) : super(AddCheckListState(animatedListModel: animatedListModel));
 
+  /// 
   final QuickNoteRepository quickNoteRepository;
+  /// 
   final UserRepository userRepo;
 
   @override

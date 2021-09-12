@@ -7,6 +7,7 @@ abstract class FirestoreEvent<T> extends Equatable {
   List<Object> get props => [];
 }
 
+/// load firestore collection
 class LoadFirestore<T> extends FirestoreEvent<T> {
   final String uid;
   const LoadFirestore(this.uid);
@@ -15,6 +16,7 @@ class LoadFirestore<T> extends FirestoreEvent<T> {
   List<Object> get props => [uid];
 }
 
+/// stream data firestore collection
 class UpdateFirestore<T> extends FirestoreEvent<T> {
   final List<T> list;
 
@@ -24,6 +26,7 @@ class UpdateFirestore<T> extends FirestoreEvent<T> {
   List<Object> get props => [list];
 }
 
+/// find firestore doc by text
 class FindFirestoreByText<T> extends FirestoreEvent<T> {
   final String findKey;
 

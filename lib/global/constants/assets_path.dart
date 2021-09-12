@@ -1,13 +1,20 @@
+///
 class AssetPathConstants {
-  /// Images
+  ///
   static const String walkthroughSvgImage1 = "assets/images/walkthrough1.svg";
+  ///
   static const String walkthroughSvgImage2 = "assets/images/walkthrough2.svg";
+  ///
   static const String walkthroughSvgImage3 = "assets/images/walkthrough3.svg";
+  ///
   static const String successfulSvgImage = "assets/images/succesful.svg";
 
   /// Icons
+  ///
   static const String tuneCircleIcon = "assets/icons/tune_circle.svg";
+  ///
   static const String checkCircleIcon = "assets/icons/check_circle.svg";
+  // ignore_for_file: public_member_api_docs
   static const String checkOutlineIcon = "assets/icons/check_outline.svg";
   static const String checkListIcon = "assets/icons/check_list.svg";
   static const String personIcon = "assets/icons/person.svg";

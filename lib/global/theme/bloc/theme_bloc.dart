@@ -7,7 +7,9 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 part 'theme_event.dart';
 
+/// Theme bloc, support save local theme for app
 class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeData> {
+  // ignore: public_member_api_docs
   ThemeBloc() : super(AppTheme.light());
 
   @override

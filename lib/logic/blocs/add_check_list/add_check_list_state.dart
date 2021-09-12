@@ -1,5 +1,6 @@
 part of 'add_check_list_bloc.dart';
 
+// ignore_for_file: public_member_api_docs
 class AddCheckListState extends Equatable {
   final String title;
   final Color themeColor;

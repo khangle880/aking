@@ -7,6 +7,7 @@ abstract class ProcessFSDocEvent<T> extends Equatable {
   List<Object> get props => [];
 }
 
+/// process delete firestore doc
 class DeleteFSDoc<T> extends ProcessFSDocEvent<T> {
   final String docId;
 
@@ -18,6 +19,7 @@ class DeleteFSDoc<T> extends ProcessFSDocEvent<T> {
   List<Object> get props => [docId];
 }
 
+/// process update firestore doc
 class UpdateFSDocByObject<T> extends ProcessFSDocEvent<T> {
   final T object;
   const UpdateFSDocByObject({
@@ -28,6 +30,7 @@ class UpdateFSDocByObject<T> extends ProcessFSDocEvent<T> {
   List<Object> get props => [object.hashCode];
 }
 
+/// process update firestore doc by json 
 class UpdateFSDocByJson<T> extends ProcessFSDocEvent<T> {
   final Map<String, dynamic> json;
   final String docId;

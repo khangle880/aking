@@ -9,6 +9,7 @@ class UserRepository {
 
   UserRepository() : _firebaseAuth = FirebaseAuth.instance;
 
+  /// sign in firebase authentication with credential (email, password)
   Future<String?> signInWithCredentials(String email, String password) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
@@ -21,6 +22,7 @@ class UserRepository {
     }
   }
 
+  /// sign up firebase
   Future<UserCredential> signUp(String email, String password) async {
     //? login add new user to firestore "users" and hash
     return _firebaseAuth.createUserWithEmailAndPassword(
@@ -29,27 +31,32 @@ class UserRepository {
     );
   }
 
+  /// send email with otp to verify email
   Future<bool> requestResetPassword(String email) async {
     EmailAuth.sessionName = "Reset Password From Aking App";
     return EmailAuth.sendOtp(receiverMail: email);
   }
 
+  /// verify otp correct ?
   bool verify(String email, String otp) {
     return EmailAuth.validate(receiverMail: email, userOTP: otp);
   }
 
-  Future validatePassword(User user, String password) async {
+  /// reauthenticated with credential firebase
+  /// firebase request reauth before update
+  Future reauthenticated(User user, String password) async {
     final credential =
         EmailAuthProvider.credential(email: user.email!, password: password);
     return user.reauthenticateWithCredential(credential);
   }
 
+  /// update password when authenticated
   Future<String?> updatePassword(String password, String newPassword) async {
     final user = await getUser();
     if (user == null) return ErrorCode.userNotFound;
     if (password == newPassword) return ErrorCode.passwordSameOld;
     try {
-      await validatePassword(user, password);
+      await reauthenticated(user, password);
       await user.updatePassword(newPassword);
       await FirebaseFirestore.instance
           .collection('users')
@@ -60,7 +67,9 @@ class UserRepository {
     }
     return null;
   }
+  
 
+  /// reset password with otp code
   Future<String?> resetPassword(
       String username, String newPassword, String resetCode) async {
     if (!verify(username, resetCode)) return ErrorCode.invalidCode;
